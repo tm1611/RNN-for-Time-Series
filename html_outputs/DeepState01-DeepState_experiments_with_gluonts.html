@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Test_notebook_for_gpu</title>
+<title>DeepState01-DeepState_experiments_with_gluonts</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13074,68 +13074,28 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="kn">from</span> <span class="nn">gluonts.dataset.repository.datasets</span> <span class="k">import</span> <span class="n">get_dataset</span>
-<span class="kn">from</span> <span class="nn">gluonts.distribution.piecewise_linear</span> <span class="k">import</span> <span class="n">PiecewiseLinearOutput</span>
-<span class="kn">from</span> <span class="nn">gluonts.evaluation</span> <span class="k">import</span> <span class="n">Evaluator</span>
-<span class="kn">from</span> <span class="nn">gluonts.evaluation.backtest</span> <span class="k">import</span> <span class="n">make_evaluation_predictions</span>
-<span class="kn">from</span> <span class="nn">gluonts.model.deepar</span> <span class="k">import</span> <span class="n">DeepAREstimator</span>
-<span class="kn">from</span> <span class="nn">gluonts.model.seq2seq</span> <span class="k">import</span> <span class="n">MQCNNEstimator</span>
-<span class="kn">from</span> <span class="nn">gluonts.model.simple_feedforward</span> <span class="k">import</span> <span class="n">SimpleFeedForwardEstimator</span>
-<span class="kn">from</span> <span class="nn">gluonts.trainer</span> <span class="k">import</span> <span class="n">Trainer</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>INFO:root:Using CPU
-INFO:root:Using CPU
-INFO:root:Using CPU
-INFO:root:Using CPU
-INFO:root:Using CPU
-INFO:root:Using CPU
-INFO:root:Using CPU
-INFO:root:Using CPU
-INFO:root:Using CPU
-INFO:root:Using CPU
-</pre>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="DeepState---Experiments">DeepState - Experiments<a class="anchor-link" href="#DeepState---Experiments">&#182;</a></h1><ul>
+<li>Using DeepState with gluonts to run some experiments</li>
+<li>Follow this installation guide: <a href="http://gluon-ts-staging.s3-accelerate.dualstack.amazonaws.com/PR-271/4/install.html">http://gluon-ts-staging.s3-accelerate.dualstack.amazonaws.com/PR-271/4/install.html</a></li>
+</ul>
+<p>Important note! Some of these models are not yet released in version "0.3.3" which is currently the most recent version on pypi from where you install packages via <code>pip install</code>. Hence, you should follow <strong>Install from Source Code</strong> (which I did) <strong>Install from Github</strong></p>
+<h3 id="Deep-State-Space-Models-(Rangapuram-et-al.,-2018)">Deep State Space Models (Rangapuram et al., 2018)<a class="anchor-link" href="#Deep-State-Space-Models-(Rangapuram-et-al.,-2018)">&#182;</a></h3><p><strong>DeepState</strong> combines state space models (SSM) with a recurrent neural network (RNN). The SSM is applied <em>locally</em> to the individual time series that is parametrized using a <em>global</em> representation in form of a RNN. The RNN is trained on the entire dataset.</p>
+<ul>
+<li><a href="http://gluon-ts.mxnet.io/master/api/gluonts/gluonts.model.deepstate.html#gluonts.model.deepstate.DeepStateEstimator"><code>DeepStateEstimator</code></a></li>
+</ul>
 
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">mxnet</span> <span class="k">as</span> <span class="nn">mx</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">mx</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">gluonts</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">gluonts</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">gluonts</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </pre></div>
 
@@ -13153,8 +13113,7 @@ INFO:root:Using CPU
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>1.4.1
-0.4.0
+<pre>0.4.0
 </pre>
 </div>
 </div>
@@ -13165,95 +13124,40 @@ INFO:root:Using CPU
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span>
-<span class="n">epochs</span> <span class="o">=</span> <span class="mi">200</span>
-<span class="n">num_batches_per_epoch</span> <span class="o">=</span> <span class="mi">400</span>
-<span class="n">ctx</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if version does not include DeepState, uncomment the following:</span>
+<span class="c1"># !pip install git+https://github.com/awslabs/gluon-ts.git</span>
 
-<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span>
-<span class="c1">#     &quot;m4_hourly&quot;,</span>
-<span class="c1">#     &quot;m4_daily&quot;,</span>
-<span class="c1">#     &quot;m4_weekly&quot;,</span>
-<span class="c1">#     &quot;m4_monthly&quot;,</span>
-<span class="c1">#     &quot;m4_quarterly&quot;,</span>
-    <span class="s2">&quot;m4_yearly&quot;</span><span class="p">,</span>
-<span class="p">]</span>
 
-<span class="n">estimators</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">partial</span><span class="p">(</span>
-        <span class="n">DeepAREstimator</span><span class="p">,</span>
-        <span class="n">trainer</span><span class="o">=</span><span class="n">Trainer</span><span class="p">(</span>
-            <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span> <span class="n">num_batches_per_epoch</span><span class="o">=</span><span class="n">num_batches_per_epoch</span><span class="p">,</span>
-            <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span>
-        <span class="p">),</span>
-    <span class="p">),</span>
-<span class="p">]</span>
+<span class="c1"># standard imports</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">,</span> <span class="n">estimator</span><span class="p">):</span>
-    <span class="n">dataset</span> <span class="o">=</span> <span class="n">get_dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">)</span>
-    <span class="n">estimator</span> <span class="o">=</span> <span class="n">estimator</span><span class="p">(</span>
-        <span class="n">prediction_length</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">prediction_length</span><span class="p">,</span>
-        <span class="n">freq</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span>
-        <span class="n">use_feat_static_cat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">cardinality</span><span class="o">=</span><span class="p">[</span>
-            <span class="n">feat_static_cat</span><span class="o">.</span><span class="n">cardinality</span>
-            <span class="k">for</span> <span class="n">feat_static_cat</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">feat_static_cat</span>
-        <span class="p">],</span>
-    <span class="p">)</span>
+<span class="c1"># vis imports </span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;evaluating </span><span class="si">{estimator}</span><span class="s2"> on </span><span class="si">{dataset}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># json</span>
+<span class="kn">import</span> <span class="nn">json</span>
 
-    <span class="n">predictor</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
+<span class="c1"># gluon data </span>
+<span class="kn">from</span> <span class="nn">gluonts.dataset.repository.datasets</span> <span class="k">import</span> <span class="n">get_dataset</span><span class="p">,</span> <span class="n">dataset_recipes</span>
+<span class="kn">from</span> <span class="nn">gluonts.dataset.util</span> <span class="k">import</span> <span class="n">to_pandas</span>
 
-    <span class="n">forecast_it</span><span class="p">,</span> <span class="n">ts_it</span> <span class="o">=</span> <span class="n">make_evaluation_predictions</span><span class="p">(</span>
-        <span class="n">dataset</span><span class="o">.</span><span class="n">test</span><span class="p">,</span> <span class="n">predictor</span><span class="o">=</span><span class="n">predictor</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">100</span>
-    <span class="p">)</span>
+<span class="c1"># gluon imports</span>
+<span class="kn">from</span> <span class="nn">gluonts.trainer</span> <span class="k">import</span> <span class="n">Trainer</span>
+<span class="kn">from</span> <span class="nn">gluonts.evaluation.backtest</span> <span class="k">import</span> <span class="n">make_evaluation_predictions</span>
+<span class="kn">from</span> <span class="nn">gluonts.evaluation</span> <span class="k">import</span> <span class="n">Evaluator</span>
 
-    <span class="n">agg_metrics</span><span class="p">,</span> <span class="n">item_metrics</span> <span class="o">=</span> <span class="n">Evaluator</span><span class="p">()(</span>
-        <span class="n">ts_it</span><span class="p">,</span> <span class="n">forecast_it</span><span class="p">,</span> <span class="n">num_series</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
-    <span class="p">)</span>
+<span class="c1"># model imports </span>
+<span class="kn">from</span> <span class="nn">gluonts.model.deepstate</span> <span class="k">import</span> <span class="n">DeepStateEstimator</span>
+<span class="c1"># from gluonts.model.deep_factor import DeepFactorEstimator</span>
+<span class="c1"># from gluonts.model.deepar import DeepAREstimator</span>
 
-    <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">agg_metrics</span><span class="p">)</span>
-
-    <span class="n">eval_dict</span> <span class="o">=</span> <span class="n">agg_metrics</span>
-    <span class="n">eval_dict</span><span class="p">[</span><span class="s2">&quot;dataset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset_name</span>
-    <span class="n">eval_dict</span><span class="p">[</span><span class="s2">&quot;estimator&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
-    <span class="k">return</span> <span class="n">eval_dict</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    
-    <span class="n">mx</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-
-    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">dataset_name</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">estimator</span> <span class="ow">in</span> <span class="n">estimators</span><span class="p">:</span>
-            <span class="c1"># catch exceptions that are happening during training to avoid failing the whole evaluation</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluate</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">,</span> <span class="n">estimator</span><span class="p">))</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
-
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-
-    <span class="n">sub_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
-        <span class="p">[</span>
-            <span class="s2">&quot;dataset&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;estimator&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;RMSE&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;mean_wQuantileLoss&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;MASE&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;sMAPE&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;MSIS&quot;</span><span class="p">,</span>
-        <span class="p">]</span>
-    <span class="p">]</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="n">sub_df</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
-
-<span class="n">df</span><span class="p">[[</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;estimator&quot;</span><span class="p">,</span> <span class="s2">&quot;MASE&quot;</span><span class="p">,</span> <span class="s2">&quot;sMAPE&quot;</span><span class="p">,</span> <span class="s2">&quot;MSIS&quot;</span><span class="p">,</span> <span class="s2">&quot;wQuantileLoss[0.5]&quot;</span><span class="p">,</span> <span class="s2">&quot;wQuantileLoss[0.9]&quot;</span><span class="p">]]</span>
+<span class="kn">import</span> <span class="nn">mxnet</span> <span class="k">as</span> <span class="nn">mx</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
 </pre></div>
 
     </div>
@@ -13270,21 +13174,83 @@ INFO:root:Using CPU
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>INFO:root:using dataset already processed in path C:\Users\TM\.mxnet\gluon-ts\datasets\m4_yearly.
+<pre>INFO:root:Using CPU
 </pre>
 </div>
 </div>
 
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>evaluating gluonts.model.deepar._estimator.DeepAREstimator(cardinality=[23000], cell_type=&#34;lstm&#34;, context_length=None, distr_output=gluonts.distribution.student_t.StudentTOutput(), dropout_rate=0.1, embedding_dimension=None, freq=&#34;12M&#34;, lags_seq=None, num_cells=40, num_layers=2, num_parallel_samples=100, prediction_length=6, scaling=True, time_features=None, trainer=gluonts.trainer._base.Trainer(batch_size=32, clip_gradient=10.0, ctx=mxnet.context.Context(&#34;cpu&#34;, 0), epochs=200, hybridize=True, init=&#34;xavier&#34;, learning_rate=0.001, learning_rate_decay_factor=0.5, minimum_learning_rate=5e-05, num_batches_per_epoch=400, patience=10, weight_decay=1e-08), use_feat_dynamic_real=False, use_feat_static_cat=True, use_feat_static_real=False) on TrainDatasets(metadata=&lt;MetaData freq=&#39;12M&#39; target=None feat_static_cat=[&lt;CategoricalFeatureInfo name=&#39;feat_static_cat&#39; cardinality=&#39;23000&#39;&gt;] feat_static_real=[] feat_dynamic_real=[] feat_dynamic_cat=[] prediction_length=6&gt;, train=&lt;gluonts.dataset.common.FileDataset object at 0x000001FE8DA56F98&gt;, test=&lt;gluonts.dataset.common.FileDataset object at 0x000001FE8DA66240&gt;)
-</pre>
 </div>
 </div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">deep_state</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s2">&quot;m4_quarterly&quot;</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batches</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">get_dataset</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="n">mx</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    
+    <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+<span class="c1">#         ctx=mx.cpu(0),</span>
+<span class="c1">#         ctx=mx.gpu(0),</span>
+        <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span>
+        <span class="n">num_batches_per_epoch</span><span class="o">=</span><span class="n">batches</span><span class="p">,</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">cardinality</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">feat_static_cat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cardinality</span><span class="p">)</span>
+    <span class="n">estimator</span> <span class="o">=</span> <span class="n">DeepStateEstimator</span><span class="p">(</span>
+        <span class="n">trainer</span><span class="o">=</span><span class="n">trainer</span><span class="p">,</span>
+        <span class="n">prediction_length</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">prediction_length</span><span class="p">,</span>
+        <span class="n">freq</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span>
+<span class="c1">#         past_length=48,</span>
+        <span class="n">use_feat_static_cat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">cardinality</span><span class="o">=</span><span class="p">[</span><span class="n">cardinality</span><span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
+
+    <span class="n">forecast_it</span><span class="p">,</span> <span class="n">ts_it</span> <span class="o">=</span> <span class="n">make_evaluation_predictions</span><span class="p">(</span>
+        <span class="n">dataset</span><span class="o">.</span><span class="n">test</span><span class="p">,</span> <span class="n">predictor</span><span class="o">=</span><span class="n">predictor</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">100</span>
+    <span class="p">)</span>
+
+    <span class="n">agg_metrics</span><span class="p">,</span> <span class="n">item_metrics</span> <span class="o">=</span> <span class="n">Evaluator</span><span class="p">()(</span>
+        <span class="n">ts_it</span><span class="p">,</span> <span class="n">forecast_it</span><span class="p">,</span> <span class="n">num_series</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MASE&quot;</span><span class="p">,</span> <span class="s2">&quot;sMAPE&quot;</span><span class="p">,</span> <span class="s2">&quot;MSIS&quot;</span><span class="p">,</span> <span class="s2">&quot;wQuantileLoss[0.5]&quot;</span><span class="p">,</span> <span class="s2">&quot;wQuantileLoss[0.9]&quot;</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">agg_metrics</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">}</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">epochs</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;seed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">seed</span>
+
+    <span class="n">pprint</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">deep_state</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;m4_weekly&quot;</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batches</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
 
 <div class="output_area">
 
@@ -13292,720 +13258,104 @@ INFO:root:Using CPU
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>INFO:root:Start model training
+<pre>INFO:root:using dataset already processed in path C:\Users\TM\.mxnet\gluon-ts\datasets\m4_weekly.
+INFO:root:Using CPU
+INFO:root:Start model training
 INFO:root:Epoch[0] Learning rate is 0.001
-  0%|          | 0/400 [00:00&lt;?, ?it/s]INFO:root:Number of parameters in DeepARTrainingNetwork: 1179723
-100%|██████████| 400/400 [00:29&lt;00:00, 13.36it/s, avg_epoch_loss=7.28]
-INFO:root:Epoch[0] Elapsed time 29.957 seconds
-INFO:root:Epoch[0] Evaluation metric &#39;epoch_loss&#39;=7.275635
+  0%|          | 0/50 [00:00&lt;?, ?it/s]INFO:root:Number of parameters in DeepStateTrainingNetwork: 50821
+100%|██████████| 50/50 [10:25&lt;00:00, 12.52s/it, avg_epoch_loss=0.0381]
+INFO:root:Epoch[0] Elapsed time 625.833 seconds
+INFO:root:Epoch[0] Evaluation metric &#39;epoch_loss&#39;=0.038141
 INFO:root:Epoch[1] Learning rate is 0.001
-100%|██████████| 400/400 [00:25&lt;00:00, 15.42it/s, avg_epoch_loss=7.07]
-INFO:root:Epoch[1] Elapsed time 26.080 seconds
-INFO:root:Epoch[1] Evaluation metric &#39;epoch_loss&#39;=7.065773
+100%|██████████| 50/50 [13:00&lt;00:00, 15.62s/it, avg_epoch_loss=-.403]
+INFO:root:Epoch[1] Elapsed time 781.038 seconds
+INFO:root:Epoch[1] Evaluation metric &#39;epoch_loss&#39;=-0.402955
 INFO:root:Epoch[2] Learning rate is 0.001
-100%|██████████| 400/400 [00:29&lt;00:00, 13.38it/s, avg_epoch_loss=6.66]
-INFO:root:Epoch[2] Elapsed time 29.900 seconds
-INFO:root:Epoch[2] Evaluation metric &#39;epoch_loss&#39;=6.655769
+100%|██████████| 50/50 [09:39&lt;00:00, 11.60s/it, avg_epoch_loss=-.806]
+INFO:root:Epoch[2] Elapsed time 579.946 seconds
+INFO:root:Epoch[2] Evaluation metric &#39;epoch_loss&#39;=-0.806100
 INFO:root:Epoch[3] Learning rate is 0.001
-100%|██████████| 400/400 [00:36&lt;00:00, 11.10it/s, avg_epoch_loss=6.59]
-INFO:root:Epoch[3] Elapsed time 36.037 seconds
-INFO:root:Epoch[3] Evaluation metric &#39;epoch_loss&#39;=6.592642
+100%|██████████| 50/50 [12:14&lt;00:00, 14.70s/it, avg_epoch_loss=-.972]
+INFO:root:Epoch[3] Elapsed time 735.000 seconds
+INFO:root:Epoch[3] Evaluation metric &#39;epoch_loss&#39;=-0.972448
 INFO:root:Epoch[4] Learning rate is 0.001
-100%|██████████| 400/400 [00:34&lt;00:00, 11.74it/s, avg_epoch_loss=6.63]
-INFO:root:Epoch[4] Elapsed time 34.085 seconds
-INFO:root:Epoch[4] Evaluation metric &#39;epoch_loss&#39;=6.630924
+100%|██████████| 50/50 [08:45&lt;00:00, 10.51s/it, avg_epoch_loss=-1.04]
+INFO:root:Epoch[4] Elapsed time 525.533 seconds
+INFO:root:Epoch[4] Evaluation metric &#39;epoch_loss&#39;=-1.035251
 INFO:root:Epoch[5] Learning rate is 0.001
-100%|██████████| 400/400 [00:37&lt;00:00, 10.76it/s, avg_epoch_loss=6.38]
-INFO:root:Epoch[5] Elapsed time 37.172 seconds
-INFO:root:Epoch[5] Evaluation metric &#39;epoch_loss&#39;=6.381661
+100%|██████████| 50/50 [08:28&lt;00:00, 10.18s/it, avg_epoch_loss=-1.4] 
+INFO:root:Epoch[5] Elapsed time 508.911 seconds
+INFO:root:Epoch[5] Evaluation metric &#39;epoch_loss&#39;=-1.400258
 INFO:root:Epoch[6] Learning rate is 0.001
-100%|██████████| 400/400 [00:33&lt;00:00, 11.96it/s, avg_epoch_loss=6.67]
-INFO:root:Epoch[6] Elapsed time 33.440 seconds
-INFO:root:Epoch[6] Evaluation metric &#39;epoch_loss&#39;=6.666921
+100%|██████████| 50/50 [08:40&lt;00:00, 10.40s/it, avg_epoch_loss=-1.41]
+INFO:root:Epoch[6] Elapsed time 520.230 seconds
+INFO:root:Epoch[6] Evaluation metric &#39;epoch_loss&#39;=-1.410588
 INFO:root:Epoch[7] Learning rate is 0.001
-100%|██████████| 400/400 [00:33&lt;00:00, 11.86it/s, avg_epoch_loss=6.28]
-INFO:root:Epoch[7] Elapsed time 33.733 seconds
-INFO:root:Epoch[7] Evaluation metric &#39;epoch_loss&#39;=6.276316
+100%|██████████| 50/50 [08:37&lt;00:00, 10.34s/it, avg_epoch_loss=-1.58]
+INFO:root:Epoch[7] Elapsed time 517.032 seconds
+INFO:root:Epoch[7] Evaluation metric &#39;epoch_loss&#39;=-1.577966
 INFO:root:Epoch[8] Learning rate is 0.001
-100%|██████████| 400/400 [00:35&lt;00:00, 11.37it/s, avg_epoch_loss=6.65]
-INFO:root:Epoch[8] Elapsed time 35.185 seconds
-INFO:root:Epoch[8] Evaluation metric &#39;epoch_loss&#39;=6.649437
+100%|██████████| 50/50 [10:44&lt;00:00, 12.90s/it, avg_epoch_loss=-1.53]
+INFO:root:Epoch[8] Elapsed time 644.985 seconds
+INFO:root:Epoch[8] Evaluation metric &#39;epoch_loss&#39;=-1.526957
 INFO:root:Epoch[9] Learning rate is 0.001
-100%|██████████| 400/400 [00:46&lt;00:00,  8.61it/s, avg_epoch_loss=6.19]
-INFO:root:Epoch[9] Elapsed time 46.470 seconds
-INFO:root:Epoch[9] Evaluation metric &#39;epoch_loss&#39;=6.187672
+100%|██████████| 50/50 [07:13&lt;00:00,  8.68s/it, avg_epoch_loss=-1.62]
+INFO:root:Epoch[9] Elapsed time 433.927 seconds
+INFO:root:Epoch[9] Evaluation metric &#39;epoch_loss&#39;=-1.618901
 INFO:root:Epoch[10] Learning rate is 0.001
-100%|██████████| 400/400 [00:38&lt;00:00, 10.45it/s, avg_epoch_loss=6.59]
-INFO:root:Epoch[10] Elapsed time 38.285 seconds
-INFO:root:Epoch[10] Evaluation metric &#39;epoch_loss&#39;=6.589611
+100%|██████████| 50/50 [09:39&lt;00:00, 11.59s/it, avg_epoch_loss=-1.62]
+INFO:root:Epoch[10] Elapsed time 579.625 seconds
+INFO:root:Epoch[10] Evaluation metric &#39;epoch_loss&#39;=-1.621460
 INFO:root:Epoch[11] Learning rate is 0.001
-100%|██████████| 400/400 [00:50&lt;00:00,  7.90it/s, avg_epoch_loss=6.25]
-INFO:root:Epoch[11] Elapsed time 50.623 seconds
-INFO:root:Epoch[11] Evaluation metric &#39;epoch_loss&#39;=6.254126
+100%|██████████| 50/50 [12:11&lt;00:00, 14.63s/it, avg_epoch_loss=-1.63]
+INFO:root:Epoch[11] Elapsed time 731.873 seconds
+INFO:root:Epoch[11] Evaluation metric &#39;epoch_loss&#39;=-1.629691
 INFO:root:Epoch[12] Learning rate is 0.001
-100%|██████████| 400/400 [00:40&lt;00:00,  9.91it/s, avg_epoch_loss=6.26]
-INFO:root:Epoch[12] Elapsed time 40.391 seconds
-INFO:root:Epoch[12] Evaluation metric &#39;epoch_loss&#39;=6.258241
+100%|██████████| 50/50 [08:33&lt;00:00, 10.26s/it, avg_epoch_loss=-1.69]
+INFO:root:Epoch[12] Elapsed time 513.142 seconds
+INFO:root:Epoch[12] Evaluation metric &#39;epoch_loss&#39;=-1.690451
 INFO:root:Epoch[13] Learning rate is 0.001
-100%|██████████| 400/400 [00:43&lt;00:00,  9.30it/s, avg_epoch_loss=6.38]
-INFO:root:Epoch[13] Elapsed time 43.039 seconds
-INFO:root:Epoch[13] Evaluation metric &#39;epoch_loss&#39;=6.378235
+100%|██████████| 50/50 [07:56&lt;00:00,  9.54s/it, avg_epoch_loss=-1.63]
+INFO:root:Epoch[13] Elapsed time 476.777 seconds
+INFO:root:Epoch[13] Evaluation metric &#39;epoch_loss&#39;=-1.625868
 INFO:root:Epoch[14] Learning rate is 0.001
-100%|██████████| 400/400 [00:48&lt;00:00,  8.32it/s, avg_epoch_loss=6.11]
-INFO:root:Epoch[14] Elapsed time 48.082 seconds
-INFO:root:Epoch[14] Evaluation metric &#39;epoch_loss&#39;=6.110654
+100%|██████████| 50/50 [08:15&lt;00:00,  9.90s/it, avg_epoch_loss=-1.74]
+INFO:root:Epoch[14] Elapsed time 495.289 seconds
+INFO:root:Epoch[14] Evaluation metric &#39;epoch_loss&#39;=-1.737424
 INFO:root:Epoch[15] Learning rate is 0.001
-100%|██████████| 400/400 [00:46&lt;00:00,  8.57it/s, avg_epoch_loss=6.51]
-INFO:root:Epoch[15] Elapsed time 46.656 seconds
-INFO:root:Epoch[15] Evaluation metric &#39;epoch_loss&#39;=6.513132
+100%|██████████| 50/50 [10:29&lt;00:00, 12.59s/it, avg_epoch_loss=-1.65]
+INFO:root:Epoch[15] Elapsed time 629.998 seconds
+INFO:root:Epoch[15] Evaluation metric &#39;epoch_loss&#39;=-1.648217
 INFO:root:Epoch[16] Learning rate is 0.001
-100%|██████████| 400/400 [01:21&lt;00:00,  4.92it/s, avg_epoch_loss=6.09]
-INFO:root:Epoch[16] Elapsed time 81.291 seconds
-INFO:root:Epoch[16] Evaluation metric &#39;epoch_loss&#39;=6.094218
+100%|██████████| 50/50 [09:14&lt;00:00, 11.08s/it, avg_epoch_loss=-1.76]
+INFO:root:Epoch[16] Elapsed time 554.171 seconds
+INFO:root:Epoch[16] Evaluation metric &#39;epoch_loss&#39;=-1.764318
 INFO:root:Epoch[17] Learning rate is 0.001
-100%|██████████| 400/400 [00:53&lt;00:00,  7.50it/s, avg_epoch_loss=6.49]
-INFO:root:Epoch[17] Elapsed time 53.345 seconds
-INFO:root:Epoch[17] Evaluation metric &#39;epoch_loss&#39;=6.494895
+100%|██████████| 50/50 [08:41&lt;00:00, 10.43s/it, avg_epoch_loss=-1.69]
+INFO:root:Epoch[17] Elapsed time 521.326 seconds
+INFO:root:Epoch[17] Evaluation metric &#39;epoch_loss&#39;=-1.688523
 INFO:root:Epoch[18] Learning rate is 0.001
-100%|██████████| 400/400 [00:59&lt;00:00,  6.72it/s, avg_epoch_loss=6.11]
-INFO:root:Epoch[18] Elapsed time 59.549 seconds
-INFO:root:Epoch[18] Evaluation metric &#39;epoch_loss&#39;=6.106098
+100%|██████████| 50/50 [08:35&lt;00:00, 10.32s/it, avg_epoch_loss=-1.75]
+INFO:root:Epoch[18] Elapsed time 516.017 seconds
+INFO:root:Epoch[18] Evaluation metric &#39;epoch_loss&#39;=-1.750841
 INFO:root:Epoch[19] Learning rate is 0.001
-100%|██████████| 400/400 [00:46&lt;00:00,  8.60it/s, avg_epoch_loss=6.41]
-INFO:root:Epoch[19] Elapsed time 46.504 seconds
-INFO:root:Epoch[19] Evaluation metric &#39;epoch_loss&#39;=6.414816
+100%|██████████| 50/50 [10:07&lt;00:00, 12.14s/it, avg_epoch_loss=-1.75]
+INFO:root:Epoch[19] Elapsed time 607.276 seconds
+INFO:root:Epoch[19] Evaluation metric &#39;epoch_loss&#39;=-1.745444
 INFO:root:Epoch[20] Learning rate is 0.001
-100%|██████████| 400/400 [00:43&lt;00:00,  9.25it/s, avg_epoch_loss=6.19]
-INFO:root:Epoch[20] Elapsed time 43.270 seconds
-INFO:root:Epoch[20] Evaluation metric &#39;epoch_loss&#39;=6.192407
+100%|██████████| 50/50 [07:42&lt;00:00,  9.25s/it, avg_epoch_loss=-1.74]
+INFO:root:Epoch[20] Elapsed time 462.748 seconds
+INFO:root:Epoch[20] Evaluation metric &#39;epoch_loss&#39;=-1.738468
 INFO:root:Epoch[21] Learning rate is 0.001
-100%|██████████| 400/400 [00:50&lt;00:00,  7.87it/s, avg_epoch_loss=6.14]
-INFO:root:Epoch[21] Elapsed time 50.857 seconds
-INFO:root:Epoch[21] Evaluation metric &#39;epoch_loss&#39;=6.141855
+100%|██████████| 50/50 [08:01&lt;00:00,  9.63s/it, avg_epoch_loss=-1.8] 
+INFO:root:Epoch[21] Elapsed time 481.714 seconds
+INFO:root:Epoch[21] Evaluation metric &#39;epoch_loss&#39;=-1.797790
 INFO:root:Epoch[22] Learning rate is 0.001
-100%|██████████| 400/400 [00:44&lt;00:00,  8.91it/s, avg_epoch_loss=6.28]
-INFO:root:Epoch[22] Elapsed time 44.924 seconds
-INFO:root:Epoch[22] Evaluation metric &#39;epoch_loss&#39;=6.281145
+100%|██████████| 50/50 [08:59&lt;00:00, 10.78s/it, avg_epoch_loss=-1.72]
+INFO:root:Epoch[22] Elapsed time 539.110 seconds
+INFO:root:Epoch[22] Evaluation metric &#39;epoch_loss&#39;=-1.724423
 INFO:root:Epoch[23] Learning rate is 0.001
-100%|██████████| 400/400 [00:48&lt;00:00,  8.21it/s, avg_epoch_loss=6.03]
-INFO:root:Epoch[23] Elapsed time 48.731 seconds
-INFO:root:Epoch[23] Evaluation metric &#39;epoch_loss&#39;=6.033947
-INFO:root:Epoch[24] Learning rate is 0.001
-100%|██████████| 400/400 [00:42&lt;00:00,  9.35it/s, avg_epoch_loss=6.46]
-INFO:root:Epoch[24] Elapsed time 42.800 seconds
-INFO:root:Epoch[24] Evaluation metric &#39;epoch_loss&#39;=6.463325
-INFO:root:Epoch[25] Learning rate is 0.001
-100%|██████████| 400/400 [00:42&lt;00:00,  9.47it/s, avg_epoch_loss=5.98]
-INFO:root:Epoch[25] Elapsed time 42.249 seconds
-INFO:root:Epoch[25] Evaluation metric &#39;epoch_loss&#39;=5.983181
-INFO:root:Epoch[26] Learning rate is 0.001
-100%|██████████| 400/400 [00:46&lt;00:00,  8.68it/s, avg_epoch_loss=6.41]
-INFO:root:Epoch[26] Elapsed time 46.100 seconds
-INFO:root:Epoch[26] Evaluation metric &#39;epoch_loss&#39;=6.413180
-INFO:root:Epoch[27] Learning rate is 0.001
-100%|██████████| 400/400 [00:43&lt;00:00,  9.12it/s, avg_epoch_loss=6.08]
-INFO:root:Epoch[27] Elapsed time 43.889 seconds
-INFO:root:Epoch[27] Evaluation metric &#39;epoch_loss&#39;=6.077238
-INFO:root:Epoch[28] Learning rate is 0.001
-100%|██████████| 400/400 [00:44&lt;00:00,  8.99it/s, avg_epoch_loss=6.26]
-INFO:root:Epoch[28] Elapsed time 44.521 seconds
-INFO:root:Epoch[28] Evaluation metric &#39;epoch_loss&#39;=6.262835
-INFO:root:Epoch[29] Learning rate is 0.001
-100%|██████████| 400/400 [01:00&lt;00:00,  6.62it/s, avg_epoch_loss=6.12]
-INFO:root:Epoch[29] Elapsed time 60.450 seconds
-INFO:root:Epoch[29] Evaluation metric &#39;epoch_loss&#39;=6.124133
-INFO:root:Epoch[30] Learning rate is 0.001
-100%|██████████| 400/400 [00:58&lt;00:00,  6.83it/s, avg_epoch_loss=6.04]
-INFO:root:Epoch[30] Elapsed time 58.617 seconds
-INFO:root:Epoch[30] Evaluation metric &#39;epoch_loss&#39;=6.041430
-INFO:root:Epoch[31] Learning rate is 0.001
-100%|██████████| 400/400 [00:47&lt;00:00,  8.49it/s, avg_epoch_loss=6.28]
-INFO:root:Epoch[31] Elapsed time 47.103 seconds
-INFO:root:Epoch[31] Evaluation metric &#39;epoch_loss&#39;=6.280886
-INFO:root:Epoch[32] Learning rate is 0.001
-100%|██████████| 400/400 [00:48&lt;00:00,  8.29it/s, avg_epoch_loss=6.02]
-INFO:root:Epoch[32] Elapsed time 48.238 seconds
-INFO:root:Epoch[32] Evaluation metric &#39;epoch_loss&#39;=6.016423
-INFO:root:Epoch[33] Learning rate is 0.001
-100%|██████████| 400/400 [00:56&lt;00:00,  7.14it/s, avg_epoch_loss=6.38]
-INFO:root:Epoch[33] Elapsed time 56.063 seconds
-INFO:root:Epoch[33] Evaluation metric &#39;epoch_loss&#39;=6.378200
-INFO:root:Epoch[34] Learning rate is 0.001
-100%|██████████| 400/400 [00:57&lt;00:00,  6.91it/s, avg_epoch_loss=5.98]
-INFO:root:Epoch[34] Elapsed time 57.894 seconds
-INFO:root:Epoch[34] Evaluation metric &#39;epoch_loss&#39;=5.976379
-INFO:root:Epoch[35] Learning rate is 0.001
-100%|██████████| 400/400 [01:30&lt;00:00,  4.44it/s, avg_epoch_loss=6.35]
-INFO:root:Epoch[35] Elapsed time 90.086 seconds
-INFO:root:Epoch[35] Evaluation metric &#39;epoch_loss&#39;=6.354986
-INFO:root:Epoch[36] Learning rate is 0.001
-100%|██████████| 400/400 [01:51&lt;00:00,  3.59it/s, avg_epoch_loss=6.06]
-INFO:root:Epoch[36] Elapsed time 111.440 seconds
-INFO:root:Epoch[36] Evaluation metric &#39;epoch_loss&#39;=6.062459
-INFO:root:Epoch[37] Learning rate is 0.001
-100%|██████████| 400/400 [02:10&lt;00:00,  3.06it/s, avg_epoch_loss=6.17]
-INFO:root:Epoch[37] Elapsed time 130.702 seconds
-INFO:root:Epoch[37] Evaluation metric &#39;epoch_loss&#39;=6.174164
-INFO:root:Epoch[38] Learning rate is 0.001
-100%|██████████| 400/400 [01:26&lt;00:00,  4.64it/s, avg_epoch_loss=6.14]
-INFO:root:Epoch[38] Elapsed time 86.155 seconds
-INFO:root:Epoch[38] Evaluation metric &#39;epoch_loss&#39;=6.137726
-INFO:root:Epoch[39] Learning rate is 0.001
-100%|██████████| 400/400 [01:06&lt;00:00,  6.05it/s, avg_epoch_loss=5.96]
-INFO:root:Epoch[39] Elapsed time 66.172 seconds
-INFO:root:Epoch[39] Evaluation metric &#39;epoch_loss&#39;=5.958951
-INFO:root:Epoch[40] Learning rate is 0.001
-100%|██████████| 400/400 [01:19&lt;00:00,  5.01it/s, avg_epoch_loss=6.29]
-INFO:root:Epoch[40] Elapsed time 79.905 seconds
-INFO:root:Epoch[40] Evaluation metric &#39;epoch_loss&#39;=6.292321
-INFO:root:Epoch[41] Learning rate is 0.001
-100%|██████████| 400/400 [01:20&lt;00:00,  4.98it/s, avg_epoch_loss=5.93]
-INFO:root:Epoch[41] Elapsed time 80.316 seconds
-INFO:root:Epoch[41] Evaluation metric &#39;epoch_loss&#39;=5.932187
-INFO:root:Epoch[42] Learning rate is 0.001
-100%|██████████| 400/400 [01:09&lt;00:00,  5.78it/s, avg_epoch_loss=6.33]
-INFO:root:Epoch[42] Elapsed time 69.187 seconds
-INFO:root:Epoch[42] Evaluation metric &#39;epoch_loss&#39;=6.334381
-INFO:root:Epoch[43] Learning rate is 0.001
-100%|██████████| 400/400 [00:45&lt;00:00,  8.88it/s, avg_epoch_loss=5.9] 
-INFO:root:Epoch[43] Elapsed time 45.052 seconds
-INFO:root:Epoch[43] Evaluation metric &#39;epoch_loss&#39;=5.903495
-INFO:root:Epoch[44] Learning rate is 0.001
-100%|██████████| 400/400 [00:50&lt;00:00,  8.00it/s, avg_epoch_loss=6.3] 
-INFO:root:Epoch[44] Elapsed time 50.015 seconds
-INFO:root:Epoch[44] Evaluation metric &#39;epoch_loss&#39;=6.298336
-INFO:root:Epoch[45] Learning rate is 0.001
-100%|██████████| 400/400 [01:18&lt;00:00,  5.11it/s, avg_epoch_loss=6.03]
-INFO:root:Epoch[45] Elapsed time 78.225 seconds
-INFO:root:Epoch[45] Evaluation metric &#39;epoch_loss&#39;=6.031244
-INFO:root:Epoch[46] Learning rate is 0.001
-100%|██████████| 400/400 [01:22&lt;00:00,  4.82it/s, avg_epoch_loss=6.11]
-INFO:root:Epoch[46] Elapsed time 82.977 seconds
-INFO:root:Epoch[46] Evaluation metric &#39;epoch_loss&#39;=6.107850
-INFO:root:Epoch[47] Learning rate is 0.001
-100%|██████████| 400/400 [01:55&lt;00:00,  3.47it/s, avg_epoch_loss=6.07]
-INFO:root:Epoch[47] Elapsed time 115.290 seconds
-INFO:root:Epoch[47] Evaluation metric &#39;epoch_loss&#39;=6.074135
-INFO:root:Epoch[48] Learning rate is 0.001
-100%|██████████| 400/400 [01:10&lt;00:00,  5.70it/s, avg_epoch_loss=5.94]
-INFO:root:Epoch[48] Elapsed time 70.198 seconds
-INFO:root:Epoch[48] Evaluation metric &#39;epoch_loss&#39;=5.942172
-INFO:root:Epoch[49] Learning rate is 0.001
-100%|██████████| 400/400 [01:26&lt;00:00,  4.62it/s, avg_epoch_loss=6.25]
-INFO:root:Epoch[49] Elapsed time 86.613 seconds
-INFO:root:Epoch[49] Evaluation metric &#39;epoch_loss&#39;=6.249460
-INFO:root:Epoch[50] Learning rate is 0.001
-100%|██████████| 400/400 [01:42&lt;00:00,  3.89it/s, avg_epoch_loss=5.9] 
-INFO:root:Epoch[50] Elapsed time 102.744 seconds
-INFO:root:Epoch[50] Evaluation metric &#39;epoch_loss&#39;=5.902646
-INFO:root:Epoch[51] Learning rate is 0.001
-100%|██████████| 400/400 [01:28&lt;00:00,  4.51it/s, avg_epoch_loss=6.26]
-INFO:root:Epoch[51] Elapsed time 88.706 seconds
-INFO:root:Epoch[51] Evaluation metric &#39;epoch_loss&#39;=6.264153
-INFO:root:Epoch[52] Learning rate is 0.001
-100%|██████████| 400/400 [02:10&lt;00:00,  3.06it/s, avg_epoch_loss=5.9] 
-INFO:root:Epoch[52] Elapsed time 130.803 seconds
-INFO:root:Epoch[52] Evaluation metric &#39;epoch_loss&#39;=5.898245
-INFO:root:Epoch[53] Learning rate is 0.001
-100%|██████████| 400/400 [01:53&lt;00:00,  3.52it/s, avg_epoch_loss=6.25]
-INFO:root:Epoch[53] Elapsed time 113.610 seconds
-INFO:root:Epoch[53] Evaluation metric &#39;epoch_loss&#39;=6.252878
-INFO:root:Epoch[54] Learning rate is 0.001
-100%|██████████| 400/400 [02:26&lt;00:00,  2.73it/s, avg_epoch_loss=5.98]
-INFO:root:Epoch[54] Elapsed time 146.790 seconds
-INFO:root:Epoch[54] Evaluation metric &#39;epoch_loss&#39;=5.981020
-INFO:root:Epoch[55] Learning rate is 0.001
-100%|██████████| 400/400 [01:11&lt;00:00,  5.57it/s, avg_epoch_loss=6.03]
-INFO:root:Epoch[55] Elapsed time 71.791 seconds
-INFO:root:Epoch[55] Evaluation metric &#39;epoch_loss&#39;=6.034701
-INFO:root:Epoch[56] Learning rate is 0.001
-100%|██████████| 400/400 [01:01&lt;00:00,  6.50it/s, avg_epoch_loss=6.1] 
-INFO:root:Epoch[56] Elapsed time 61.563 seconds
-INFO:root:Epoch[56] Evaluation metric &#39;epoch_loss&#39;=6.103405
-INFO:root:Epoch[57] Learning rate is 0.001
-100%|██████████| 400/400 [01:02&lt;00:00,  6.44it/s, avg_epoch_loss=5.85]
-INFO:root:Epoch[57] Elapsed time 62.131 seconds
-INFO:root:Epoch[57] Evaluation metric &#39;epoch_loss&#39;=5.851175
-INFO:root:Epoch[58] Learning rate is 0.001
-100%|██████████| 400/400 [00:58&lt;00:00,  6.79it/s, avg_epoch_loss=6.22]
-INFO:root:Epoch[58] Elapsed time 58.899 seconds
-INFO:root:Epoch[58] Evaluation metric &#39;epoch_loss&#39;=6.222080
-INFO:root:Epoch[59] Learning rate is 0.001
-100%|██████████| 400/400 [00:54&lt;00:00,  7.37it/s, avg_epoch_loss=5.87]
-INFO:root:Epoch[59] Elapsed time 54.315 seconds
-INFO:root:Epoch[59] Evaluation metric &#39;epoch_loss&#39;=5.868498
-INFO:root:Epoch[60] Learning rate is 0.001
-100%|██████████| 400/400 [01:11&lt;00:00,  5.61it/s, avg_epoch_loss=6.25]
-INFO:root:Epoch[60] Elapsed time 71.268 seconds
-INFO:root:Epoch[60] Evaluation metric &#39;epoch_loss&#39;=6.248325
-INFO:root:Epoch[61] Learning rate is 0.001
-100%|██████████| 400/400 [01:08&lt;00:00,  5.84it/s, avg_epoch_loss=5.86]
-INFO:root:Epoch[61] Elapsed time 68.539 seconds
-INFO:root:Epoch[61] Evaluation metric &#39;epoch_loss&#39;=5.861797
-INFO:root:Epoch[62] Learning rate is 0.001
-100%|██████████| 400/400 [01:02&lt;00:00,  6.38it/s, avg_epoch_loss=6.23]
-INFO:root:Epoch[62] Elapsed time 62.680 seconds
-INFO:root:Epoch[62] Evaluation metric &#39;epoch_loss&#39;=6.229833
-INFO:root:Epoch[63] Learning rate is 0.001
-100%|██████████| 400/400 [01:04&lt;00:00,  6.17it/s, avg_epoch_loss=5.98]
-INFO:root:Epoch[63] Elapsed time 64.832 seconds
-INFO:root:Epoch[63] Evaluation metric &#39;epoch_loss&#39;=5.978725
-INFO:root:Epoch[64] Learning rate is 0.001
-100%|██████████| 400/400 [01:03&lt;00:00,  6.25it/s, avg_epoch_loss=5.92]
-INFO:root:Epoch[64] Elapsed time 63.969 seconds
-INFO:root:Epoch[64] Evaluation metric &#39;epoch_loss&#39;=5.920809
-INFO:root:Epoch[65] Learning rate is 0.001
-100%|██████████| 400/400 [00:57&lt;00:00,  7.00it/s, avg_epoch_loss=6.04]
-INFO:root:Epoch[65] Elapsed time 57.178 seconds
-INFO:root:Epoch[65] Evaluation metric &#39;epoch_loss&#39;=6.035487
-INFO:root:Epoch[66] Learning rate is 0.001
-100%|██████████| 400/400 [01:11&lt;00:00,  5.61it/s, avg_epoch_loss=5.84]
-INFO:root:Epoch[66] Elapsed time 71.359 seconds
-INFO:root:Epoch[66] Evaluation metric &#39;epoch_loss&#39;=5.841583
-INFO:root:Epoch[67] Learning rate is 0.001
-100%|██████████| 400/400 [00:59&lt;00:00,  6.70it/s, avg_epoch_loss=6.2] 
-INFO:root:Epoch[67] Elapsed time 59.677 seconds
-INFO:root:Epoch[67] Evaluation metric &#39;epoch_loss&#39;=6.202014
-INFO:root:Epoch[68] Learning rate is 0.001
-100%|██████████| 400/400 [01:00&lt;00:00,  6.59it/s, avg_epoch_loss=5.8] 
-INFO:root:Epoch[68] Elapsed time 60.680 seconds
-INFO:root:Epoch[68] Evaluation metric &#39;epoch_loss&#39;=5.800275
-INFO:root:Epoch[69] Learning rate is 0.001
-100%|██████████| 400/400 [01:07&lt;00:00,  5.93it/s, avg_epoch_loss=6.19]
-INFO:root:Epoch[69] Elapsed time 67.439 seconds
-INFO:root:Epoch[69] Evaluation metric &#39;epoch_loss&#39;=6.186971
-INFO:root:Epoch[70] Learning rate is 0.001
-100%|██████████| 400/400 [01:22&lt;00:00,  4.84it/s, avg_epoch_loss=5.83]
-INFO:root:Epoch[70] Elapsed time 82.572 seconds
-INFO:root:Epoch[70] Evaluation metric &#39;epoch_loss&#39;=5.826081
-INFO:root:Epoch[71] Learning rate is 0.001
-100%|██████████| 400/400 [01:07&lt;00:00,  5.95it/s, avg_epoch_loss=6.15]
-INFO:root:Epoch[71] Elapsed time 67.195 seconds
-INFO:root:Epoch[71] Evaluation metric &#39;epoch_loss&#39;=6.154023
-INFO:root:Epoch[72] Learning rate is 0.001
-100%|██████████| 400/400 [00:55&lt;00:00,  7.23it/s, avg_epoch_loss=5.94]
-INFO:root:Epoch[72] Elapsed time 55.323 seconds
-INFO:root:Epoch[72] Evaluation metric &#39;epoch_loss&#39;=5.943570
-INFO:root:Epoch[73] Learning rate is 0.001
-100%|██████████| 400/400 [01:07&lt;00:00,  5.92it/s, avg_epoch_loss=5.9] 
-INFO:root:Epoch[73] Elapsed time 67.625 seconds
-INFO:root:Epoch[73] Evaluation metric &#39;epoch_loss&#39;=5.904787
-INFO:root:Epoch[74] Learning rate is 0.001
-100%|██████████| 400/400 [00:56&lt;00:00,  7.10it/s, avg_epoch_loss=6.03]
-INFO:root:Epoch[74] Elapsed time 56.369 seconds
-INFO:root:Epoch[74] Evaluation metric &#39;epoch_loss&#39;=6.032682
-INFO:root:Epoch[75] Learning rate is 0.001
-100%|██████████| 400/400 [00:57&lt;00:00,  6.95it/s, avg_epoch_loss=5.82]
-INFO:root:Epoch[75] Elapsed time 57.573 seconds
-INFO:root:Epoch[75] Evaluation metric &#39;epoch_loss&#39;=5.821853
-INFO:root:Epoch[76] Learning rate is 0.001
-100%|██████████| 400/400 [00:53&lt;00:00,  7.46it/s, avg_epoch_loss=6.18]
-INFO:root:Epoch[76] Elapsed time 53.624 seconds
-INFO:root:Epoch[76] Evaluation metric &#39;epoch_loss&#39;=6.178502
-INFO:root:Epoch[77] Learning rate is 0.001
-100%|██████████| 400/400 [01:02&lt;00:00,  6.37it/s, avg_epoch_loss=5.78]
-INFO:root:Epoch[77] Elapsed time 62.835 seconds
-INFO:root:Epoch[77] Evaluation metric &#39;epoch_loss&#39;=5.784625
-INFO:root:Epoch[78] Learning rate is 0.001
-100%|██████████| 400/400 [00:59&lt;00:00,  6.74it/s, avg_epoch_loss=6.15]
-INFO:root:Epoch[78] Elapsed time 59.341 seconds
-INFO:root:Epoch[78] Evaluation metric &#39;epoch_loss&#39;=6.145376
-INFO:root:Epoch[79] Learning rate is 0.001
-100%|██████████| 400/400 [01:09&lt;00:00,  5.75it/s, avg_epoch_loss=5.86]
-INFO:root:Epoch[79] Elapsed time 69.526 seconds
-INFO:root:Epoch[79] Evaluation metric &#39;epoch_loss&#39;=5.856626
-INFO:root:Epoch[80] Learning rate is 0.001
-100%|██████████| 400/400 [01:02&lt;00:00,  6.40it/s, avg_epoch_loss=6.08]
-INFO:root:Epoch[80] Elapsed time 62.506 seconds
-INFO:root:Epoch[80] Evaluation metric &#39;epoch_loss&#39;=6.081978
-INFO:root:Epoch[81] Learning rate is 0.001
-100%|██████████| 400/400 [01:10&lt;00:00,  5.65it/s, avg_epoch_loss=5.93]
-INFO:root:Epoch[81] Elapsed time 70.792 seconds
-INFO:root:Epoch[81] Evaluation metric &#39;epoch_loss&#39;=5.926772
-INFO:root:Epoch[82] Learning rate is 0.001
-100%|██████████| 400/400 [01:01&lt;00:00,  6.49it/s, avg_epoch_loss=5.81]
-INFO:root:Epoch[82] Elapsed time 61.604 seconds
-INFO:root:Epoch[82] Evaluation metric &#39;epoch_loss&#39;=5.814353
-INFO:root:Epoch[83] Learning rate is 0.001
-100%|██████████| 400/400 [01:16&lt;00:00,  5.20it/s, avg_epoch_loss=6.01]
-INFO:root:Epoch[83] Elapsed time 76.989 seconds
-INFO:root:Epoch[83] Evaluation metric &#39;epoch_loss&#39;=6.011855
-INFO:root:Epoch[84] Learning rate is 0.001
-100%|██████████| 400/400 [00:55&lt;00:00,  7.20it/s, avg_epoch_loss=5.77]
-INFO:root:Epoch[84] Elapsed time 55.593 seconds
-INFO:root:Epoch[84] Evaluation metric &#39;epoch_loss&#39;=5.773161
-INFO:root:Epoch[85] Learning rate is 0.001
-100%|██████████| 400/400 [00:50&lt;00:00,  7.86it/s, avg_epoch_loss=6.15]
-INFO:root:Epoch[85] Elapsed time 50.889 seconds
-INFO:root:Epoch[85] Evaluation metric &#39;epoch_loss&#39;=6.148301
-INFO:root:Epoch[86] Learning rate is 0.001
-100%|██████████| 400/400 [00:46&lt;00:00,  8.58it/s, avg_epoch_loss=5.78]
-INFO:root:Epoch[86] Elapsed time 46.653 seconds
-INFO:root:Epoch[86] Evaluation metric &#39;epoch_loss&#39;=5.778424
-INFO:root:Epoch[87] Learning rate is 0.001
-100%|██████████| 400/400 [01:13&lt;00:00,  5.47it/s, avg_epoch_loss=6.13]
-INFO:root:Epoch[87] Elapsed time 73.159 seconds
-INFO:root:Epoch[87] Evaluation metric &#39;epoch_loss&#39;=6.128548
-INFO:root:Epoch[88] Learning rate is 0.001
-100%|██████████| 400/400 [01:28&lt;00:00,  4.53it/s, avg_epoch_loss=5.77]
-INFO:root:Epoch[88] Elapsed time 88.236 seconds
-INFO:root:Epoch[88] Evaluation metric &#39;epoch_loss&#39;=5.768819
-INFO:root:Epoch[89] Learning rate is 0.001
-100%|██████████| 400/400 [01:25&lt;00:00,  4.70it/s, avg_epoch_loss=6.08]
-INFO:root:Epoch[89] Elapsed time 85.028 seconds
-INFO:root:Epoch[89] Evaluation metric &#39;epoch_loss&#39;=6.081777
-INFO:root:Epoch[90] Learning rate is 0.001
-100%|██████████| 400/400 [01:14&lt;00:00,  5.40it/s, avg_epoch_loss=5.87]
-INFO:root:Epoch[90] Elapsed time 74.069 seconds
-INFO:root:Epoch[90] Evaluation metric &#39;epoch_loss&#39;=5.871735
-INFO:root:Epoch[91] Learning rate is 0.001
-100%|██████████| 400/400 [01:00&lt;00:00,  6.62it/s, avg_epoch_loss=5.87]
-INFO:root:Epoch[91] Elapsed time 60.465 seconds
-INFO:root:Epoch[91] Evaluation metric &#39;epoch_loss&#39;=5.870774
-INFO:root:Epoch[92] Learning rate is 0.001
-100%|██████████| 400/400 [01:49&lt;00:00,  3.66it/s, avg_epoch_loss=5.94]
-INFO:root:Epoch[92] Elapsed time 109.428 seconds
-INFO:root:Epoch[92] Evaluation metric &#39;epoch_loss&#39;=5.943961
-INFO:root:Epoch[93] Learning rate is 0.001
-100%|██████████| 400/400 [01:45&lt;00:00,  3.80it/s, avg_epoch_loss=5.75]
-INFO:root:Epoch[93] Elapsed time 105.370 seconds
-INFO:root:Epoch[93] Evaluation metric &#39;epoch_loss&#39;=5.746436
-INFO:root:Epoch[94] Learning rate is 0.001
-100%|██████████| 400/400 [02:08&lt;00:00,  3.11it/s, avg_epoch_loss=6.09]
-INFO:root:Epoch[94] Elapsed time 128.768 seconds
-INFO:root:Epoch[94] Evaluation metric &#39;epoch_loss&#39;=6.086746
-INFO:root:Epoch[95] Learning rate is 0.001
-100%|██████████| 400/400 [01:35&lt;00:00,  4.18it/s, avg_epoch_loss=5.71]
-INFO:root:Epoch[95] Elapsed time 95.905 seconds
-INFO:root:Epoch[95] Evaluation metric &#39;epoch_loss&#39;=5.706257
-INFO:root:Epoch[96] Learning rate is 0.001
-100%|██████████| 400/400 [02:26&lt;00:00,  2.73it/s, avg_epoch_loss=6.13]
-INFO:root:Epoch[96] Elapsed time 146.446 seconds
-INFO:root:Epoch[96] Evaluation metric &#39;epoch_loss&#39;=6.125031
-INFO:root:Epoch[97] Learning rate is 0.001
-100%|██████████| 400/400 [01:28&lt;00:00,  4.49it/s, avg_epoch_loss=5.72]
-INFO:root:Epoch[97] Elapsed time 89.001 seconds
-INFO:root:Epoch[97] Evaluation metric &#39;epoch_loss&#39;=5.717102
-INFO:root:Epoch[98] Learning rate is 0.001
-100%|██████████| 400/400 [00:53&lt;00:00,  7.44it/s, avg_epoch_loss=6.11]
-INFO:root:Epoch[98] Elapsed time 53.778 seconds
-INFO:root:Epoch[98] Evaluation metric &#39;epoch_loss&#39;=6.114893
-INFO:root:Epoch[99] Learning rate is 0.001
-100%|██████████| 400/400 [00:44&lt;00:00,  9.05it/s, avg_epoch_loss=5.85]
-INFO:root:Epoch[99] Elapsed time 44.211 seconds
-INFO:root:Epoch[99] Evaluation metric &#39;epoch_loss&#39;=5.849787
-INFO:root:Epoch[100] Learning rate is 0.001
-100%|██████████| 400/400 [00:48&lt;00:00,  8.23it/s, avg_epoch_loss=5.81]
-INFO:root:Epoch[100] Elapsed time 48.613 seconds
-INFO:root:Epoch[100] Evaluation metric &#39;epoch_loss&#39;=5.809216
-INFO:root:Epoch[101] Learning rate is 0.001
-100%|██████████| 400/400 [01:11&lt;00:00,  5.60it/s, avg_epoch_loss=5.94]
-INFO:root:Epoch[101] Elapsed time 71.424 seconds
-INFO:root:Epoch[101] Evaluation metric &#39;epoch_loss&#39;=5.936511
-INFO:root:Epoch[102] Learning rate is 0.001
-100%|██████████| 400/400 [00:50&lt;00:00,  7.92it/s, avg_epoch_loss=5.75]
-INFO:root:Epoch[102] Elapsed time 50.488 seconds
-INFO:root:Epoch[102] Evaluation metric &#39;epoch_loss&#39;=5.747780
-INFO:root:Epoch[103] Learning rate is 0.001
-100%|██████████| 400/400 [00:45&lt;00:00,  8.81it/s, avg_epoch_loss=6.07]
-INFO:root:Epoch[103] Elapsed time 45.391 seconds
-INFO:root:Epoch[103] Evaluation metric &#39;epoch_loss&#39;=6.074903
-INFO:root:Epoch[104] Learning rate is 0.001
-100%|██████████| 400/400 [00:51&lt;00:00,  7.77it/s, avg_epoch_loss=5.68]
-INFO:root:Epoch[104] Elapsed time 51.518 seconds
-INFO:root:Epoch[104] Evaluation metric &#39;epoch_loss&#39;=5.678978
-INFO:root:Epoch[105] Learning rate is 0.001
-100%|██████████| 400/400 [00:37&lt;00:00, 10.75it/s, avg_epoch_loss=6.07]
-INFO:root:Epoch[105] Elapsed time 37.223 seconds
-INFO:root:Epoch[105] Evaluation metric &#39;epoch_loss&#39;=6.074233
-INFO:root:Epoch[106] Learning rate is 0.001
-100%|██████████| 400/400 [00:40&lt;00:00,  9.92it/s, avg_epoch_loss=5.69]
-INFO:root:Epoch[106] Elapsed time 40.331 seconds
-INFO:root:Epoch[106] Evaluation metric &#39;epoch_loss&#39;=5.686277
-INFO:root:Epoch[107] Learning rate is 0.001
-100%|██████████| 400/400 [00:37&lt;00:00, 10.78it/s, avg_epoch_loss=6.04]
-INFO:root:Epoch[107] Elapsed time 37.124 seconds
-INFO:root:Epoch[107] Evaluation metric &#39;epoch_loss&#39;=6.036531
-INFO:root:Epoch[108] Learning rate is 0.001
-100%|██████████| 400/400 [00:36&lt;00:00, 10.92it/s, avg_epoch_loss=5.8] 
-INFO:root:Epoch[108] Elapsed time 36.624 seconds
-INFO:root:Epoch[108] Evaluation metric &#39;epoch_loss&#39;=5.799474
-INFO:root:Epoch[109] Learning rate is 0.001
-100%|██████████| 400/400 [00:41&lt;00:00,  9.56it/s, avg_epoch_loss=5.77]
-INFO:root:Epoch[109] Elapsed time 41.865 seconds
-INFO:root:Epoch[109] Evaluation metric &#39;epoch_loss&#39;=5.769123
-INFO:root:Epoch[110] Learning rate is 0.001
-100%|██████████| 400/400 [01:40&lt;00:00,  3.98it/s, avg_epoch_loss=5.89]
-INFO:root:Epoch[110] Elapsed time 100.398 seconds
-INFO:root:Epoch[110] Evaluation metric &#39;epoch_loss&#39;=5.894697
-INFO:root:Epoch[111] Learning rate is 0.001
-100%|██████████| 400/400 [01:12&lt;00:00,  5.50it/s, avg_epoch_loss=5.69]
-INFO:root:Epoch[111] Elapsed time 72.749 seconds
-INFO:root:Epoch[111] Evaluation metric &#39;epoch_loss&#39;=5.694721
-INFO:root:Epoch[112] Learning rate is 0.001
-100%|██████████| 400/400 [01:08&lt;00:00,  5.87it/s, avg_epoch_loss=6.06]
-INFO:root:Epoch[112] Elapsed time 68.203 seconds
-INFO:root:Epoch[112] Evaluation metric &#39;epoch_loss&#39;=6.059607
-INFO:root:Epoch[113] Learning rate is 0.001
-100%|██████████| 400/400 [01:11&lt;00:00,  5.60it/s, avg_epoch_loss=5.65]
-INFO:root:Epoch[113] Elapsed time 71.447 seconds
-INFO:root:Epoch[113] Evaluation metric &#39;epoch_loss&#39;=5.653859
-INFO:root:Epoch[114] Learning rate is 0.001
-100%|██████████| 400/400 [01:08&lt;00:00,  5.80it/s, avg_epoch_loss=6.03]
-INFO:root:Epoch[114] Elapsed time 68.978 seconds
-INFO:root:Epoch[114] Evaluation metric &#39;epoch_loss&#39;=6.027610
-INFO:root:Epoch[115] Learning rate is 0.001
-100%|██████████| 400/400 [01:18&lt;00:00,  5.07it/s, avg_epoch_loss=5.68]
-INFO:root:Epoch[115] Elapsed time 78.941 seconds
-INFO:root:Epoch[115] Evaluation metric &#39;epoch_loss&#39;=5.676240
-INFO:root:Epoch[116] Learning rate is 0.001
-100%|██████████| 400/400 [01:11&lt;00:00,  5.62it/s, avg_epoch_loss=5.96]
-INFO:root:Epoch[116] Elapsed time 71.198 seconds
-INFO:root:Epoch[116] Evaluation metric &#39;epoch_loss&#39;=5.961054
-INFO:root:Epoch[117] Learning rate is 0.001
-100%|██████████| 400/400 [01:32&lt;00:00,  4.31it/s, avg_epoch_loss=5.81]
-INFO:root:Epoch[117] Elapsed time 92.727 seconds
-INFO:root:Epoch[117] Evaluation metric &#39;epoch_loss&#39;=5.809977
-INFO:root:Epoch[118] Learning rate is 0.001
-100%|██████████| 400/400 [02:02&lt;00:00,  3.27it/s, avg_epoch_loss=5.71]
-INFO:root:Epoch[118] Elapsed time 122.243 seconds
-INFO:root:Epoch[118] Evaluation metric &#39;epoch_loss&#39;=5.709345
-INFO:root:Epoch[119] Learning rate is 0.001
-100%|██████████| 400/400 [01:49&lt;00:00,  3.66it/s, avg_epoch_loss=5.89]
-INFO:root:Epoch[119] Elapsed time 111.407 seconds
-INFO:root:Epoch[119] Evaluation metric &#39;epoch_loss&#39;=5.893751
-INFO:root:Epoch[120] Learning rate is 0.001
-100%|██████████| 400/400 [01:15&lt;00:00,  5.33it/s, avg_epoch_loss=5.66]
-INFO:root:Epoch[120] Elapsed time 75.073 seconds
-INFO:root:Epoch[120] Evaluation metric &#39;epoch_loss&#39;=5.662488
-INFO:root:Epoch[121] Learning rate is 0.001
-100%|██████████| 400/400 [02:04&lt;00:00,  3.20it/s, avg_epoch_loss=6.03]
-INFO:root:Epoch[121] Elapsed time 124.856 seconds
-INFO:root:Epoch[121] Evaluation metric &#39;epoch_loss&#39;=6.031817
-INFO:root:Epoch[122] Learning rate is 0.001
-100%|██████████| 400/400 [01:06&lt;00:00,  5.99it/s, avg_epoch_loss=5.61]
-INFO:root:Epoch[122] Elapsed time 66.736 seconds
-INFO:root:Epoch[122] Evaluation metric &#39;epoch_loss&#39;=5.610057
-INFO:root:Epoch[123] Learning rate is 0.001
-100%|██████████| 400/400 [01:22&lt;00:00,  4.87it/s, avg_epoch_loss=6]   
-INFO:root:Epoch[123] Elapsed time 82.178 seconds
-INFO:root:Epoch[123] Evaluation metric &#39;epoch_loss&#39;=6.001306
-INFO:root:Epoch[124] Learning rate is 0.001
-100%|██████████| 400/400 [01:16&lt;00:00,  5.20it/s, avg_epoch_loss=5.71]
-INFO:root:Epoch[124] Elapsed time 76.991 seconds
-INFO:root:Epoch[124] Evaluation metric &#39;epoch_loss&#39;=5.707091
-INFO:root:Epoch[125] Learning rate is 0.001
-100%|██████████| 400/400 [01:23&lt;00:00,  4.80it/s, avg_epoch_loss=5.89]
-INFO:root:Epoch[125] Elapsed time 83.413 seconds
-INFO:root:Epoch[125] Evaluation metric &#39;epoch_loss&#39;=5.894805
-INFO:root:Epoch[126] Learning rate is 0.001
-100%|██████████| 400/400 [01:18&lt;00:00,  5.09it/s, avg_epoch_loss=5.76]
-INFO:root:Epoch[126] Elapsed time 78.554 seconds
-INFO:root:Epoch[126] Evaluation metric &#39;epoch_loss&#39;=5.757684
-INFO:root:Epoch[127] Learning rate is 0.001
-100%|██████████| 400/400 [01:21&lt;00:00,  4.93it/s, avg_epoch_loss=5.69]
-INFO:root:Epoch[127] Elapsed time 81.170 seconds
-INFO:root:Epoch[127] Evaluation metric &#39;epoch_loss&#39;=5.686563
-INFO:root:Epoch[128] Learning rate is 0.001
-100%|██████████| 400/400 [01:14&lt;00:00,  5.38it/s, avg_epoch_loss=5.9] 
-INFO:root:Epoch[128] Elapsed time 74.393 seconds
-INFO:root:Epoch[128] Evaluation metric &#39;epoch_loss&#39;=5.897683
-INFO:root:Epoch[129] Learning rate is 0.001
-100%|██████████| 400/400 [01:13&lt;00:00,  5.44it/s, avg_epoch_loss=5.62]
-INFO:root:Epoch[129] Elapsed time 73.557 seconds
-INFO:root:Epoch[129] Evaluation metric &#39;epoch_loss&#39;=5.620542
-INFO:root:Epoch[130] Learning rate is 0.001
-100%|██████████| 400/400 [01:17&lt;00:00,  5.19it/s, avg_epoch_loss=5.99]
-INFO:root:Epoch[130] Elapsed time 77.100 seconds
-INFO:root:Epoch[130] Evaluation metric &#39;epoch_loss&#39;=5.994889
-INFO:root:Epoch[131] Learning rate is 0.001
-100%|██████████| 400/400 [01:38&lt;00:00,  4.06it/s, avg_epoch_loss=5.55]
-INFO:root:Epoch[131] Elapsed time 98.913 seconds
-INFO:root:Epoch[131] Evaluation metric &#39;epoch_loss&#39;=5.553238
-INFO:root:Epoch[132] Learning rate is 0.001
-100%|██████████| 400/400 [01:12&lt;00:00,  5.50it/s, avg_epoch_loss=5.97]
-INFO:root:Epoch[132] Elapsed time 72.829 seconds
-INFO:root:Epoch[132] Evaluation metric &#39;epoch_loss&#39;=5.974375
-INFO:root:Epoch[133] Learning rate is 0.001
-100%|██████████| 400/400 [01:35&lt;00:00,  4.17it/s, avg_epoch_loss=5.69]
-INFO:root:Epoch[133] Elapsed time 95.933 seconds
-INFO:root:Epoch[133] Evaluation metric &#39;epoch_loss&#39;=5.687217
-INFO:root:Epoch[134] Learning rate is 0.001
-100%|██████████| 400/400 [01:29&lt;00:00,  4.45it/s, avg_epoch_loss=5.86]
-INFO:root:Epoch[134] Elapsed time 90.072 seconds
-INFO:root:Epoch[134] Evaluation metric &#39;epoch_loss&#39;=5.862668
-INFO:root:Epoch[135] Learning rate is 0.001
-100%|██████████| 400/400 [01:47&lt;00:00,  3.71it/s, avg_epoch_loss=5.75]
-100%|██████████| 400/400 [01:10&lt;00:00,  5.67it/s, avg_epoch_loss=5.67]
-INFO:root:Epoch[142] Elapsed time 70.531 seconds
-INFO:root:Epoch[142] Evaluation metric &#39;epoch_loss&#39;=5.668647
-INFO:root:Epoch[143] Learning rate is 0.001
-100%|██████████| 400/400 [01:27&lt;00:00,  4.55it/s, avg_epoch_loss=5.82]
-INFO:root:Epoch[143] Elapsed time 87.908 seconds
-INFO:root:Epoch[143] Evaluation metric &#39;epoch_loss&#39;=5.818512
-INFO:root:Epoch[144] Learning rate is 0.001
-100%|██████████| 400/400 [01:34&lt;00:00,  4.23it/s, avg_epoch_loss=5.75]
-INFO:root:Epoch[144] Elapsed time 94.470 seconds
-INFO:root:Epoch[144] Evaluation metric &#39;epoch_loss&#39;=5.751000
-INFO:root:Epoch[145] Learning rate is 0.001
-100%|██████████| 400/400 [01:22&lt;00:00,  4.84it/s, avg_epoch_loss=5.61]
-INFO:root:Epoch[145] Elapsed time 82.696 seconds
-INFO:root:Epoch[145] Evaluation metric &#39;epoch_loss&#39;=5.605629
-INFO:root:Epoch[146] Learning rate is 0.001
-100%|██████████| 400/400 [01:33&lt;00:00,  4.30it/s, avg_epoch_loss=5.85]
-INFO:root:Epoch[146] Elapsed time 93.126 seconds
-INFO:root:Epoch[146] Evaluation metric &#39;epoch_loss&#39;=5.845857
-INFO:root:Epoch[147] Learning rate is 0.001
-100%|██████████| 400/400 [01:28&lt;00:00,  4.54it/s, avg_epoch_loss=5.56]
-INFO:root:Epoch[147] Elapsed time 88.215 seconds
-INFO:root:Epoch[147] Evaluation metric &#39;epoch_loss&#39;=5.562138
-INFO:root:Epoch[148] Learning rate is 0.001
-100%|██████████| 400/400 [02:20&lt;00:00,  2.85it/s, avg_epoch_loss=5.94]
-INFO:root:Epoch[148] Elapsed time 140.174 seconds
-INFO:root:Epoch[148] Evaluation metric &#39;epoch_loss&#39;=5.942921
-INFO:root:Epoch[149] Learning rate is 0.001
-100%|██████████| 400/400 [01:01&lt;00:00,  6.56it/s, avg_epoch_loss=5.54]
-INFO:root:Epoch[149] Elapsed time 61.054 seconds
-INFO:root:Epoch[149] Evaluation metric &#39;epoch_loss&#39;=5.541237
-INFO:root:Epoch[150] Learning rate is 0.001
-100%|██████████| 400/400 [01:16&lt;00:00,  5.21it/s, avg_epoch_loss=5.91]
-INFO:root:Epoch[150] Elapsed time 76.868 seconds
-INFO:root:Epoch[150] Evaluation metric &#39;epoch_loss&#39;=5.909579
-INFO:root:Loading parameters from best epoch (140)
-INFO:root:Epoch[151] Learning rate is 0.0005
-100%|██████████| 400/400 [00:41&lt;00:00,  9.69it/s, avg_epoch_loss=5.66]
-INFO:root:Epoch[151] Elapsed time 41.291 seconds
-INFO:root:Epoch[151] Evaluation metric &#39;epoch_loss&#39;=5.664871
-INFO:root:Epoch[152] Learning rate is 0.0005
-100%|██████████| 400/400 [00:38&lt;00:00, 10.49it/s, avg_epoch_loss=5.72]
-INFO:root:Epoch[152] Elapsed time 38.142 seconds
-INFO:root:Epoch[152] Evaluation metric &#39;epoch_loss&#39;=5.716555
-INFO:root:Epoch[153] Learning rate is 0.0005
-100%|██████████| 400/400 [00:47&lt;00:00,  8.46it/s, avg_epoch_loss=5.71]
-INFO:root:Epoch[153] Elapsed time 47.291 seconds
-INFO:root:Epoch[153] Evaluation metric &#39;epoch_loss&#39;=5.708495
-INFO:root:Epoch[154] Learning rate is 0.0005
-100%|██████████| 400/400 [00:54&lt;00:00,  7.37it/s, avg_epoch_loss=5.56]
-INFO:root:Epoch[154] Elapsed time 54.306 seconds
-INFO:root:Epoch[154] Evaluation metric &#39;epoch_loss&#39;=5.563604
-INFO:root:Epoch[155] Learning rate is 0.0005
-100%|██████████| 400/400 [01:12&lt;00:00,  5.51it/s, avg_epoch_loss=5.79]
-INFO:root:Epoch[155] Elapsed time 72.658 seconds
-INFO:root:Epoch[155] Evaluation metric &#39;epoch_loss&#39;=5.789720
-INFO:root:Epoch[156] Learning rate is 0.0005
-100%|██████████| 400/400 [00:55&lt;00:00,  7.15it/s, avg_epoch_loss=5.52]
-INFO:root:Epoch[156] Elapsed time 55.962 seconds
-INFO:root:Epoch[156] Evaluation metric &#39;epoch_loss&#39;=5.523315
-INFO:root:Epoch[157] Learning rate is 0.0005
-100%|██████████| 400/400 [00:47&lt;00:00,  8.41it/s, avg_epoch_loss=5.86]
-INFO:root:Epoch[157] Elapsed time 47.593 seconds
-INFO:root:Epoch[157] Evaluation metric &#39;epoch_loss&#39;=5.856021
-INFO:root:Epoch[158] Learning rate is 0.0005
-100%|██████████| 400/400 [00:48&lt;00:00,  8.29it/s, avg_epoch_loss=5.48]
-INFO:root:Epoch[158] Elapsed time 48.267 seconds
-INFO:root:Epoch[158] Evaluation metric &#39;epoch_loss&#39;=5.481005
-INFO:root:Epoch[159] Learning rate is 0.0005
-100%|██████████| 400/400 [00:50&lt;00:00,  7.91it/s, avg_epoch_loss=5.86]
-INFO:root:Epoch[159] Elapsed time 50.559 seconds
-INFO:root:Epoch[159] Evaluation metric &#39;epoch_loss&#39;=5.863600
-INFO:root:Epoch[160] Learning rate is 0.0005
-100%|██████████| 400/400 [00:48&lt;00:00,  8.19it/s, avg_epoch_loss=5.59]
-INFO:root:Epoch[160] Elapsed time 48.838 seconds
-INFO:root:Epoch[160] Evaluation metric &#39;epoch_loss&#39;=5.588726
-INFO:root:Epoch[161] Learning rate is 0.0005
-100%|██████████| 400/400 [00:55&lt;00:00,  7.26it/s, avg_epoch_loss=5.69]
-INFO:root:Epoch[161] Elapsed time 55.085 seconds
-INFO:root:Epoch[161] Evaluation metric &#39;epoch_loss&#39;=5.685071
-INFO:root:Epoch[162] Learning rate is 0.0005
-100%|██████████| 400/400 [00:52&lt;00:00,  7.59it/s, avg_epoch_loss=5.66]
-INFO:root:Epoch[162] Elapsed time 52.743 seconds
-INFO:root:Epoch[162] Evaluation metric &#39;epoch_loss&#39;=5.659658
-INFO:root:Epoch[163] Learning rate is 0.0005
-100%|██████████| 400/400 [00:53&lt;00:00,  7.51it/s, avg_epoch_loss=5.5] 
-INFO:root:Epoch[163] Elapsed time 53.308 seconds
-INFO:root:Epoch[163] Evaluation metric &#39;epoch_loss&#39;=5.504071
-INFO:root:Epoch[164] Learning rate is 0.0005
-100%|██████████| 400/400 [00:45&lt;00:00,  8.73it/s, avg_epoch_loss=5.75]
-INFO:root:Epoch[164] Elapsed time 45.843 seconds
-INFO:root:Epoch[164] Evaluation metric &#39;epoch_loss&#39;=5.754257
-INFO:root:Epoch[165] Learning rate is 0.0005
-100%|██████████| 400/400 [00:46&lt;00:00,  8.66it/s, avg_epoch_loss=5.48]
-INFO:root:Epoch[165] Elapsed time 46.188 seconds
-INFO:root:Epoch[165] Evaluation metric &#39;epoch_loss&#39;=5.476805
-INFO:root:Epoch[166] Learning rate is 0.0005
-100%|██████████| 400/400 [00:52&lt;00:00,  7.62it/s, avg_epoch_loss=5.85]
-INFO:root:Epoch[166] Elapsed time 52.494 seconds
-INFO:root:Epoch[166] Evaluation metric &#39;epoch_loss&#39;=5.845842
-INFO:root:Epoch[167] Learning rate is 0.0005
-100%|██████████| 400/400 [00:46&lt;00:00,  8.58it/s, avg_epoch_loss=5.44]
-INFO:root:Epoch[167] Elapsed time 46.614 seconds
-INFO:root:Epoch[167] Evaluation metric &#39;epoch_loss&#39;=5.436534
-INFO:root:Epoch[168] Learning rate is 0.0005
-100%|██████████| 400/400 [00:50&lt;00:00,  7.90it/s, avg_epoch_loss=5.79]
-INFO:root:Epoch[168] Elapsed time 50.673 seconds
-INFO:root:Epoch[168] Evaluation metric &#39;epoch_loss&#39;=5.786772
-INFO:root:Epoch[169] Learning rate is 0.0005
-100%|██████████| 400/400 [00:46&lt;00:00,  8.66it/s, avg_epoch_loss=5.57]
-INFO:root:Epoch[169] Elapsed time 46.207 seconds
-INFO:root:Epoch[169] Evaluation metric &#39;epoch_loss&#39;=5.565529
-INFO:root:Epoch[170] Learning rate is 0.0005
-100%|██████████| 400/400 [00:46&lt;00:00,  8.69it/s, avg_epoch_loss=5.67]
-INFO:root:Epoch[170] Elapsed time 46.024 seconds
-INFO:root:Epoch[170] Evaluation metric &#39;epoch_loss&#39;=5.671061
-INFO:root:Epoch[171] Learning rate is 0.0005
-100%|██████████| 400/400 [00:51&lt;00:00,  7.84it/s, avg_epoch_loss=5.64]
-INFO:root:Epoch[171] Elapsed time 51.016 seconds
-INFO:root:Epoch[171] Evaluation metric &#39;epoch_loss&#39;=5.638397
-INFO:root:Epoch[172] Learning rate is 0.0005
-100%|██████████| 400/400 [00:46&lt;00:00,  8.67it/s, avg_epoch_loss=5.49]
-INFO:root:Epoch[172] Elapsed time 46.164 seconds
-INFO:root:Epoch[172] Evaluation metric &#39;epoch_loss&#39;=5.486722
-INFO:root:Epoch[173] Learning rate is 0.0005
-100%|██████████| 400/400 [00:49&lt;00:00,  8.04it/s, avg_epoch_loss=5.72]
-INFO:root:Epoch[173] Elapsed time 49.734 seconds
-INFO:root:Epoch[173] Evaluation metric &#39;epoch_loss&#39;=5.720221
-INFO:root:Epoch[174] Learning rate is 0.0005
-100%|██████████| 400/400 [00:46&lt;00:00,  8.52it/s, avg_epoch_loss=5.42]
-INFO:root:Epoch[174] Elapsed time 46.949 seconds
-INFO:root:Epoch[174] Evaluation metric &#39;epoch_loss&#39;=5.423851
-INFO:root:Epoch[175] Learning rate is 0.0005
-100%|██████████| 400/400 [00:47&lt;00:00,  8.47it/s, avg_epoch_loss=5.82]
-INFO:root:Epoch[175] Elapsed time 47.255 seconds
-INFO:root:Epoch[175] Evaluation metric &#39;epoch_loss&#39;=5.823366
-INFO:root:Epoch[176] Learning rate is 0.0005
-100%|██████████| 400/400 [00:49&lt;00:00,  8.02it/s, avg_epoch_loss=5.45]
-INFO:root:Epoch[176] Elapsed time 49.896 seconds
-INFO:root:Epoch[176] Evaluation metric &#39;epoch_loss&#39;=5.449697
-INFO:root:Epoch[177] Learning rate is 0.0005
-100%|██████████| 400/400 [00:46&lt;00:00,  8.63it/s, avg_epoch_loss=5.79]
-INFO:root:Epoch[177] Elapsed time 46.371 seconds
-INFO:root:Epoch[177] Evaluation metric &#39;epoch_loss&#39;=5.786032
-INFO:root:Epoch[178] Learning rate is 0.0005
-100%|██████████| 400/400 [00:49&lt;00:00,  8.11it/s, avg_epoch_loss=5.55]
-INFO:root:Epoch[178] Elapsed time 49.343 seconds
-INFO:root:Epoch[178] Evaluation metric &#39;epoch_loss&#39;=5.547995
-INFO:root:Epoch[179] Learning rate is 0.0005
-100%|██████████| 400/400 [00:46&lt;00:00,  8.69it/s, avg_epoch_loss=5.63]
-INFO:root:Epoch[179] Elapsed time 46.038 seconds
-INFO:root:Epoch[179] Evaluation metric &#39;epoch_loss&#39;=5.629976
-INFO:root:Epoch[180] Learning rate is 0.0005
-100%|██████████| 400/400 [00:46&lt;00:00,  8.69it/s, avg_epoch_loss=5.6] 
-INFO:root:Epoch[180] Elapsed time 46.030 seconds
-INFO:root:Epoch[180] Evaluation metric &#39;epoch_loss&#39;=5.595411
-INFO:root:Epoch[181] Learning rate is 0.0005
-100%|██████████| 400/400 [00:53&lt;00:00,  7.53it/s, avg_epoch_loss=5.45]
-INFO:root:Epoch[181] Elapsed time 53.105 seconds
-INFO:root:Epoch[181] Evaluation metric &#39;epoch_loss&#39;=5.452409
-INFO:root:Epoch[182] Learning rate is 0.0005
-100%|██████████| 400/400 [00:46&lt;00:00,  8.66it/s, avg_epoch_loss=5.71]
-INFO:root:Epoch[182] Elapsed time 46.203 seconds
-INFO:root:Epoch[182] Evaluation metric &#39;epoch_loss&#39;=5.712741
-INFO:root:Epoch[183] Learning rate is 0.0005
-100%|██████████| 400/400 [00:49&lt;00:00,  8.05it/s, avg_epoch_loss=5.42]
-INFO:root:Epoch[183] Elapsed time 49.714 seconds
-INFO:root:Epoch[183] Evaluation metric &#39;epoch_loss&#39;=5.419884
-INFO:root:Epoch[184] Learning rate is 0.0005
-  0%|          | 0/400 [00:00&lt;?, ?it/s]</pre>
+  0%|          | 0/50 [00:00&lt;?, ?it/s]</pre>
 </div>
 </div>
 
@@ -14018,33 +13368,7 @@ INFO:root:Epoch[184] Learning rate is 0.0005
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;estimator&quot;</span><span class="p">,</span> <span class="s2">&quot;MASE&quot;</span><span class="p">,</span> <span class="s2">&quot;sMAPE&quot;</span><span class="p">,</span> <span class="s2">&quot;MSIS&quot;</span><span class="p">,</span> <span class="s2">&quot;wQuantileLoss[0.5]&quot;</span><span class="p">,</span> <span class="s2">&quot;wQuantileLoss[0.9]&quot;</span><span class="p">]]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>jupyter nbconvert --output-dir<span class="o">=</span><span class="s2">&quot;./html_outputs&quot;</span> --to html Test_notebook_for_gpu.ipynb
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done!&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -14058,6 +13382,241 @@ INFO:root:Epoch[184] Learning rate is 0.0005
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">45</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Seed:&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">deep_state</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;m4_weekly&quot;</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">batches</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    
+<span class="n">results</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Seed: 42
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>INFO:root:using dataset already processed in path C:\Users\TM\.mxnet\gluon-ts\datasets\m4_weekly.
+INFO:root:Start model training
+INFO:root:Epoch[0] Learning rate is 0.001
+  0%|          | 0/25 [00:00&lt;?, ?it/s]INFO:root:Number of parameters in DeepStateTrainingNetwork: 50821
+100%|██████████| 25/25 [05:04&lt;00:00, 12.16s/it, avg_epoch_loss=0.247]
+INFO:root:Epoch[0] Elapsed time 304.025 seconds
+INFO:root:Epoch[0] Evaluation metric &#39;epoch_loss&#39;=0.246914
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">MXNetError</span>                                Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">~\Anaconda3\lib\site-packages\gluonts\trainer\_base.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, net, input_names, train_iter)</span>
+<span class="ansi-green-fg">    301</span>                         net.save_parameters(
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 302</span><span class="ansi-yellow-intense-fg ansi-bold">                             </span>best_epoch_info<span class="ansi-yellow-intense-fg ansi-bold">.</span>params_path
+<span class="ansi-green-fg">    303</span>                         )  # TODO: handle possible exception
+
+<span class="ansi-green-intense-fg ansi-bold">~\Anaconda3\lib\site-packages\mxnet\gluon\block.py</span> in <span class="ansi-cyan-fg">save_parameters</span><span class="ansi-blue-intense-fg ansi-bold">(self, filename)</span>
+<span class="ansi-green-fg">    333</span>         arg_dict <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-yellow-intense-fg ansi-bold">{</span>key <span class="ansi-yellow-intense-fg ansi-bold">:</span> val<span class="ansi-yellow-intense-fg ansi-bold">.</span>_reduce<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-green-intense-fg ansi-bold">for</span> key<span class="ansi-yellow-intense-fg ansi-bold">,</span> val <span class="ansi-green-intense-fg ansi-bold">in</span> params<span class="ansi-yellow-intense-fg ansi-bold">.</span>items<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">}</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 334</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>ndarray<span class="ansi-yellow-intense-fg ansi-bold">.</span>save<span class="ansi-yellow-intense-fg ansi-bold">(</span>filename<span class="ansi-yellow-intense-fg ansi-bold">,</span> arg_dict<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    335</span> 
+
+<span class="ansi-green-intense-fg ansi-bold">~\Anaconda3\lib\site-packages\mxnet\ndarray\utils.py</span> in <span class="ansi-cyan-fg">save</span><span class="ansi-blue-intense-fg ansi-bold">(fname, data)</span>
+<span class="ansi-green-fg">    272</span>                                   handles<span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 273</span><span class="ansi-yellow-intense-fg ansi-bold">                                   keys))
+</span>
+<span class="ansi-green-intense-fg ansi-bold">~\Anaconda3\lib\site-packages\mxnet\base.py</span> in <span class="ansi-cyan-fg">check_call</span><span class="ansi-blue-intense-fg ansi-bold">(ret)</span>
+<span class="ansi-green-fg">    251</span>     <span class="ansi-green-intense-fg ansi-bold">if</span> ret <span class="ansi-yellow-intense-fg ansi-bold">!=</span> <span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 252</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">raise</span> MXNetError<span class="ansi-yellow-intense-fg ansi-bold">(</span>py_str<span class="ansi-yellow-intense-fg ansi-bold">(</span>_LIB<span class="ansi-yellow-intense-fg ansi-bold">.</span>MXGetLastError<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    253</span> 
+
+<span class="ansi-red-intense-fg ansi-bold">MXNetError</span>: [19:46:27] C:\Jenkins\workspace\mxnet-tag\mxnet\3rdparty\dmlc-core\src\io\local_filesys.cc:199: Check failed: allow_null  LocalFileSystem::Open &#34;C:\Users\TM\AppData\Local\Temp\gluonts-trainer-temp-m8ui9gar\state_66d0a1b5-d752-42da-a708-02000aefcc05-0000.params&#34;: No such file or directory
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-intense-fg ansi-bold">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;timed exec&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-8-d1e61677f2c8&gt;</span> in <span class="ansi-cyan-fg">deep_state</span><span class="ansi-blue-intense-fg ansi-bold">(seed, data, epochs, batches)</span>
+<span class="ansi-green-fg">     23</span>     )
+<span class="ansi-green-fg">     24</span> 
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 25</span><span class="ansi-yellow-intense-fg ansi-bold">     </span>predictor <span class="ansi-yellow-intense-fg ansi-bold">=</span> estimator<span class="ansi-yellow-intense-fg ansi-bold">.</span>train<span class="ansi-yellow-intense-fg ansi-bold">(</span>dataset<span class="ansi-yellow-intense-fg ansi-bold">.</span>train<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     26</span> 
+<span class="ansi-green-fg">     27</span>     forecast_it, ts_it = make_evaluation_predictions(
+
+<span class="ansi-green-intense-fg ansi-bold">~\Anaconda3\lib\site-packages\gluonts\model\estimator.py</span> in <span class="ansi-cyan-fg">train</span><span class="ansi-blue-intense-fg ansi-bold">(self, training_data)</span>
+<span class="ansi-green-fg">    199</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> train<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> training_data<span class="ansi-yellow-intense-fg ansi-bold">:</span> Dataset<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">-&gt;</span> Predictor<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    200</span> 
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 201</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">return</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>train_model<span class="ansi-yellow-intense-fg ansi-bold">(</span>training_data<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>predictor
+
+<span class="ansi-green-intense-fg ansi-bold">~\Anaconda3\lib\site-packages\gluonts\model\estimator.py</span> in <span class="ansi-cyan-fg">train_model</span><span class="ansi-blue-intense-fg ansi-bold">(self, training_data)</span>
+<span class="ansi-green-fg">    185</span>             net<span class="ansi-yellow-intense-fg ansi-bold">=</span>trained_net<span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-fg">    186</span>             input_names<span class="ansi-yellow-intense-fg ansi-bold">=</span>get_hybrid_forward_input_names<span class="ansi-yellow-intense-fg ansi-bold">(</span>trained_net<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 187</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>train_iter<span class="ansi-yellow-intense-fg ansi-bold">=</span>training_data_loader<span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-fg">    188</span>         )
+<span class="ansi-green-fg">    189</span> 
+
+<span class="ansi-green-intense-fg ansi-bold">~\Anaconda3\lib\site-packages\gluonts\trainer\_base.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, net, input_names, train_iter)</span>
+<span class="ansi-green-fg">    326</span>                 net<span class="ansi-yellow-intense-fg ansi-bold">.</span>save_parameters<span class="ansi-yellow-intense-fg ansi-bold">(</span>best_epoch_info<span class="ansi-yellow-intense-fg ansi-bold">.</span>params_path<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    327</span> 
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 328</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>logging<span class="ansi-yellow-intense-fg ansi-bold">.</span>getLogger<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>info<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;End model training&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\Anaconda3\lib\tempfile.py</span> in <span class="ansi-cyan-fg">__exit__</span><span class="ansi-blue-intense-fg ansi-bold">(self, exc, value, tb)</span>
+<span class="ansi-green-fg">    807</span> 
+<span class="ansi-green-fg">    808</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> __exit__<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> exc<span class="ansi-yellow-intense-fg ansi-bold">,</span> value<span class="ansi-yellow-intense-fg ansi-bold">,</span> tb<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 809</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>cleanup<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    810</span> 
+<span class="ansi-green-fg">    811</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> cleanup<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\Anaconda3\lib\tempfile.py</span> in <span class="ansi-cyan-fg">cleanup</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
+<span class="ansi-green-fg">    811</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> cleanup<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    812</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_finalizer<span class="ansi-yellow-intense-fg ansi-bold">.</span>detach<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 813</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>_shutil<span class="ansi-yellow-intense-fg ansi-bold">.</span>rmtree<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>name<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\Anaconda3\lib\shutil.py</span> in <span class="ansi-cyan-fg">rmtree</span><span class="ansi-blue-intense-fg ansi-bold">(path, ignore_errors, onerror)</span>
+<span class="ansi-green-fg">    498</span>             os<span class="ansi-yellow-intense-fg ansi-bold">.</span>close<span class="ansi-yellow-intense-fg ansi-bold">(</span>fd<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    499</span>     <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 500</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">return</span> _rmtree_unsafe<span class="ansi-yellow-intense-fg ansi-bold">(</span>path<span class="ansi-yellow-intense-fg ansi-bold">,</span> onerror<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    501</span> 
+<span class="ansi-green-fg">    502</span> <span class="ansi-red-intense-fg ansi-bold"># Allow introspection of whether or not the hardening against symlink</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\Anaconda3\lib\shutil.py</span> in <span class="ansi-cyan-fg">_rmtree_unsafe</span><span class="ansi-blue-intense-fg ansi-bold">(path, onerror)</span>
+<span class="ansi-green-fg">    380</span>         names <span class="ansi-yellow-intense-fg ansi-bold">=</span> os<span class="ansi-yellow-intense-fg ansi-bold">.</span>listdir<span class="ansi-yellow-intense-fg ansi-bold">(</span>path<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    381</span>     <span class="ansi-green-intense-fg ansi-bold">except</span> OSError<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 382</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>onerror<span class="ansi-yellow-intense-fg ansi-bold">(</span>os<span class="ansi-yellow-intense-fg ansi-bold">.</span>listdir<span class="ansi-yellow-intense-fg ansi-bold">,</span> path<span class="ansi-yellow-intense-fg ansi-bold">,</span> sys<span class="ansi-yellow-intense-fg ansi-bold">.</span>exc_info<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    383</span>     <span class="ansi-green-intense-fg ansi-bold">for</span> name <span class="ansi-green-intense-fg ansi-bold">in</span> names<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    384</span>         fullname <span class="ansi-yellow-intense-fg ansi-bold">=</span> os<span class="ansi-yellow-intense-fg ansi-bold">.</span>path<span class="ansi-yellow-intense-fg ansi-bold">.</span>join<span class="ansi-yellow-intense-fg ansi-bold">(</span>path<span class="ansi-yellow-intense-fg ansi-bold">,</span> name<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\Anaconda3\lib\shutil.py</span> in <span class="ansi-cyan-fg">_rmtree_unsafe</span><span class="ansi-blue-intense-fg ansi-bold">(path, onerror)</span>
+<span class="ansi-green-fg">    378</span>     names <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
+<span class="ansi-green-fg">    379</span>     <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 380</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>names <span class="ansi-yellow-intense-fg ansi-bold">=</span> os<span class="ansi-yellow-intense-fg ansi-bold">.</span>listdir<span class="ansi-yellow-intense-fg ansi-bold">(</span>path<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    381</span>     <span class="ansi-green-intense-fg ansi-bold">except</span> OSError<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    382</span>         onerror<span class="ansi-yellow-intense-fg ansi-bold">(</span>os<span class="ansi-yellow-intense-fg ansi-bold">.</span>listdir<span class="ansi-yellow-intense-fg ansi-bold">,</span> path<span class="ansi-yellow-intense-fg ansi-bold">,</span> sys<span class="ansi-yellow-intense-fg ansi-bold">.</span>exc_info<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-red-intense-fg ansi-bold">FileNotFoundError</span>: [WinError 3] Das System kann den angegebenen Pfad nicht finden: &#39;C:\\Users\\TM\\AppData\\Local\\Temp\\gluonts-trainer-temp-m8ui9gar&#39;</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="DeepState---use_feat_static=False">DeepState - use_feat_static=False<a class="anchor-link" href="#DeepState---use_feat_static=False">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">deep_state_no_feat</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s2">&quot;m4_daily&quot;</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">batches</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">get_dataset</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="n">mx</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    
+    <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+        <span class="n">ctx</span><span class="o">=</span><span class="n">mx</span><span class="o">.</span><span class="n">cpu</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+<span class="c1">#         ctx=mx.gpu(0),</span>
+        <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span>
+        <span class="n">num_batches_per_epoch</span><span class="o">=</span><span class="n">batches</span><span class="p">,</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">cardinality</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">feat_static_cat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cardinality</span><span class="p">)</span>
+    <span class="n">estimator</span> <span class="o">=</span> <span class="n">DeepStateEstimator</span><span class="p">(</span>
+        <span class="n">trainer</span><span class="o">=</span><span class="n">trainer</span><span class="p">,</span>
+        <span class="n">prediction_length</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">prediction_length</span><span class="p">,</span>
+        <span class="n">freq</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span>
+<span class="c1">#         past_length=48,</span>
+<span class="c1">#         use_feat_static_cat=True,</span>
+<span class="c1">#         cardinality=[cardinality],</span>
+    <span class="p">)</span>
+
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
+
+    <span class="n">forecast_it</span><span class="p">,</span> <span class="n">ts_it</span> <span class="o">=</span> <span class="n">make_evaluation_predictions</span><span class="p">(</span>
+        <span class="n">dataset</span><span class="o">.</span><span class="n">test</span><span class="p">,</span> <span class="n">predictor</span><span class="o">=</span><span class="n">predictor</span><span class="p">,</span> <span class="n">num_eval_samples</span><span class="o">=</span><span class="mi">100</span>
+    <span class="p">)</span>
+
+    <span class="n">agg_metrics</span><span class="p">,</span> <span class="n">item_metrics</span> <span class="o">=</span> <span class="n">Evaluator</span><span class="p">()(</span>
+        <span class="n">ts_it</span><span class="p">,</span> <span class="n">forecast_it</span><span class="p">,</span> <span class="n">num_series</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MASE&quot;</span><span class="p">,</span> <span class="s2">&quot;sMAPE&quot;</span><span class="p">,</span> <span class="s2">&quot;MSIS&quot;</span><span class="p">,</span> <span class="s2">&quot;wQuantileLoss[0.5]&quot;</span><span class="p">,</span> <span class="s2">&quot;wQuantileLoss[0.9]&quot;</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">agg_metrics</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">}</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">epochs</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;seed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">seed</span>
+
+    <span class="n">pprint</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">45</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Seed:&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">deep_state_no_feat</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;m4_monthly&quot;</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batches</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    
+<span class="n">results</span>
 </pre></div>
 
     </div>
