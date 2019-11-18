@@ -13017,6 +13017,45 @@ ul.typeahead-list  > li > a.pull-right {
 .highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
+<style type="text/css">
+    
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+
+    </style>
 
 
 <style type="text/css">
@@ -13080,8 +13119,9 @@ div#notebook {
 <h1 id="DeepState---Experiments">DeepState - Experiments<a class="anchor-link" href="#DeepState---Experiments">&#182;</a></h1><ul>
 <li>Using DeepState with gluonts to run some experiments</li>
 <li>Follow this installation guide: <a href="http://gluon-ts-staging.s3-accelerate.dualstack.amazonaws.com/PR-271/4/install.html">http://gluon-ts-staging.s3-accelerate.dualstack.amazonaws.com/PR-271/4/install.html</a></li>
+<li>Important note! DeepState, DF-RNN are only released for versions "0.4.*"</li>
+<li>For development version, follow <strong>Install from Source Code</strong> (which I did) <strong>Install from Github</strong></li>
 </ul>
-<p>Important note! Some of these models are not yet released in version "0.3.3" which is currently the most recent version on pypi from where you install packages via <code>pip install</code>. Hence, you should follow <strong>Install from Source Code</strong> (which I did) <strong>Install from Github</strong></p>
 <h3 id="Deep-State-Space-Models-(Rangapuram-et-al.,-2018)">Deep State Space Models (Rangapuram et al., 2018)<a class="anchor-link" href="#Deep-State-Space-Models-(Rangapuram-et-al.,-2018)">&#182;</a></h3><p><strong>DeepState</strong> combines state space models (SSM) with a recurrent neural network (RNN). The SSM is applied <em>locally</em> to the individual time series that is parametrized using a <em>global</em> representation in form of a RNN. The RNN is trained on the entire dataset.</p>
 <ul>
 <li><a href="http://gluon-ts.mxnet.io/master/api/gluonts/gluonts.model.deepstate.html#gluonts.model.deepstate.DeepStateEstimator"><code>DeepStateEstimator</code></a></li>
@@ -13095,8 +13135,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">gluonts</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gluonts</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install <span class="nv">mxnet</span><span class="o">==</span><span class="s2">&quot;1.4.1&quot;</span>
 </pre></div>
 
     </div>
@@ -13113,7 +13152,21 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0.4.1
+<pre>Collecting mxnet==1.4.1
+  Downloading https://files.pythonhosted.org/packages/58/f4/bc147a1ba7175f9890523ff8f1a928a43ac8a79d5897a067158cac4d092f/mxnet-1.4.1-py2.py3-none-manylinux1_x86_64.whl (28.4MB)
+    100% |████████████████████████████████| 28.4MB 1.9MB/s eta 0:00:011
+Collecting graphviz&lt;0.9.0,&gt;=0.8.1 (from mxnet==1.4.1)
+  Downloading https://files.pythonhosted.org/packages/53/39/4ab213673844e0c004bed8a0781a0721a3f6bb23eb8854ee75c236428892/graphviz-0.8.4-py2.py3-none-any.whl
+Requirement already satisfied: numpy&lt;1.15.0,&gt;=1.8.2 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from mxnet==1.4.1) (1.14.3)
+Requirement already satisfied: requests&gt;=2.20.0 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from mxnet==1.4.1) (2.20.0)
+Requirement already satisfied: idna&lt;2.8,&gt;=2.5 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from requests&gt;=2.20.0-&gt;mxnet==1.4.1) (2.6)
+Requirement already satisfied: chardet&lt;3.1.0,&gt;=3.0.2 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from requests&gt;=2.20.0-&gt;mxnet==1.4.1) (3.0.4)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from requests&gt;=2.20.0-&gt;mxnet==1.4.1) (2019.9.11)
+Requirement already satisfied: urllib3&lt;1.25,&gt;=1.21.1 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from requests&gt;=2.20.0-&gt;mxnet==1.4.1) (1.23)
+Installing collected packages: graphviz, mxnet
+Successfully installed graphviz-0.8.4 mxnet-1.4.1
+<span class="ansi-yellow-fg">You are using pip version 10.0.1, however version 19.3.1 is available.
+You should consider upgrading via the &#39;pip install --upgrade pip&#39; command.</span>
 </pre>
 </div>
 </div>
@@ -13127,7 +13180,157 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if version does not include DeepState, uncomment the following:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install gluonts
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Collecting gluonts
+  Downloading https://files.pythonhosted.org/packages/04/23/9ab41dbd19dd39bb0ce881cefa3f2a004564cba6888d014a42b2ea57105f/gluonts-0.4.1-py3-none-any.whl (322kB)
+    100% |████████████████████████████████| 327kB 40.0MB/s ta 0:00:01
+Requirement already satisfied: numpy==1.14.* in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from gluonts) (1.14.3)
+Collecting holidays==0.9.* (from gluonts)
+  Downloading https://files.pythonhosted.org/packages/d0/17/a452275a0b3e811a381137ff6a61649086af4c5bf2a25755f518cc64b39e/holidays-0.9.11.tar.gz (81kB)
+    100% |████████████████████████████████| 81kB 48.2MB/s ta 0:00:01
+Collecting tqdm&gt;=4.23.0 (from gluonts)
+  Downloading https://files.pythonhosted.org/packages/b9/08/8505f192efc72bfafec79655e1d8351d219e2b80b0dec4ae71f50934c17a/tqdm-4.38.0-py2.py3-none-any.whl (53kB)
+    100% |████████████████████████████████| 61kB 34.7MB/s ta 0:00:01
+Collecting pydantic==0.28.* (from gluonts)
+  Downloading https://files.pythonhosted.org/packages/0a/bc/fe7d98f0b4b1e72d0c444f343a798461c1f9d8656fb1c335416dbb8b7976/pydantic-0.28-cp36-cp36m-manylinux1_x86_64.whl (4.8MB)
+    100% |████████████████████████████████| 4.8MB 10.6MB/s ta 0:00:011
+Collecting ujson&gt;=1.35 (from gluonts)
+  Downloading https://files.pythonhosted.org/packages/16/c4/79f3409bc710559015464e5f49b9879430d8f87498ecdc335899732e5377/ujson-1.35.tar.gz (192kB)
+    100% |████████████████████████████████| 194kB 54.2MB/s ta 0:00:01
+Collecting pandas&gt;=0.25.0 (from gluonts)
+  Downloading https://files.pythonhosted.org/packages/52/3f/f6a428599e0d4497e1595030965b5ba455fd8ade6e977e3c819973c4b41d/pandas-0.25.3-cp36-cp36m-manylinux1_x86_64.whl (10.4MB)
+    100% |████████████████████████████████| 10.4MB 5.1MB/s eta 0:00:011
+Collecting python-dateutil==2.8.0 (from gluonts)
+  Using cached https://files.pythonhosted.org/packages/41/17/c62faccbfbd163c7f57f3844689e3a78bae1f403648a6afb1d0866d87fbb/python_dateutil-2.8.0-py2.py3-none-any.whl
+Requirement already satisfied: boto3==1.* in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from gluonts) (1.10.17)
+Requirement already satisfied: matplotlib==3.* in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from gluonts) (3.0.3)
+Requirement already satisfied: six in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from holidays==0.9.*-&gt;gluonts) (1.11.0)
+Collecting dataclasses&gt;=0.6; python_version &lt; &#34;3.7&#34; (from pydantic==0.28.*-&gt;gluonts)
+  Downloading https://files.pythonhosted.org/packages/e1/d2/6f02df2616fd4016075f60157c7a0452b38d8f7938ae94343911e0fb0b09/dataclasses-0.7-py3-none-any.whl
+Requirement already satisfied: pytz&gt;=2017.2 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from pandas&gt;=0.25.0-&gt;gluonts) (2018.4)
+Requirement already satisfied: botocore&lt;1.14.0,&gt;=1.13.17 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from boto3==1.*-&gt;gluonts) (1.13.17)
+Requirement already satisfied: jmespath&lt;1.0.0,&gt;=0.7.1 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from boto3==1.*-&gt;gluonts) (0.9.4)
+Requirement already satisfied: s3transfer&lt;0.3.0,&gt;=0.2.0 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from boto3==1.*-&gt;gluonts) (0.2.1)
+Requirement already satisfied: cycler&gt;=0.10 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from matplotlib==3.*-&gt;gluonts) (0.10.0)
+Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.1 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from matplotlib==3.*-&gt;gluonts) (2.2.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from matplotlib==3.*-&gt;gluonts) (1.0.1)
+Requirement already satisfied: docutils&lt;0.16,&gt;=0.10 in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from botocore&lt;1.14.0,&gt;=1.13.17-&gt;boto3==1.*-&gt;gluonts) (0.14)
+Requirement already satisfied: urllib3&lt;1.26,&gt;=1.20; python_version &gt;= &#34;3.4&#34; in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from botocore&lt;1.14.0,&gt;=1.13.17-&gt;boto3==1.*-&gt;gluonts) (1.23)
+Requirement already satisfied: setuptools in /home/ec2-user/anaconda3/envs/python3/lib/python3.6/site-packages (from kiwisolver&gt;=1.0.1-&gt;matplotlib==3.*-&gt;gluonts) (39.1.0)
+Building wheels for collected packages: holidays, ujson
+  Running setup.py bdist_wheel for holidays ... done
+  Stored in directory: /home/ec2-user/.cache/pip/wheels/40/a9/2b/94ac5464363d37564a87dc93a9d21a5850aac14a4608197003
+  Running setup.py bdist_wheel for ujson ... done
+  Stored in directory: /home/ec2-user/.cache/pip/wheels/28/77/e4/0311145b9c2e2f01470e744855131f9e34d6919687550f87d1
+Successfully built holidays ujson
+Installing collected packages: python-dateutil, holidays, tqdm, dataclasses, pydantic, ujson, pandas, gluonts
+  Found existing installation: python-dateutil 2.7.3
+    Uninstalling python-dateutil-2.7.3:
+      Successfully uninstalled python-dateutil-2.7.3
+  Found existing installation: pandas 0.24.2
+    Uninstalling pandas-0.24.2:
+      Successfully uninstalled pandas-0.24.2
+Successfully installed dataclasses-0.7 gluonts-0.4.1 holidays-0.9.11 pandas-0.25.3 pydantic-0.28 python-dateutil-2.8.0 tqdm-4.38.0 ujson-1.35
+<span class="ansi-yellow-fg">You are using pip version 10.0.1, however version 19.3.1 is available.
+You should consider upgrading via the &#39;pip install --upgrade pip&#39; command.</span>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">gluonts</span>
+<span class="n">gluonts</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;0.4.1&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">mxnet</span>
+<span class="n">mxnet</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;1.4.1&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if version does not include DeepState, uncomment the following, install development version:</span>
 <span class="c1"># !pip install git+https://github.com/awslabs/gluon-ts.git</span>
 
 
@@ -13185,7 +13388,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">deep_state</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s2">&quot;m4_quarterly&quot;</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batches</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
@@ -13212,7 +13415,7 @@ div#notebook {
         <span class="n">cardinality</span><span class="o">=</span><span class="p">[</span><span class="n">cardinality</span><span class="p">],</span>
     <span class="p">)</span>
 
-    <span class="n">predictor</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">training_data</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
 
     <span class="n">forecast_it</span><span class="p">,</span> <span class="n">ts_it</span> <span class="o">=</span> <span class="n">make_evaluation_predictions</span><span class="p">(</span>
         <span class="n">dataset</span><span class="o">.</span><span class="n">test</span><span class="p">,</span> <span class="n">predictor</span><span class="o">=</span><span class="n">predictor</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">100</span>
@@ -13236,12 +13439,12 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
-<span class="n">res</span> <span class="o">=</span> <span class="n">deep_state</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;m4_weekly&quot;</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batches</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="n">pprint</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">time</span>
+res = deep_state(data=&quot;m4_weekly&quot;, seed=42, epochs=100, batches=50)
+pprint(res)
 </pre></div>
 
     </div>
@@ -13258,111 +13461,1840 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>INFO:root:using dataset already processed in path C:\Users\TM\.mxnet\gluon-ts\datasets\m4_weekly.
-INFO:root:Using CPU
-INFO:root:Start model training
-INFO:root:Epoch[0] Learning rate is 0.001
-  0%|          | 0/50 [00:00&lt;?, ?it/s]INFO:root:Number of parameters in DeepStateTrainingNetwork: 50821
-100%|██████████| 50/50 [04:25&lt;00:00,  5.30s/it, avg_epoch_loss=0.0381]
-INFO:root:Epoch[0] Elapsed time 265.248 seconds
-INFO:root:Epoch[0] Evaluation metric &#39;epoch_loss&#39;=0.038141
-INFO:root:Epoch[1] Learning rate is 0.001
-100%|██████████| 50/50 [04:22&lt;00:00,  5.25s/it, avg_epoch_loss=-.403]
-INFO:root:Epoch[1] Elapsed time 262.630 seconds
-INFO:root:Epoch[1] Evaluation metric &#39;epoch_loss&#39;=-0.402955
-INFO:root:Epoch[2] Learning rate is 0.001
-100%|██████████| 50/50 [04:22&lt;00:00,  5.25s/it, avg_epoch_loss=-.806]
-INFO:root:Epoch[2] Elapsed time 262.296 seconds
-INFO:root:Epoch[2] Evaluation metric &#39;epoch_loss&#39;=-0.806100
-INFO:root:Epoch[3] Learning rate is 0.001
-100%|██████████| 50/50 [04:18&lt;00:00,  5.18s/it, avg_epoch_loss=-.972]
-INFO:root:Epoch[3] Elapsed time 258.823 seconds
-INFO:root:Epoch[3] Evaluation metric &#39;epoch_loss&#39;=-0.972448
-INFO:root:Epoch[4] Learning rate is 0.001
-100%|██████████| 50/50 [04:18&lt;00:00,  5.17s/it, avg_epoch_loss=-1.04]
-INFO:root:Epoch[4] Elapsed time 258.466 seconds
-INFO:root:Epoch[4] Evaluation metric &#39;epoch_loss&#39;=-1.035251
-INFO:root:Epoch[5] Learning rate is 0.001
-100%|██████████| 50/50 [04:18&lt;00:00,  5.17s/it, avg_epoch_loss=-1.4] 
-INFO:root:Epoch[5] Elapsed time 258.744 seconds
-INFO:root:Epoch[5] Evaluation metric &#39;epoch_loss&#39;=-1.400258
-INFO:root:Epoch[6] Learning rate is 0.001
-100%|██████████| 50/50 [04:19&lt;00:00,  5.19s/it, avg_epoch_loss=-1.41]
-INFO:root:Epoch[6] Elapsed time 259.534 seconds
-INFO:root:Epoch[6] Evaluation metric &#39;epoch_loss&#39;=-1.410588
-INFO:root:Epoch[7] Learning rate is 0.001
-100%|██████████| 50/50 [04:16&lt;00:00,  5.14s/it, avg_epoch_loss=-1.58]
-INFO:root:Epoch[7] Elapsed time 256.797 seconds
-INFO:root:Epoch[7] Evaluation metric &#39;epoch_loss&#39;=-1.577966
-INFO:root:Epoch[8] Learning rate is 0.001
-100%|██████████| 50/50 [04:20&lt;00:00,  5.20s/it, avg_epoch_loss=-1.53]
-INFO:root:Epoch[8] Elapsed time 260.242 seconds
-INFO:root:Epoch[8] Evaluation metric &#39;epoch_loss&#39;=-1.526957
-INFO:root:Epoch[9] Learning rate is 0.001
-100%|██████████| 50/50 [04:18&lt;00:00,  5.17s/it, avg_epoch_loss=-1.62]
-INFO:root:Epoch[9] Elapsed time 258.588 seconds
-INFO:root:Epoch[9] Evaluation metric &#39;epoch_loss&#39;=-1.618901
-INFO:root:Epoch[10] Learning rate is 0.001
-100%|██████████| 50/50 [04:17&lt;00:00,  5.16s/it, avg_epoch_loss=-1.62]
-INFO:root:Epoch[10] Elapsed time 257.955 seconds
-INFO:root:Epoch[10] Evaluation metric &#39;epoch_loss&#39;=-1.621460
-INFO:root:Epoch[11] Learning rate is 0.001
-100%|██████████| 50/50 [04:17&lt;00:00,  5.16s/it, avg_epoch_loss=-1.63]
-INFO:root:Epoch[11] Elapsed time 257.819 seconds
-INFO:root:Epoch[11] Evaluation metric &#39;epoch_loss&#39;=-1.629691
-INFO:root:Epoch[12] Learning rate is 0.001
-100%|██████████| 50/50 [04:15&lt;00:00,  5.11s/it, avg_epoch_loss=-1.69]
-INFO:root:Epoch[12] Elapsed time 255.647 seconds
-INFO:root:Epoch[12] Evaluation metric &#39;epoch_loss&#39;=-1.690451
-INFO:root:Epoch[13] Learning rate is 0.001
-100%|██████████| 50/50 [04:14&lt;00:00,  5.08s/it, avg_epoch_loss=-1.63]
-INFO:root:Epoch[13] Elapsed time 254.154 seconds
-INFO:root:Epoch[13] Evaluation metric &#39;epoch_loss&#39;=-1.625868
-INFO:root:Epoch[14] Learning rate is 0.001
-100%|██████████| 50/50 [04:12&lt;00:00,  5.04s/it, avg_epoch_loss=-1.74]
-INFO:root:Epoch[14] Elapsed time 252.148 seconds
-INFO:root:Epoch[14] Evaluation metric &#39;epoch_loss&#39;=-1.737424
-INFO:root:Epoch[15] Learning rate is 0.001
-100%|██████████| 50/50 [04:14&lt;00:00,  5.08s/it, avg_epoch_loss=-1.65]
-INFO:root:Epoch[15] Elapsed time 254.140 seconds
-INFO:root:Epoch[15] Evaluation metric &#39;epoch_loss&#39;=-1.648217
-INFO:root:Epoch[16] Learning rate is 0.001
-100%|██████████| 50/50 [04:13&lt;00:00,  5.06s/it, avg_epoch_loss=-1.76]
-INFO:root:Epoch[16] Elapsed time 253.215 seconds
-INFO:root:Epoch[16] Evaluation metric &#39;epoch_loss&#39;=-1.764318
-INFO:root:Epoch[17] Learning rate is 0.001
-100%|██████████| 50/50 [04:10&lt;00:00,  5.02s/it, avg_epoch_loss=-1.69]
-INFO:root:Epoch[17] Elapsed time 250.877 seconds
-INFO:root:Epoch[17] Evaluation metric &#39;epoch_loss&#39;=-1.688523
-INFO:root:Epoch[18] Learning rate is 0.001
-100%|██████████| 50/50 [04:29&lt;00:00,  5.40s/it, avg_epoch_loss=-1.75]
-INFO:root:Epoch[18] Elapsed time 269.914 seconds
-INFO:root:Epoch[18] Evaluation metric &#39;epoch_loss&#39;=-1.750841
-INFO:root:Epoch[19] Learning rate is 0.001
-100%|██████████| 50/50 [10:41&lt;00:00, 12.82s/it, avg_epoch_loss=-1.75]
-INFO:root:Epoch[19] Elapsed time 641.063 seconds
-INFO:root:Epoch[19] Evaluation metric &#39;epoch_loss&#39;=-1.745444
-INFO:root:Epoch[20] Learning rate is 0.001
-100%|██████████| 50/50 [11:33&lt;00:00, 13.88s/it, avg_epoch_loss=-1.74]
-INFO:root:Epoch[20] Elapsed time 693.851 seconds
-INFO:root:Epoch[20] Evaluation metric &#39;epoch_loss&#39;=-1.738468
-INFO:root:Epoch[21] Learning rate is 0.001
-100%|██████████| 50/50 [12:15&lt;00:00, 14.72s/it, avg_epoch_loss=-1.8] 
-INFO:root:Epoch[21] Elapsed time 735.948 seconds
-INFO:root:Epoch[21] Evaluation metric &#39;epoch_loss&#39;=-1.797790
-INFO:root:Epoch[22] Learning rate is 0.001
-100%|██████████| 50/50 [14:46&lt;00:00, 17.73s/it, avg_epoch_loss=-1.72]
-INFO:root:Epoch[22] Elapsed time 886.596 seconds
-INFO:root:Epoch[22] Evaluation metric &#39;epoch_loss&#39;=-1.724423
-INFO:root:Epoch[23] Learning rate is 0.001
-100%|██████████| 50/50 [15:09&lt;00:00, 18.20s/it, avg_epoch_loss=-1.83]
-INFO:root:Epoch[23] Elapsed time 909.974 seconds
-INFO:root:Epoch[23] Evaluation metric &#39;epoch_loss&#39;=-1.834430
-INFO:root:Epoch[24] Learning rate is 0.001
- 96%|█████████▌| 48/50 [13:41&lt;00:35, 17.69s/it, avg_epoch_loss=-1.72]</pre>
+<pre>INFO:root:downloading and processing m4_weekly
+</pre>
 </div>
 </div>
 
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saving time-series into /home/ec2-user/.mxnet/gluon-ts/datasets/m4_weekly/train/data.json
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>INFO:root:Using CPU
+INFO:root:Start model training
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saving time-series into /home/ec2-user/.mxnet/gluon-ts/datasets/m4_weekly/test/data.json
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>INFO:root:Epoch[0] Learning rate is 0.001
+  0%|          | 0/50 [00:00&lt;?, ?it/s]INFO:root:Number of parameters in DeepStateTrainingNetwork: 50821
+100%|██████████| 50/50 [02:03&lt;00:00,  2.47s/it, avg_epoch_loss=0.0381]
+INFO:root:Epoch[0] Elapsed time 123.567 seconds
+INFO:root:Epoch[0] Evaluation metric &#39;epoch_loss&#39;=0.038141
+INFO:root:Epoch[1] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-.403]
+INFO:root:Epoch[1] Elapsed time 120.729 seconds
+INFO:root:Epoch[1] Evaluation metric &#39;epoch_loss&#39;=-0.402955
+INFO:root:Epoch[2] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-.806]
+INFO:root:Epoch[2] Elapsed time 121.399 seconds
+INFO:root:Epoch[2] Evaluation metric &#39;epoch_loss&#39;=-0.806100
+INFO:root:Epoch[3] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-.972]
+INFO:root:Epoch[3] Elapsed time 120.311 seconds
+INFO:root:Epoch[3] Evaluation metric &#39;epoch_loss&#39;=-0.972448
+INFO:root:Epoch[4] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.42s/it, avg_epoch_loss=-1.04]
+INFO:root:Epoch[4] Elapsed time 120.756 seconds
+INFO:root:Epoch[4] Evaluation metric &#39;epoch_loss&#39;=-1.035251
+INFO:root:Epoch[5] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-1.4] 
+INFO:root:Epoch[5] Elapsed time 120.519 seconds
+INFO:root:Epoch[5] Evaluation metric &#39;epoch_loss&#39;=-1.400258
+INFO:root:Epoch[6] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-1.41]
+INFO:root:Epoch[6] Elapsed time 120.503 seconds
+INFO:root:Epoch[6] Evaluation metric &#39;epoch_loss&#39;=-1.410588
+INFO:root:Epoch[7] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-1.58]
+INFO:root:Epoch[7] Elapsed time 121.034 seconds
+INFO:root:Epoch[7] Evaluation metric &#39;epoch_loss&#39;=-1.577965
+INFO:root:Epoch[8] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-1.53]
+INFO:root:Epoch[8] Elapsed time 120.453 seconds
+INFO:root:Epoch[8] Evaluation metric &#39;epoch_loss&#39;=-1.526957
+INFO:root:Epoch[9] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-1.62]
+INFO:root:Epoch[9] Elapsed time 120.295 seconds
+INFO:root:Epoch[9] Evaluation metric &#39;epoch_loss&#39;=-1.618910
+INFO:root:Epoch[10] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-1.62]
+INFO:root:Epoch[10] Elapsed time 120.713 seconds
+INFO:root:Epoch[10] Evaluation metric &#39;epoch_loss&#39;=-1.621477
+INFO:root:Epoch[11] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-1.63]
+INFO:root:Epoch[11] Elapsed time 121.011 seconds
+INFO:root:Epoch[11] Evaluation metric &#39;epoch_loss&#39;=-1.630854
+INFO:root:Epoch[12] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-1.69]
+INFO:root:Epoch[12] Elapsed time 120.270 seconds
+INFO:root:Epoch[12] Evaluation metric &#39;epoch_loss&#39;=-1.689608
+INFO:root:Epoch[13] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-1.62]
+INFO:root:Epoch[13] Elapsed time 120.725 seconds
+INFO:root:Epoch[13] Evaluation metric &#39;epoch_loss&#39;=-1.621853
+INFO:root:Epoch[14] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-1.74]
+INFO:root:Epoch[14] Elapsed time 121.023 seconds
+INFO:root:Epoch[14] Evaluation metric &#39;epoch_loss&#39;=-1.736941
+INFO:root:Epoch[15] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-1.66]
+INFO:root:Epoch[15] Elapsed time 120.604 seconds
+INFO:root:Epoch[15] Evaluation metric &#39;epoch_loss&#39;=-1.656025
+INFO:root:Epoch[16] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-1.76]
+INFO:root:Epoch[16] Elapsed time 121.131 seconds
+INFO:root:Epoch[16] Evaluation metric &#39;epoch_loss&#39;=-1.755903
+INFO:root:Epoch[17] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-1.68]
+INFO:root:Epoch[17] Elapsed time 121.487 seconds
+INFO:root:Epoch[17] Evaluation metric &#39;epoch_loss&#39;=-1.680936
+INFO:root:Epoch[18] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-1.76]
+INFO:root:Epoch[18] Elapsed time 121.185 seconds
+INFO:root:Epoch[18] Evaluation metric &#39;epoch_loss&#39;=-1.761645
+INFO:root:Epoch[19] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.44s/it, avg_epoch_loss=-1.74]
+INFO:root:Epoch[19] Elapsed time 121.980 seconds
+INFO:root:Epoch[19] Evaluation metric &#39;epoch_loss&#39;=-1.742792
+INFO:root:Epoch[20] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.44s/it, avg_epoch_loss=-1.73]
+INFO:root:Epoch[20] Elapsed time 122.100 seconds
+INFO:root:Epoch[20] Evaluation metric &#39;epoch_loss&#39;=-1.731352
+INFO:root:Epoch[21] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-1.79]
+INFO:root:Epoch[21] Elapsed time 120.556 seconds
+INFO:root:Epoch[21] Evaluation metric &#39;epoch_loss&#39;=-1.793519
+INFO:root:Epoch[22] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.46s/it, avg_epoch_loss=-1.72]
+INFO:root:Epoch[22] Elapsed time 122.856 seconds
+INFO:root:Epoch[22] Evaluation metric &#39;epoch_loss&#39;=-1.722636
+INFO:root:Epoch[23] Learning rate is 0.001
+100%|██████████| 50/50 [02:03&lt;00:00,  2.46s/it, avg_epoch_loss=-1.83]
+INFO:root:Epoch[23] Elapsed time 123.227 seconds
+INFO:root:Epoch[23] Evaluation metric &#39;epoch_loss&#39;=-1.832886
+INFO:root:Epoch[24] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.44s/it, avg_epoch_loss=-1.73]
+INFO:root:Epoch[24] Elapsed time 121.913 seconds
+INFO:root:Epoch[24] Evaluation metric &#39;epoch_loss&#39;=-1.727929
+INFO:root:Epoch[25] Learning rate is 0.001
+100%|██████████| 50/50 [02:03&lt;00:00,  2.47s/it, avg_epoch_loss=-1.85]
+INFO:root:Epoch[25] Elapsed time 123.516 seconds
+INFO:root:Epoch[25] Evaluation metric &#39;epoch_loss&#39;=-1.852091
+INFO:root:Epoch[26] Learning rate is 0.001
+100%|██████████| 50/50 [02:04&lt;00:00,  2.48s/it, avg_epoch_loss=-1.78]
+INFO:root:Epoch[26] Elapsed time 124.111 seconds
+INFO:root:Epoch[26] Evaluation metric &#39;epoch_loss&#39;=-1.779593
+INFO:root:Epoch[27] Learning rate is 0.001
+100%|██████████| 50/50 [02:03&lt;00:00,  2.46s/it, avg_epoch_loss=-1.81]
+INFO:root:Epoch[27] Elapsed time 123.039 seconds
+INFO:root:Epoch[27] Evaluation metric &#39;epoch_loss&#39;=-1.811046
+INFO:root:Epoch[28] Learning rate is 0.001
+100%|██████████| 50/50 [02:03&lt;00:00,  2.48s/it, avg_epoch_loss=-1.79]
+INFO:root:Epoch[28] Elapsed time 123.778 seconds
+INFO:root:Epoch[28] Evaluation metric &#39;epoch_loss&#39;=-1.794483
+INFO:root:Epoch[29] Learning rate is 0.001
+100%|██████████| 50/50 [02:05&lt;00:00,  2.51s/it, avg_epoch_loss=-1.81]
+INFO:root:Epoch[29] Elapsed time 125.261 seconds
+INFO:root:Epoch[29] Evaluation metric &#39;epoch_loss&#39;=-1.809186
+INFO:root:Epoch[30] Learning rate is 0.001
+100%|██████████| 50/50 [02:03&lt;00:00,  2.48s/it, avg_epoch_loss=-1.85]
+INFO:root:Epoch[30] Elapsed time 123.989 seconds
+INFO:root:Epoch[30] Evaluation metric &#39;epoch_loss&#39;=-1.852919
+INFO:root:Epoch[31] Learning rate is 0.001
+100%|██████████| 50/50 [02:04&lt;00:00,  2.49s/it, avg_epoch_loss=-1.8] 
+INFO:root:Epoch[31] Elapsed time 124.441 seconds
+INFO:root:Epoch[31] Evaluation metric &#39;epoch_loss&#39;=-1.798112
+INFO:root:Epoch[32] Learning rate is 0.001
+100%|██████████| 50/50 [02:11&lt;00:00,  2.62s/it, avg_epoch_loss=-1.9] 
+INFO:root:Epoch[32] Elapsed time 131.241 seconds
+INFO:root:Epoch[32] Evaluation metric &#39;epoch_loss&#39;=-1.897784
+INFO:root:Epoch[33] Learning rate is 0.001
+100%|██████████| 50/50 [02:04&lt;00:00,  2.50s/it, avg_epoch_loss=-1.79]
+INFO:root:Epoch[33] Elapsed time 124.903 seconds
+INFO:root:Epoch[33] Evaluation metric &#39;epoch_loss&#39;=-1.794311
+INFO:root:Epoch[34] Learning rate is 0.001
+100%|██████████| 50/50 [02:04&lt;00:00,  2.48s/it, avg_epoch_loss=-1.89]
+INFO:root:Epoch[34] Elapsed time 124.117 seconds
+INFO:root:Epoch[34] Evaluation metric &#39;epoch_loss&#39;=-1.889403
+INFO:root:Epoch[35] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.45s/it, avg_epoch_loss=-1.83]
+INFO:root:Epoch[35] Elapsed time 122.337 seconds
+INFO:root:Epoch[35] Evaluation metric &#39;epoch_loss&#39;=-1.831907
+INFO:root:Epoch[36] Learning rate is 0.001
+100%|██████████| 50/50 [02:05&lt;00:00,  2.50s/it, avg_epoch_loss=-1.91]
+INFO:root:Epoch[36] Elapsed time 125.193 seconds
+INFO:root:Epoch[36] Evaluation metric &#39;epoch_loss&#39;=-1.906646
+INFO:root:Epoch[37] Learning rate is 0.001
+100%|██████████| 50/50 [02:04&lt;00:00,  2.48s/it, avg_epoch_loss=-1.88]
+INFO:root:Epoch[37] Elapsed time 124.121 seconds
+INFO:root:Epoch[37] Evaluation metric &#39;epoch_loss&#39;=-1.879545
+INFO:root:Epoch[38] Learning rate is 0.001
+100%|██████████| 50/50 [02:05&lt;00:00,  2.51s/it, avg_epoch_loss=-1.86]
+INFO:root:Epoch[38] Elapsed time 125.265 seconds
+INFO:root:Epoch[38] Evaluation metric &#39;epoch_loss&#39;=-1.862318
+INFO:root:Epoch[39] Learning rate is 0.001
+100%|██████████| 50/50 [02:04&lt;00:00,  2.48s/it, avg_epoch_loss=-1.91]
+INFO:root:Epoch[39] Elapsed time 124.196 seconds
+INFO:root:Epoch[39] Evaluation metric &#39;epoch_loss&#39;=-1.905643
+INFO:root:Epoch[40] Learning rate is 0.001
+100%|██████████| 50/50 [02:04&lt;00:00,  2.50s/it, avg_epoch_loss=-1.85]
+INFO:root:Epoch[40] Elapsed time 124.907 seconds
+INFO:root:Epoch[40] Evaluation metric &#39;epoch_loss&#39;=-1.850156
+INFO:root:Epoch[41] Learning rate is 0.001
+100%|██████████| 50/50 [02:06&lt;00:00,  2.52s/it, avg_epoch_loss=-1.94]
+INFO:root:Epoch[41] Elapsed time 126.069 seconds
+INFO:root:Epoch[41] Evaluation metric &#39;epoch_loss&#39;=-1.944914
+INFO:root:Epoch[42] Learning rate is 0.001
+100%|██████████| 50/50 [02:05&lt;00:00,  2.51s/it, avg_epoch_loss=-1.87]
+INFO:root:Epoch[42] Elapsed time 125.742 seconds
+INFO:root:Epoch[42] Evaluation metric &#39;epoch_loss&#39;=-1.871387
+INFO:root:Epoch[43] Learning rate is 0.001
+100%|██████████| 50/50 [02:05&lt;00:00,  2.51s/it, avg_epoch_loss=-1.93]
+INFO:root:Epoch[43] Elapsed time 125.300 seconds
+INFO:root:Epoch[43] Evaluation metric &#39;epoch_loss&#39;=-1.931933
+INFO:root:Epoch[44] Learning rate is 0.001
+100%|██████████| 50/50 [02:03&lt;00:00,  2.48s/it, avg_epoch_loss=-1.88]
+INFO:root:Epoch[44] Elapsed time 123.907 seconds
+INFO:root:Epoch[44] Evaluation metric &#39;epoch_loss&#39;=-1.877469
+INFO:root:Epoch[45] Learning rate is 0.001
+100%|██████████| 50/50 [02:07&lt;00:00,  2.55s/it, avg_epoch_loss=-1.95]
+INFO:root:Epoch[45] Elapsed time 127.422 seconds
+INFO:root:Epoch[45] Evaluation metric &#39;epoch_loss&#39;=-1.948733
+INFO:root:Epoch[46] Learning rate is 0.001
+100%|██████████| 50/50 [02:05&lt;00:00,  2.51s/it, avg_epoch_loss=-1.9] 
+INFO:root:Epoch[46] Elapsed time 125.311 seconds
+INFO:root:Epoch[46] Evaluation metric &#39;epoch_loss&#39;=-1.902004
+INFO:root:Epoch[47] Learning rate is 0.001
+100%|██████████| 50/50 [02:05&lt;00:00,  2.52s/it, avg_epoch_loss=-1.91]
+INFO:root:Epoch[47] Elapsed time 125.923 seconds
+INFO:root:Epoch[47] Evaluation metric &#39;epoch_loss&#39;=-1.911639
+INFO:root:Epoch[48] Learning rate is 0.001
+100%|██████████| 50/50 [02:07&lt;00:00,  2.55s/it, avg_epoch_loss=-1.97]
+INFO:root:Epoch[48] Elapsed time 127.666 seconds
+INFO:root:Epoch[48] Evaluation metric &#39;epoch_loss&#39;=-1.968645
+INFO:root:Epoch[49] Learning rate is 0.001
+100%|██████████| 50/50 [02:06&lt;00:00,  2.53s/it, avg_epoch_loss=-1.9] 
+INFO:root:Epoch[49] Elapsed time 126.418 seconds
+INFO:root:Epoch[49] Evaluation metric &#39;epoch_loss&#39;=-1.895122
+INFO:root:Epoch[50] Learning rate is 0.001
+100%|██████████| 50/50 [02:04&lt;00:00,  2.50s/it, avg_epoch_loss=-1.98]
+INFO:root:Epoch[50] Elapsed time 124.914 seconds
+INFO:root:Epoch[50] Evaluation metric &#39;epoch_loss&#39;=-1.975487
+INFO:root:Epoch[51] Learning rate is 0.001
+100%|██████████| 50/50 [02:03&lt;00:00,  2.47s/it, avg_epoch_loss=-1.93]
+INFO:root:Epoch[51] Elapsed time 123.738 seconds
+INFO:root:Epoch[51] Evaluation metric &#39;epoch_loss&#39;=-1.929967
+INFO:root:Epoch[52] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.44s/it, avg_epoch_loss=-2.06]
+INFO:root:Epoch[52] Elapsed time 122.133 seconds
+INFO:root:Epoch[52] Evaluation metric &#39;epoch_loss&#39;=-2.055001
+INFO:root:Epoch[53] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.42s/it, avg_epoch_loss=-1.97]
+INFO:root:Epoch[53] Elapsed time 120.960 seconds
+INFO:root:Epoch[53] Evaluation metric &#39;epoch_loss&#39;=-1.973655
+INFO:root:Epoch[54] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-2.08]
+INFO:root:Epoch[54] Elapsed time 121.030 seconds
+INFO:root:Epoch[54] Evaluation metric &#39;epoch_loss&#39;=-2.075770
+INFO:root:Epoch[55] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.04]
+INFO:root:Epoch[55] Elapsed time 121.524 seconds
+INFO:root:Epoch[55] Evaluation metric &#39;epoch_loss&#39;=-2.044472
+INFO:root:Epoch[56] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-2.05]
+INFO:root:Epoch[56] Elapsed time 121.022 seconds
+INFO:root:Epoch[56] Evaluation metric &#39;epoch_loss&#39;=-2.046658
+INFO:root:Epoch[57] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-2.11]
+INFO:root:Epoch[57] Elapsed time 120.376 seconds
+INFO:root:Epoch[57] Evaluation metric &#39;epoch_loss&#39;=-2.110618
+INFO:root:Epoch[58] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-2.02]
+INFO:root:Epoch[58] Elapsed time 121.186 seconds
+INFO:root:Epoch[58] Evaluation metric &#39;epoch_loss&#39;=-2.024382
+INFO:root:Epoch[59] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-2.13]
+INFO:root:Epoch[59] Elapsed time 121.237 seconds
+INFO:root:Epoch[59] Evaluation metric &#39;epoch_loss&#39;=-2.132327
+INFO:root:Epoch[60] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-2.01]
+INFO:root:Epoch[60] Elapsed time 121.058 seconds
+INFO:root:Epoch[60] Evaluation metric &#39;epoch_loss&#39;=-2.014498
+INFO:root:Epoch[61] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.44s/it, avg_epoch_loss=-2.13]
+INFO:root:Epoch[61] Elapsed time 121.975 seconds
+INFO:root:Epoch[61] Evaluation metric &#39;epoch_loss&#39;=-2.126197
+INFO:root:Epoch[62] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.05]
+INFO:root:Epoch[62] Elapsed time 121.606 seconds
+INFO:root:Epoch[62] Evaluation metric &#39;epoch_loss&#39;=-2.049744
+INFO:root:Epoch[63] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.12]
+INFO:root:Epoch[63] Elapsed time 121.303 seconds
+INFO:root:Epoch[63] Evaluation metric &#39;epoch_loss&#39;=-2.115318
+INFO:root:Epoch[64] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.11]
+INFO:root:Epoch[64] Elapsed time 121.695 seconds
+INFO:root:Epoch[64] Evaluation metric &#39;epoch_loss&#39;=-2.111350
+INFO:root:Epoch[65] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.44s/it, avg_epoch_loss=-2.1] 
+INFO:root:Epoch[65] Elapsed time 121.901 seconds
+INFO:root:Epoch[65] Evaluation metric &#39;epoch_loss&#39;=-2.099143
+INFO:root:Epoch[66] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.41s/it, avg_epoch_loss=-2.15]
+INFO:root:Epoch[66] Elapsed time 120.416 seconds
+INFO:root:Epoch[66] Evaluation metric &#39;epoch_loss&#39;=-2.147868
+INFO:root:Epoch[67] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.42s/it, avg_epoch_loss=-2.06]
+INFO:root:Epoch[67] Elapsed time 120.980 seconds
+INFO:root:Epoch[67] Evaluation metric &#39;epoch_loss&#39;=-2.062733
+INFO:root:Epoch[68] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.19]
+INFO:root:Epoch[68] Elapsed time 121.530 seconds
+INFO:root:Epoch[68] Evaluation metric &#39;epoch_loss&#39;=-2.194165
+INFO:root:Epoch[69] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.42s/it, avg_epoch_loss=-2.08]
+INFO:root:Epoch[69] Elapsed time 120.892 seconds
+INFO:root:Epoch[69] Evaluation metric &#39;epoch_loss&#39;=-2.076847
+INFO:root:Epoch[70] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.44s/it, avg_epoch_loss=-2.21]
+INFO:root:Epoch[70] Elapsed time 122.138 seconds
+INFO:root:Epoch[70] Evaluation metric &#39;epoch_loss&#39;=-2.205731
+INFO:root:Epoch[71] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.44s/it, avg_epoch_loss=-2.09]
+INFO:root:Epoch[71] Elapsed time 121.890 seconds
+INFO:root:Epoch[71] Evaluation metric &#39;epoch_loss&#39;=-2.093553
+INFO:root:Epoch[72] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-2.18]
+INFO:root:Epoch[72] Elapsed time 121.176 seconds
+INFO:root:Epoch[72] Evaluation metric &#39;epoch_loss&#39;=-2.176002
+INFO:root:Epoch[73] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.44s/it, avg_epoch_loss=-2.08]
+INFO:root:Epoch[73] Elapsed time 122.235 seconds
+INFO:root:Epoch[73] Evaluation metric &#39;epoch_loss&#39;=-2.079564
+INFO:root:Epoch[74] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.06]
+INFO:root:Epoch[74] Elapsed time 121.459 seconds
+INFO:root:Epoch[74] Evaluation metric &#39;epoch_loss&#39;=-2.056184
+INFO:root:Epoch[75] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.2] 
+INFO:root:Epoch[75] Elapsed time 121.338 seconds
+INFO:root:Epoch[75] Evaluation metric &#39;epoch_loss&#39;=-2.197815
+INFO:root:Epoch[76] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.44s/it, avg_epoch_loss=-2.11]
+INFO:root:Epoch[76] Elapsed time 122.039 seconds
+INFO:root:Epoch[76] Evaluation metric &#39;epoch_loss&#39;=-2.106862
+INFO:root:Epoch[77] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.22]
+INFO:root:Epoch[77] Elapsed time 121.701 seconds
+INFO:root:Epoch[77] Evaluation metric &#39;epoch_loss&#39;=-2.217529
+INFO:root:Epoch[78] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-2.1] 
+INFO:root:Epoch[78] Elapsed time 121.249 seconds
+INFO:root:Epoch[78] Evaluation metric &#39;epoch_loss&#39;=-2.103920
+INFO:root:Epoch[79] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.44s/it, avg_epoch_loss=-2.22]
+INFO:root:Epoch[79] Elapsed time 122.118 seconds
+INFO:root:Epoch[79] Evaluation metric &#39;epoch_loss&#39;=-2.219475
+INFO:root:Epoch[80] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.45s/it, avg_epoch_loss=-2.14]
+INFO:root:Epoch[80] Elapsed time 122.498 seconds
+INFO:root:Epoch[80] Evaluation metric &#39;epoch_loss&#39;=-2.138359
+INFO:root:Epoch[81] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.17]
+INFO:root:Epoch[81] Elapsed time 121.421 seconds
+INFO:root:Epoch[81] Evaluation metric &#39;epoch_loss&#39;=-2.168688
+INFO:root:Epoch[82] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-1.85]
+INFO:root:Epoch[82] Elapsed time 121.748 seconds
+INFO:root:Epoch[82] Evaluation metric &#39;epoch_loss&#39;=-1.851050
+INFO:root:Epoch[83] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.44s/it, avg_epoch_loss=-2.04]
+INFO:root:Epoch[83] Elapsed time 121.995 seconds
+INFO:root:Epoch[83] Evaluation metric &#39;epoch_loss&#39;=-2.044402
+INFO:root:Epoch[84] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.16]
+INFO:root:Epoch[84] Elapsed time 121.643 seconds
+INFO:root:Epoch[84] Evaluation metric &#39;epoch_loss&#39;=-2.162915
+INFO:root:Epoch[85] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.09]
+INFO:root:Epoch[85] Elapsed time 121.707 seconds
+INFO:root:Epoch[85] Evaluation metric &#39;epoch_loss&#39;=-2.088412
+INFO:root:Epoch[86] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.44s/it, avg_epoch_loss=-2.23]
+INFO:root:Epoch[86] Elapsed time 122.107 seconds
+INFO:root:Epoch[86] Evaluation metric &#39;epoch_loss&#39;=-2.229451
+INFO:root:Epoch[87] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.44s/it, avg_epoch_loss=-2.12]
+INFO:root:Epoch[87] Elapsed time 121.790 seconds
+INFO:root:Epoch[87] Evaluation metric &#39;epoch_loss&#39;=-2.119217
+INFO:root:Epoch[88] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.45s/it, avg_epoch_loss=-2.25]
+INFO:root:Epoch[88] Elapsed time 122.574 seconds
+INFO:root:Epoch[88] Evaluation metric &#39;epoch_loss&#39;=-2.248120
+INFO:root:Epoch[89] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.45s/it, avg_epoch_loss=-2.14]
+INFO:root:Epoch[89] Elapsed time 122.324 seconds
+INFO:root:Epoch[89] Evaluation metric &#39;epoch_loss&#39;=-2.143057
+INFO:root:Epoch[90] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.45s/it, avg_epoch_loss=-2.22]
+INFO:root:Epoch[90] Elapsed time 122.603 seconds
+INFO:root:Epoch[90] Evaluation metric &#39;epoch_loss&#39;=-2.223232
+INFO:root:Epoch[91] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.18]
+INFO:root:Epoch[91] Elapsed time 121.342 seconds
+INFO:root:Epoch[91] Evaluation metric &#39;epoch_loss&#39;=-2.181276
+INFO:root:Epoch[92] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.44s/it, avg_epoch_loss=-2.18]
+INFO:root:Epoch[92] Elapsed time 122.025 seconds
+INFO:root:Epoch[92] Evaluation metric &#39;epoch_loss&#39;=-2.178108
+INFO:root:Epoch[93] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.45s/it, avg_epoch_loss=-2.24]
+INFO:root:Epoch[93] Elapsed time 122.278 seconds
+INFO:root:Epoch[93] Evaluation metric &#39;epoch_loss&#39;=-2.239378
+INFO:root:Epoch[94] Learning rate is 0.001
+100%|██████████| 50/50 [02:00&lt;00:00,  2.42s/it, avg_epoch_loss=-2.16]
+INFO:root:Epoch[94] Elapsed time 120.951 seconds
+INFO:root:Epoch[94] Evaluation metric &#39;epoch_loss&#39;=-2.161285
+INFO:root:Epoch[95] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.44s/it, avg_epoch_loss=-2.27]
+INFO:root:Epoch[95] Elapsed time 121.869 seconds
+INFO:root:Epoch[95] Evaluation metric &#39;epoch_loss&#39;=-2.272447
+INFO:root:Epoch[96] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.16]
+INFO:root:Epoch[96] Elapsed time 121.383 seconds
+INFO:root:Epoch[96] Evaluation metric &#39;epoch_loss&#39;=-2.159697
+INFO:root:Epoch[97] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.42s/it, avg_epoch_loss=-2.28]
+INFO:root:Epoch[97] Elapsed time 121.117 seconds
+INFO:root:Epoch[97] Evaluation metric &#39;epoch_loss&#39;=-2.277786
+INFO:root:Epoch[98] Learning rate is 0.001
+100%|██████████| 50/50 [02:01&lt;00:00,  2.43s/it, avg_epoch_loss=-2.14]
+INFO:root:Epoch[98] Elapsed time 121.618 seconds
+INFO:root:Epoch[98] Evaluation metric &#39;epoch_loss&#39;=-2.136648
+INFO:root:Epoch[99] Learning rate is 0.001
+100%|██████████| 50/50 [02:02&lt;00:00,  2.44s/it, avg_epoch_loss=-2.23]
+INFO:root:Epoch[99] Elapsed time 122.056 seconds
+INFO:root:Epoch[99] Evaluation metric &#39;epoch_loss&#39;=-2.228530
+INFO:root:Loading parameters from best epoch (97)
+INFO:root:Final loss: -2.2777860164642334 (occurred at epoch 97)
+INFO:root:End model training
+Running evaluation: 100%|██████████| 359/359 [00:51&lt;00:00,  6.93it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;MASE&#39;: 2.89342296,
+ &#39;MSIS&#39;: 42.89616549,
+ &#39;epochs&#39;: 100,
+ &#39;sMAPE&#39;: 0.0725544,
+ &#39;seed&#39;: 42,
+ &#39;wQuantileLoss[0.5]&#39;: 0.05524151,
+ &#39;wQuantileLoss[0.9]&#39;: 0.03532425}
+None
+CPU times: user 6h 17min 31s, sys: 38min 59s, total: 6h 56min 30s
+Wall time: 3h 25min 1s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">time</span>
+res = deep_state(data=&quot;m4_hourly&quot;, seed=42, epochs=100, batches=50)
+pprint(res)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>INFO:root:downloading and processing m4_hourly
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saving time-series into /home/ec2-user/.mxnet/gluon-ts/datasets/m4_hourly/train/data.json
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>INFO:root:Using CPU
+INFO:root:Start model training
+INFO:root:Epoch[0] Learning rate is 0.001
+  0%|          | 0/50 [00:00&lt;?, ?it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saving time-series into /home/ec2-user/.mxnet/gluon-ts/datasets/m4_hourly/test/data.json
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>INFO:root:Number of parameters in DeepStateTrainingNetwork: 52087
+100%|██████████| 50/50 [03:19&lt;00:00,  4.00s/it, avg_epoch_loss=0.126]
+INFO:root:Epoch[0] Elapsed time 199.946 seconds
+INFO:root:Epoch[0] Evaluation metric &#39;epoch_loss&#39;=0.125870
+INFO:root:Epoch[1] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-.541]  
+INFO:root:Epoch[1] Elapsed time 154.518 seconds
+INFO:root:Epoch[1] Evaluation metric &#39;epoch_loss&#39;=-0.540530
+INFO:root:Epoch[2] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-1.1] 
+INFO:root:Epoch[2] Elapsed time 154.688 seconds
+INFO:root:Epoch[2] Evaluation metric &#39;epoch_loss&#39;=-1.104551
+INFO:root:Epoch[3] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-1.31]
+INFO:root:Epoch[3] Elapsed time 155.396 seconds
+INFO:root:Epoch[3] Evaluation metric &#39;epoch_loss&#39;=-1.307508
+INFO:root:Epoch[4] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-1.72]
+INFO:root:Epoch[4] Elapsed time 154.622 seconds
+INFO:root:Epoch[4] Evaluation metric &#39;epoch_loss&#39;=-1.718167
+INFO:root:Epoch[5] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-1.73]
+INFO:root:Epoch[5] Elapsed time 155.484 seconds
+INFO:root:Epoch[5] Evaluation metric &#39;epoch_loss&#39;=-1.725505
+INFO:root:Epoch[6] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.10s/it, avg_epoch_loss=-1.74]
+INFO:root:Epoch[6] Elapsed time 154.973 seconds
+INFO:root:Epoch[6] Evaluation metric &#39;epoch_loss&#39;=-1.738307
+INFO:root:Epoch[7] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-1.84]
+INFO:root:Epoch[7] Elapsed time 154.280 seconds
+INFO:root:Epoch[7] Evaluation metric &#39;epoch_loss&#39;=-1.840582
+INFO:root:Epoch[8] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.08s/it, avg_epoch_loss=-1.76]
+INFO:root:Epoch[8] Elapsed time 154.093 seconds
+INFO:root:Epoch[8] Evaluation metric &#39;epoch_loss&#39;=-1.759595
+INFO:root:Epoch[9] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-1.75]
+INFO:root:Epoch[9] Elapsed time 154.408 seconds
+INFO:root:Epoch[9] Evaluation metric &#39;epoch_loss&#39;=-1.747512
+INFO:root:Epoch[10] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-1.75]
+INFO:root:Epoch[10] Elapsed time 154.569 seconds
+INFO:root:Epoch[10] Evaluation metric &#39;epoch_loss&#39;=-1.750579
+INFO:root:Epoch[11] Learning rate is 0.001
+100%|██████████| 50/50 [02:33&lt;00:00,  3.08s/it, avg_epoch_loss=-1.92]
+INFO:root:Epoch[11] Elapsed time 153.842 seconds
+INFO:root:Epoch[11] Evaluation metric &#39;epoch_loss&#39;=-1.915196
+INFO:root:Epoch[12] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-1.87]
+INFO:root:Epoch[12] Elapsed time 155.412 seconds
+INFO:root:Epoch[12] Evaluation metric &#39;epoch_loss&#39;=-1.873355
+INFO:root:Epoch[13] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-1.88]
+INFO:root:Epoch[13] Elapsed time 155.424 seconds
+INFO:root:Epoch[13] Evaluation metric &#39;epoch_loss&#39;=-1.881657
+INFO:root:Epoch[14] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-1.97]
+INFO:root:Epoch[14] Elapsed time 155.433 seconds
+INFO:root:Epoch[14] Evaluation metric &#39;epoch_loss&#39;=-1.966642
+INFO:root:Epoch[15] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.10s/it, avg_epoch_loss=-2]   
+INFO:root:Epoch[18] Elapsed time 155.105 seconds
+INFO:root:Epoch[18] Evaluation metric &#39;epoch_loss&#39;=-1.997497
+INFO:root:Epoch[19] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-1.96]
+INFO:root:Epoch[29] Elapsed time 154.746 seconds
+INFO:root:Epoch[29] Evaluation metric &#39;epoch_loss&#39;=-1.959379
+INFO:root:Epoch[30] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.10s/it, avg_epoch_loss=-2.01]
+INFO:root:Epoch[30] Elapsed time 155.022 seconds
+INFO:root:Epoch[30] Evaluation metric &#39;epoch_loss&#39;=-2.009832
+INFO:root:Epoch[31] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.10s/it, avg_epoch_loss=-2.03]
+INFO:root:Epoch[31] Elapsed time 155.053 seconds
+INFO:root:Epoch[31] Evaluation metric &#39;epoch_loss&#39;=-2.028055
+INFO:root:Epoch[32] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.11]
+INFO:root:Epoch[32] Elapsed time 155.544 seconds
+INFO:root:Epoch[32] Evaluation metric &#39;epoch_loss&#39;=-2.114266
+INFO:root:Epoch[33] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.10s/it, avg_epoch_loss=-2]   
+INFO:root:Epoch[33] Elapsed time 154.811 seconds
+INFO:root:Epoch[33] Evaluation metric &#39;epoch_loss&#39;=-2.003338
+INFO:root:Epoch[34] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.07]
+INFO:root:Epoch[34] Elapsed time 154.472 seconds
+INFO:root:Epoch[34] Evaluation metric &#39;epoch_loss&#39;=-2.067261
+INFO:root:Epoch[35] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.10s/it, avg_epoch_loss=-2.11]
+INFO:root:Epoch[39] Elapsed time 154.763 seconds
+INFO:root:Epoch[39] Evaluation metric &#39;epoch_loss&#39;=-2.112923
+INFO:root:Epoch[40] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.08s/it, avg_epoch_loss=-2.11]
+INFO:root:Epoch[40] Elapsed time 154.030 seconds
+INFO:root:Epoch[40] Evaluation metric &#39;epoch_loss&#39;=-2.113783
+INFO:root:Epoch[41] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.15]
+INFO:root:Epoch[41] Elapsed time 154.610 seconds
+INFO:root:Epoch[41] Evaluation metric &#39;epoch_loss&#39;=-2.145776
+INFO:root:Epoch[42] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.18]
+INFO:root:Epoch[42] Elapsed time 154.728 seconds
+INFO:root:Epoch[42] Evaluation metric &#39;epoch_loss&#39;=-2.180163
+INFO:root:Epoch[43] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.05]
+INFO:root:Epoch[43] Elapsed time 154.461 seconds
+INFO:root:Epoch[43] Evaluation metric &#39;epoch_loss&#39;=-2.054831
+INFO:root:Epoch[44] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.08]
+INFO:root:Epoch[44] Elapsed time 154.262 seconds
+INFO:root:Epoch[44] Evaluation metric &#39;epoch_loss&#39;=-2.076740
+INFO:root:Epoch[45] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.10s/it, avg_epoch_loss=-2.13]
+INFO:root:Epoch[45] Elapsed time 154.808 seconds
+INFO:root:Epoch[45] Evaluation metric &#39;epoch_loss&#39;=-2.125368
+INFO:root:Epoch[46] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.12s/it, avg_epoch_loss=-2.18]
+INFO:root:Epoch[46] Elapsed time 155.980 seconds
+INFO:root:Epoch[46] Evaluation metric &#39;epoch_loss&#39;=-2.177505
+INFO:root:Epoch[47] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.10s/it, avg_epoch_loss=-2.15]
+INFO:root:Epoch[47] Elapsed time 154.862 seconds
+INFO:root:Epoch[47] Evaluation metric &#39;epoch_loss&#39;=-2.146094
+INFO:root:Epoch[48] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.19]
+INFO:root:Epoch[48] Elapsed time 154.374 seconds
+INFO:root:Epoch[48] Evaluation metric &#39;epoch_loss&#39;=-2.185928
+INFO:root:Epoch[49] Learning rate is 0.001
+100%|██████████| 50/50 [02:36&lt;00:00,  3.12s/it, avg_epoch_loss=-2.21]
+INFO:root:Epoch[49] Elapsed time 156.030 seconds
+INFO:root:Epoch[49] Evaluation metric &#39;epoch_loss&#39;=-2.205830
+INFO:root:Epoch[50] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.1] 
+INFO:root:Epoch[50] Elapsed time 155.637 seconds
+INFO:root:Epoch[50] Evaluation metric &#39;epoch_loss&#39;=-2.096711
+INFO:root:Epoch[51] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.11]
+INFO:root:Epoch[51] Elapsed time 155.356 seconds
+INFO:root:Epoch[51] Evaluation metric &#39;epoch_loss&#39;=-2.109377
+INFO:root:Epoch[52] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.08s/it, avg_epoch_loss=-2.17]
+INFO:root:Epoch[52] Elapsed time 154.187 seconds
+INFO:root:Epoch[52] Evaluation metric &#39;epoch_loss&#39;=-2.167151
+INFO:root:Epoch[53] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.10s/it, avg_epoch_loss=-2.21]
+INFO:root:Epoch[53] Elapsed time 155.226 seconds
+INFO:root:Epoch[53] Evaluation metric &#39;epoch_loss&#39;=-2.210258
+INFO:root:Epoch[54] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.10s/it, avg_epoch_loss=-2.18]
+INFO:root:Epoch[54] Elapsed time 154.854 seconds
+INFO:root:Epoch[54] Evaluation metric &#39;epoch_loss&#39;=-2.177470
+INFO:root:Epoch[55] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.10s/it, avg_epoch_loss=-2.21]
+INFO:root:Epoch[55] Elapsed time 155.226 seconds
+INFO:root:Epoch[55] Evaluation metric &#39;epoch_loss&#39;=-2.214768
+INFO:root:Epoch[56] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.12s/it, avg_epoch_loss=-2.23]
+INFO:root:Epoch[56] Elapsed time 155.835 seconds
+INFO:root:Epoch[56] Evaluation metric &#39;epoch_loss&#39;=-2.228103
+INFO:root:Epoch[57] Learning rate is 0.001
+100%|██████████| 50/50 [02:36&lt;00:00,  3.12s/it, avg_epoch_loss=-2.13]
+INFO:root:Epoch[57] Elapsed time 156.076 seconds
+INFO:root:Epoch[57] Evaluation metric &#39;epoch_loss&#39;=-2.125156
+INFO:root:Epoch[58] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.12s/it, avg_epoch_loss=-2.13]
+INFO:root:Epoch[58] Elapsed time 155.806 seconds
+INFO:root:Epoch[58] Evaluation metric &#39;epoch_loss&#39;=-2.133990
+INFO:root:Epoch[59] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.21]
+INFO:root:Epoch[59] Elapsed time 155.572 seconds
+INFO:root:Epoch[59] Evaluation metric &#39;epoch_loss&#39;=-2.207192
+INFO:root:Epoch[60] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.10s/it, avg_epoch_loss=-2.22]
+INFO:root:Epoch[60] Elapsed time 155.223 seconds
+INFO:root:Epoch[60] Evaluation metric &#39;epoch_loss&#39;=-2.224496
+INFO:root:Epoch[61] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.2] 
+INFO:root:Epoch[61] Elapsed time 155.295 seconds
+INFO:root:Epoch[61] Evaluation metric &#39;epoch_loss&#39;=-2.199418
+INFO:root:Epoch[62] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.08s/it, avg_epoch_loss=-2.24]
+INFO:root:Epoch[62] Elapsed time 154.094 seconds
+INFO:root:Epoch[62] Evaluation metric &#39;epoch_loss&#39;=-2.243180
+INFO:root:Epoch[63] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.23]
+INFO:root:Epoch[63] Elapsed time 154.609 seconds
+INFO:root:Epoch[63] Evaluation metric &#39;epoch_loss&#39;=-2.231627
+INFO:root:Epoch[64] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.16]
+INFO:root:Epoch[64] Elapsed time 154.459 seconds
+INFO:root:Epoch[64] Evaluation metric &#39;epoch_loss&#39;=-2.163524
+INFO:root:Epoch[65] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.16]
+INFO:root:Epoch[65] Elapsed time 155.733 seconds
+INFO:root:Epoch[65] Evaluation metric &#39;epoch_loss&#39;=-2.162640
+INFO:root:Epoch[66] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.25]
+INFO:root:Epoch[66] Elapsed time 155.672 seconds
+INFO:root:Epoch[66] Evaluation metric &#39;epoch_loss&#39;=-2.246943
+INFO:root:Epoch[67] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.12s/it, avg_epoch_loss=-2.25]
+INFO:root:Epoch[67] Elapsed time 156.002 seconds
+INFO:root:Epoch[67] Evaluation metric &#39;epoch_loss&#39;=-2.254511
+INFO:root:Epoch[68] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.22]
+INFO:root:Epoch[68] Elapsed time 155.642 seconds
+INFO:root:Epoch[68] Evaluation metric &#39;epoch_loss&#39;=-2.215152
+INFO:root:Epoch[69] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.29]
+INFO:root:Epoch[69] Elapsed time 154.562 seconds
+INFO:root:Epoch[69] Evaluation metric &#39;epoch_loss&#39;=-2.287370
+INFO:root:Epoch[70] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.10s/it, avg_epoch_loss=-2.25]
+INFO:root:Epoch[70] Elapsed time 154.849 seconds
+INFO:root:Epoch[70] Evaluation metric &#39;epoch_loss&#39;=-2.252100
+INFO:root:Epoch[71] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.10s/it, avg_epoch_loss=-2.19]
+INFO:root:Epoch[71] Elapsed time 154.844 seconds
+INFO:root:Epoch[71] Evaluation metric &#39;epoch_loss&#39;=-2.185651
+INFO:root:Epoch[72] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.10s/it, avg_epoch_loss=-2.18]
+INFO:root:Epoch[72] Elapsed time 154.779 seconds
+INFO:root:Epoch[72] Evaluation metric &#39;epoch_loss&#39;=-2.181016
+INFO:root:Epoch[73] Learning rate is 0.001
+100%|██████████| 50/50 [02:36&lt;00:00,  3.12s/it, avg_epoch_loss=-2.28]
+INFO:root:Epoch[73] Elapsed time 156.057 seconds
+INFO:root:Epoch[73] Evaluation metric &#39;epoch_loss&#39;=-2.281281
+INFO:root:Epoch[74] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.12s/it, avg_epoch_loss=-2.27]
+INFO:root:Epoch[74] Elapsed time 155.900 seconds
+INFO:root:Epoch[74] Evaluation metric &#39;epoch_loss&#39;=-2.268235
+INFO:root:Epoch[75] Learning rate is 0.001
+100%|██████████| 50/50 [02:36&lt;00:00,  3.13s/it, avg_epoch_loss=-2.23]
+INFO:root:Epoch[75] Elapsed time 156.269 seconds
+INFO:root:Epoch[75] Evaluation metric &#39;epoch_loss&#39;=-2.229298
+INFO:root:Epoch[76] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.3] 
+INFO:root:Epoch[76] Elapsed time 154.574 seconds
+INFO:root:Epoch[76] Evaluation metric &#39;epoch_loss&#39;=-2.299707
+INFO:root:Epoch[77] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.10s/it, avg_epoch_loss=-2.25]
+INFO:root:Epoch[77] Elapsed time 155.215 seconds
+INFO:root:Epoch[77] Evaluation metric &#39;epoch_loss&#39;=-2.247422
+INFO:root:Epoch[78] Learning rate is 0.001
+100%|██████████| 50/50 [02:36&lt;00:00,  3.12s/it, avg_epoch_loss=-2.21]
+INFO:root:Epoch[78] Elapsed time 156.160 seconds
+INFO:root:Epoch[78] Evaluation metric &#39;epoch_loss&#39;=-2.205332
+INFO:root:Epoch[79] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.10s/it, avg_epoch_loss=-2.2] 
+INFO:root:Epoch[79] Elapsed time 154.786 seconds
+INFO:root:Epoch[79] Evaluation metric &#39;epoch_loss&#39;=-2.199544
+INFO:root:Epoch[80] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.32]
+INFO:root:Epoch[80] Elapsed time 154.723 seconds
+INFO:root:Epoch[80] Evaluation metric &#39;epoch_loss&#39;=-2.318095
+INFO:root:Epoch[81] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.28]
+INFO:root:Epoch[81] Elapsed time 154.442 seconds
+INFO:root:Epoch[81] Evaluation metric &#39;epoch_loss&#39;=-2.280826
+INFO:root:Epoch[82] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.26]
+INFO:root:Epoch[82] Elapsed time 154.710 seconds
+INFO:root:Epoch[82] Evaluation metric &#39;epoch_loss&#39;=-2.258269
+INFO:root:Epoch[83] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.33]
+INFO:root:Epoch[83] Elapsed time 154.492 seconds
+INFO:root:Epoch[83] Evaluation metric &#39;epoch_loss&#39;=-2.326074
+INFO:root:Epoch[84] Learning rate is 0.001
+100%|██████████| 50/50 [02:33&lt;00:00,  3.08s/it, avg_epoch_loss=-2.24]
+INFO:root:Epoch[84] Elapsed time 153.838 seconds
+INFO:root:Epoch[84] Evaluation metric &#39;epoch_loss&#39;=-2.236589
+INFO:root:Epoch[85] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.22]
+INFO:root:Epoch[85] Elapsed time 154.419 seconds
+INFO:root:Epoch[85] Evaluation metric &#39;epoch_loss&#39;=-2.221493
+INFO:root:Epoch[86] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.22]
+INFO:root:Epoch[86] Elapsed time 155.695 seconds
+INFO:root:Epoch[86] Evaluation metric &#39;epoch_loss&#39;=-2.221196
+INFO:root:Epoch[87] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.34]
+INFO:root:Epoch[87] Elapsed time 155.546 seconds
+INFO:root:Epoch[87] Evaluation metric &#39;epoch_loss&#39;=-2.335852
+INFO:root:Epoch[88] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.3] 
+INFO:root:Epoch[88] Elapsed time 155.549 seconds
+INFO:root:Epoch[88] Evaluation metric &#39;epoch_loss&#39;=-2.303478
+INFO:root:Epoch[89] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.29]
+INFO:root:Epoch[89] Elapsed time 154.643 seconds
+INFO:root:Epoch[89] Evaluation metric &#39;epoch_loss&#39;=-2.285543
+INFO:root:Epoch[90] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.10s/it, avg_epoch_loss=-2.36]
+INFO:root:Epoch[90] Elapsed time 155.093 seconds
+INFO:root:Epoch[90] Evaluation metric &#39;epoch_loss&#39;=-2.357099
+INFO:root:Epoch[91] Learning rate is 0.001
+100%|██████████| 50/50 [02:33&lt;00:00,  3.08s/it, avg_epoch_loss=-2.27]
+INFO:root:Epoch[91] Elapsed time 153.845 seconds
+INFO:root:Epoch[91] Evaluation metric &#39;epoch_loss&#39;=-2.273285
+INFO:root:Epoch[92] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.24]
+INFO:root:Epoch[92] Elapsed time 154.492 seconds
+INFO:root:Epoch[92] Evaluation metric &#39;epoch_loss&#39;=-2.242332
+INFO:root:Epoch[93] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.22]
+INFO:root:Epoch[93] Elapsed time 155.329 seconds
+INFO:root:Epoch[93] Evaluation metric &#39;epoch_loss&#39;=-2.223900
+INFO:root:Epoch[94] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.10s/it, avg_epoch_loss=-2.36]
+INFO:root:Epoch[94] Elapsed time 155.139 seconds
+INFO:root:Epoch[94] Evaluation metric &#39;epoch_loss&#39;=-2.361283
+INFO:root:Epoch[95] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.10s/it, avg_epoch_loss=-2.32]
+INFO:root:Epoch[95] Elapsed time 154.893 seconds
+INFO:root:Epoch[95] Evaluation metric &#39;epoch_loss&#39;=-2.323480
+INFO:root:Epoch[96] Learning rate is 0.001
+100%|██████████| 50/50 [02:35&lt;00:00,  3.11s/it, avg_epoch_loss=-2.3] 
+INFO:root:Epoch[96] Elapsed time 155.667 seconds
+INFO:root:Epoch[96] Evaluation metric &#39;epoch_loss&#39;=-2.301486
+INFO:root:Epoch[97] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.37]
+INFO:root:Epoch[97] Elapsed time 154.554 seconds
+INFO:root:Epoch[97] Evaluation metric &#39;epoch_loss&#39;=-2.372338
+INFO:root:Epoch[98] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.08s/it, avg_epoch_loss=-2.27]
+INFO:root:Epoch[98] Elapsed time 154.232 seconds
+INFO:root:Epoch[98] Evaluation metric &#39;epoch_loss&#39;=-2.273555
+INFO:root:Epoch[99] Learning rate is 0.001
+100%|██████████| 50/50 [02:34&lt;00:00,  3.09s/it, avg_epoch_loss=-2.24]
+INFO:root:Epoch[99] Elapsed time 154.472 seconds
+INFO:root:Epoch[99] Evaluation metric &#39;epoch_loss&#39;=-2.236058
+INFO:root:Loading parameters from best epoch (97)
+INFO:root:Final loss: -2.372338047027588 (occurred at epoch 97)
+INFO:root:End model training
+Running evaluation: 100%|██████████| 414/414 [01:14&lt;00:00,  5.52it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;MASE&#39;: 1.19050708,
+ &#39;MSIS&#39;: 17.35836457,
+ &#39;epochs&#39;: 100,
+ &#39;sMAPE&#39;: 0.13726855,
+ &#39;seed&#39;: 42,
+ &#39;wQuantileLoss[0.5]&#39;: 0.03660473,
+ &#39;wQuantileLoss[0.9]&#39;: 0.01704599}
+None
+CPU times: user 8h 18min 27s, sys: 47min 12s, total: 9h 5min 40s
+Wall time: 4h 20min 28s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">time</span>
+res = deep_state(data=&quot;m4_daily&quot;, seed=42, epochs=100, batches=50)
+pprint(res)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>INFO:root:downloading and processing m4_daily
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saving time-series into /home/ec2-user/.mxnet/gluon-ts/datasets/m4_daily/train/data.json
+saving time-series into /home/ec2-user/.mxnet/gluon-ts/datasets/m4_daily/test/data.json
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>INFO:root:Using CPU
+INFO:root:Start model training
+INFO:root:Epoch[0] Learning rate is 0.001
+  0%|          | 0/50 [00:00&lt;?, ?it/s]INFO:root:Number of parameters in DeepStateTrainingNetwork: 240609
+100%|██████████| 50/50 [00:11&lt;00:00,  4.27it/s, avg_epoch_loss=-1.12]
+INFO:root:Epoch[0] Elapsed time 11.707 seconds
+INFO:root:Epoch[0] Evaluation metric &#39;epoch_loss&#39;=-1.115929
+INFO:root:Epoch[1] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.68it/s, avg_epoch_loss=-.726]
+INFO:root:Epoch[1] Elapsed time 10.692 seconds
+INFO:root:Epoch[1] Evaluation metric &#39;epoch_loss&#39;=-0.726114
+INFO:root:Epoch[2] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.75it/s, avg_epoch_loss=-1.62]
+INFO:root:Epoch[2] Elapsed time 10.518 seconds
+INFO:root:Epoch[2] Evaluation metric &#39;epoch_loss&#39;=-1.623816
+INFO:root:Epoch[3] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.69it/s, avg_epoch_loss=-1.59]
+INFO:root:Epoch[3] Elapsed time 10.659 seconds
+INFO:root:Epoch[3] Evaluation metric &#39;epoch_loss&#39;=-1.590388
+INFO:root:Epoch[4] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.60it/s, avg_epoch_loss=-1.78]
+INFO:root:Epoch[4] Elapsed time 10.877 seconds
+INFO:root:Epoch[4] Evaluation metric &#39;epoch_loss&#39;=-1.776419
+INFO:root:Epoch[5] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.83it/s, avg_epoch_loss=-1.93]
+INFO:root:Epoch[5] Elapsed time 10.350 seconds
+INFO:root:Epoch[5] Evaluation metric &#39;epoch_loss&#39;=-1.928296
+INFO:root:Epoch[6] Learning rate is 0.001
+100%|██████████| 50/50 [00:11&lt;00:00,  4.49it/s, avg_epoch_loss=-1.76]
+INFO:root:Epoch[6] Elapsed time 11.135 seconds
+INFO:root:Epoch[6] Evaluation metric &#39;epoch_loss&#39;=-1.760647
+INFO:root:Epoch[7] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.75it/s, avg_epoch_loss=-2.14]
+INFO:root:Epoch[7] Elapsed time 10.521 seconds
+INFO:root:Epoch[7] Evaluation metric &#39;epoch_loss&#39;=-2.140385
+INFO:root:Epoch[8] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.69it/s, avg_epoch_loss=-2.32]
+INFO:root:Epoch[8] Elapsed time 10.659 seconds
+INFO:root:Epoch[8] Evaluation metric &#39;epoch_loss&#39;=-2.324480
+INFO:root:Epoch[9] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.60it/s, avg_epoch_loss=-2.32]
+INFO:root:Epoch[9] Elapsed time 10.862 seconds
+INFO:root:Epoch[9] Evaluation metric &#39;epoch_loss&#39;=-2.315261
+INFO:root:Epoch[10] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.84it/s, avg_epoch_loss=-2.48]
+INFO:root:Epoch[10] Elapsed time 10.334 seconds
+INFO:root:Epoch[10] Evaluation metric &#39;epoch_loss&#39;=-2.475122
+INFO:root:Epoch[11] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.71it/s, avg_epoch_loss=-2.41]
+INFO:root:Epoch[11] Elapsed time 10.625 seconds
+INFO:root:Epoch[11] Evaluation metric &#39;epoch_loss&#39;=-2.413507
+INFO:root:Epoch[12] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.58it/s, avg_epoch_loss=-2.51]
+INFO:root:Epoch[12] Elapsed time 10.923 seconds
+INFO:root:Epoch[12] Evaluation metric &#39;epoch_loss&#39;=-2.513715
+INFO:root:Epoch[13] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.71it/s, avg_epoch_loss=-2.54]
+INFO:root:Epoch[13] Elapsed time 10.625 seconds
+INFO:root:Epoch[13] Evaluation metric &#39;epoch_loss&#39;=-2.537057
+INFO:root:Epoch[14] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.70it/s, avg_epoch_loss=-2.48]
+INFO:root:Epoch[14] Elapsed time 10.650 seconds
+INFO:root:Epoch[14] Evaluation metric &#39;epoch_loss&#39;=-2.475206
+INFO:root:Epoch[15] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.79it/s, avg_epoch_loss=-2.55]
+INFO:root:Epoch[15] Elapsed time 10.453 seconds
+INFO:root:Epoch[15] Evaluation metric &#39;epoch_loss&#39;=-2.550533
+INFO:root:Epoch[16] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.62it/s, avg_epoch_loss=-2.67]
+INFO:root:Epoch[16] Elapsed time 10.823 seconds
+INFO:root:Epoch[16] Evaluation metric &#39;epoch_loss&#39;=-2.672048
+INFO:root:Epoch[17] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.56it/s, avg_epoch_loss=-2.53]
+INFO:root:Epoch[17] Elapsed time 10.960 seconds
+INFO:root:Epoch[17] Evaluation metric &#39;epoch_loss&#39;=-2.529862
+INFO:root:Epoch[18] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.81it/s, avg_epoch_loss=-2.68]
+INFO:root:Epoch[18] Elapsed time 10.405 seconds
+INFO:root:Epoch[18] Evaluation metric &#39;epoch_loss&#39;=-2.682888
+INFO:root:Epoch[19] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.69it/s, avg_epoch_loss=-2.59]
+INFO:root:Epoch[19] Elapsed time 10.668 seconds
+INFO:root:Epoch[19] Evaluation metric &#39;epoch_loss&#39;=-2.592430
+INFO:root:Epoch[20] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.65it/s, avg_epoch_loss=-2.7] 
+INFO:root:Epoch[20] Elapsed time 10.762 seconds
+INFO:root:Epoch[20] Evaluation metric &#39;epoch_loss&#39;=-2.703044
+INFO:root:Epoch[21] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.76it/s, avg_epoch_loss=-2.72]
+INFO:root:Epoch[21] Elapsed time 10.507 seconds
+INFO:root:Epoch[21] Evaluation metric &#39;epoch_loss&#39;=-2.716485
+INFO:root:Epoch[22] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.55it/s, avg_epoch_loss=-2.63]
+INFO:root:Epoch[22] Elapsed time 10.987 seconds
+INFO:root:Epoch[22] Evaluation metric &#39;epoch_loss&#39;=-2.625572
+INFO:root:Epoch[23] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.55it/s, avg_epoch_loss=-2.71]
+INFO:root:Epoch[23] Elapsed time 10.995 seconds
+INFO:root:Epoch[23] Evaluation metric &#39;epoch_loss&#39;=-2.714577
+INFO:root:Epoch[24] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.59it/s, avg_epoch_loss=-2.72]
+INFO:root:Epoch[24] Elapsed time 10.903 seconds
+INFO:root:Epoch[24] Evaluation metric &#39;epoch_loss&#39;=-2.723279
+INFO:root:Epoch[25] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.62it/s, avg_epoch_loss=-2.68]
+INFO:root:Epoch[25] Elapsed time 10.835 seconds
+INFO:root:Epoch[25] Evaluation metric &#39;epoch_loss&#39;=-2.682979
+INFO:root:Epoch[26] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.86it/s, avg_epoch_loss=-2.73]
+INFO:root:Epoch[26] Elapsed time 10.281 seconds
+INFO:root:Epoch[26] Evaluation metric &#39;epoch_loss&#39;=-2.734034
+INFO:root:Epoch[27] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.62it/s, avg_epoch_loss=-2.68]
+INFO:root:Epoch[27] Elapsed time 10.819 seconds
+INFO:root:Epoch[27] Evaluation metric &#39;epoch_loss&#39;=-2.676012
+INFO:root:Epoch[28] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.59it/s, avg_epoch_loss=-2.75]
+INFO:root:Epoch[28] Elapsed time 10.895 seconds
+INFO:root:Epoch[28] Evaluation metric &#39;epoch_loss&#39;=-2.750438
+INFO:root:Epoch[29] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.62it/s, avg_epoch_loss=-2.81]
+INFO:root:Epoch[29] Elapsed time 10.834 seconds
+INFO:root:Epoch[29] Evaluation metric &#39;epoch_loss&#39;=-2.808787
+INFO:root:Epoch[30] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.60it/s, avg_epoch_loss=-2.65]
+INFO:root:Epoch[30] Elapsed time 10.872 seconds
+INFO:root:Epoch[30] Evaluation metric &#39;epoch_loss&#39;=-2.652584
+INFO:root:Epoch[31] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.74it/s, avg_epoch_loss=-2.78]
+INFO:root:Epoch[31] Elapsed time 10.557 seconds
+INFO:root:Epoch[31] Evaluation metric &#39;epoch_loss&#39;=-2.778144
+INFO:root:Epoch[32] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.57it/s, avg_epoch_loss=-2.74]
+INFO:root:Epoch[32] Elapsed time 10.939 seconds
+INFO:root:Epoch[32] Evaluation metric &#39;epoch_loss&#39;=-2.744992
+INFO:root:Epoch[33] Learning rate is 0.001
+100%|██████████| 50/50 [00:11&lt;00:00,  4.50it/s, avg_epoch_loss=-2.75]
+INFO:root:Epoch[33] Elapsed time 11.116 seconds
+INFO:root:Epoch[33] Evaluation metric &#39;epoch_loss&#39;=-2.748229
+INFO:root:Epoch[34] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.70it/s, avg_epoch_loss=-2.77]
+INFO:root:Epoch[34] Elapsed time 10.631 seconds
+INFO:root:Epoch[34] Evaluation metric &#39;epoch_loss&#39;=-2.769442
+INFO:root:Epoch[35] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.68it/s, avg_epoch_loss=-2.72]
+INFO:root:Epoch[35] Elapsed time 10.690 seconds
+INFO:root:Epoch[35] Evaluation metric &#39;epoch_loss&#39;=-2.716701
+INFO:root:Epoch[36] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.69it/s, avg_epoch_loss=-2.77]
+INFO:root:Epoch[36] Elapsed time 10.652 seconds
+INFO:root:Epoch[36] Evaluation metric &#39;epoch_loss&#39;=-2.767943
+INFO:root:Epoch[37] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.65it/s, avg_epoch_loss=-2.86]
+INFO:root:Epoch[37] Elapsed time 10.762 seconds
+INFO:root:Epoch[37] Evaluation metric &#39;epoch_loss&#39;=-2.860500
+INFO:root:Epoch[38] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.72it/s, avg_epoch_loss=-2.66]
+INFO:root:Epoch[38] Elapsed time 10.593 seconds
+INFO:root:Epoch[38] Evaluation metric &#39;epoch_loss&#39;=-2.661301
+INFO:root:Epoch[39] Learning rate is 0.001
+100%|██████████| 50/50 [00:11&lt;00:00,  4.48it/s, avg_epoch_loss=-2.83]
+INFO:root:Epoch[39] Elapsed time 11.159 seconds
+INFO:root:Epoch[39] Evaluation metric &#39;epoch_loss&#39;=-2.825454
+INFO:root:Epoch[40] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.68it/s, avg_epoch_loss=-2.73]
+INFO:root:Epoch[40] Elapsed time 10.697 seconds
+INFO:root:Epoch[40] Evaluation metric &#39;epoch_loss&#39;=-2.733304
+INFO:root:Epoch[41] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.57it/s, avg_epoch_loss=-2.79]
+INFO:root:Epoch[41] Elapsed time 10.946 seconds
+INFO:root:Epoch[41] Evaluation metric &#39;epoch_loss&#39;=-2.792177
+INFO:root:Epoch[42] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.76it/s, avg_epoch_loss=-2.81]
+INFO:root:Epoch[42] Elapsed time 10.513 seconds
+INFO:root:Epoch[42] Evaluation metric &#39;epoch_loss&#39;=-2.811506
+INFO:root:Epoch[43] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.68it/s, avg_epoch_loss=-2.74]
+INFO:root:Epoch[43] Elapsed time 10.692 seconds
+INFO:root:Epoch[43] Evaluation metric &#39;epoch_loss&#39;=-2.740779
+INFO:root:Epoch[44] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.65it/s, avg_epoch_loss=-2.77]
+INFO:root:Epoch[44] Elapsed time 10.751 seconds
+INFO:root:Epoch[44] Evaluation metric &#39;epoch_loss&#39;=-2.771513
+INFO:root:Epoch[45] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.55it/s, avg_epoch_loss=-2.85]
+INFO:root:Epoch[45] Elapsed time 10.981 seconds
+INFO:root:Epoch[45] Evaluation metric &#39;epoch_loss&#39;=-2.854636
+INFO:root:Epoch[46] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.57it/s, avg_epoch_loss=-2.71]
+INFO:root:Epoch[46] Elapsed time 10.953 seconds
+INFO:root:Epoch[46] Evaluation metric &#39;epoch_loss&#39;=-2.710627
+INFO:root:Epoch[47] Learning rate is 0.001
+100%|██████████| 50/50 [00:10&lt;00:00,  4.74it/s, avg_epoch_loss=-2.84]
+INFO:root:Epoch[47] Elapsed time 10.554 seconds
+INFO:root:Epoch[47] Evaluation metric &#39;epoch_loss&#39;=-2.844432
+INFO:root:Loading parameters from best epoch (37)
+INFO:root:Epoch[48] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.59it/s, avg_epoch_loss=-2.72]
+INFO:root:Epoch[48] Elapsed time 10.895 seconds
+INFO:root:Epoch[48] Evaluation metric &#39;epoch_loss&#39;=-2.720253
+INFO:root:Epoch[49] Learning rate is 0.0005
+100%|██████████| 50/50 [00:11&lt;00:00,  4.52it/s, avg_epoch_loss=-2.8]
+INFO:root:Epoch[49] Elapsed time 11.069 seconds
+INFO:root:Epoch[49] Evaluation metric &#39;epoch_loss&#39;=-2.799468
+INFO:root:Epoch[50] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.68it/s, avg_epoch_loss=-2.82]
+INFO:root:Epoch[50] Elapsed time 10.686 seconds
+INFO:root:Epoch[50] Evaluation metric &#39;epoch_loss&#39;=-2.822236
+INFO:root:Epoch[51] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.64it/s, avg_epoch_loss=-2.73]
+INFO:root:Epoch[51] Elapsed time 10.777 seconds
+INFO:root:Epoch[51] Evaluation metric &#39;epoch_loss&#39;=-2.731721
+INFO:root:Epoch[52] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.71it/s, avg_epoch_loss=-2.77]
+INFO:root:Epoch[52] Elapsed time 10.619 seconds
+INFO:root:Epoch[52] Evaluation metric &#39;epoch_loss&#39;=-2.773703
+INFO:root:Epoch[53] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.61it/s, avg_epoch_loss=-2.87]
+INFO:root:Epoch[53] Elapsed time 10.855 seconds
+INFO:root:Epoch[53] Evaluation metric &#39;epoch_loss&#39;=-2.865247
+INFO:root:Epoch[54] Learning rate is 0.0005
+100%|██████████| 50/50 [00:11&lt;00:00,  4.54it/s, avg_epoch_loss=-2.73]
+INFO:root:Epoch[54] Elapsed time 11.011 seconds
+INFO:root:Epoch[54] Evaluation metric &#39;epoch_loss&#39;=-2.729649
+INFO:root:Epoch[55] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.76it/s, avg_epoch_loss=-2.85]
+INFO:root:Epoch[55] Elapsed time 10.509 seconds
+INFO:root:Epoch[55] Evaluation metric &#39;epoch_loss&#39;=-2.849763
+INFO:root:Epoch[56] Learning rate is 0.0005
+100%|██████████| 50/50 [00:11&lt;00:00,  4.38it/s, avg_epoch_loss=-2.74]
+INFO:root:Epoch[56] Elapsed time 11.427 seconds
+INFO:root:Epoch[56] Evaluation metric &#39;epoch_loss&#39;=-2.738858
+INFO:root:Epoch[57] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.59it/s, avg_epoch_loss=-2.82]
+INFO:root:Epoch[57] Elapsed time 10.887 seconds
+INFO:root:Epoch[57] Evaluation metric &#39;epoch_loss&#39;=-2.823511
+INFO:root:Epoch[58] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.73it/s, avg_epoch_loss=-2.84]
+INFO:root:Epoch[58] Elapsed time 10.564 seconds
+INFO:root:Epoch[58] Evaluation metric &#39;epoch_loss&#39;=-2.835847
+INFO:root:Epoch[59] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.71it/s, avg_epoch_loss=-2.75]
+INFO:root:Epoch[59] Elapsed time 10.628 seconds
+INFO:root:Epoch[59] Evaluation metric &#39;epoch_loss&#39;=-2.749980
+INFO:root:Epoch[60] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.81it/s, avg_epoch_loss=-2.82]
+INFO:root:Epoch[60] Elapsed time 10.402 seconds
+INFO:root:Epoch[60] Evaluation metric &#39;epoch_loss&#39;=-2.819887
+INFO:root:Epoch[61] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.65it/s, avg_epoch_loss=-2.82]
+INFO:root:Epoch[61] Elapsed time 10.754 seconds
+INFO:root:Epoch[61] Evaluation metric &#39;epoch_loss&#39;=-2.824343
+INFO:root:Epoch[62] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.58it/s, avg_epoch_loss=-2.79]
+INFO:root:Epoch[62] Elapsed time 10.926 seconds
+INFO:root:Epoch[62] Evaluation metric &#39;epoch_loss&#39;=-2.792602
+INFO:root:Epoch[63] Learning rate is 0.0005
+100%|██████████| 50/50 [00:10&lt;00:00,  4.85it/s, avg_epoch_loss=-2.83]
+INFO:root:Epoch[63] Elapsed time 10.320 seconds
+INFO:root:Epoch[63] Evaluation metric &#39;epoch_loss&#39;=-2.830291
+INFO:root:Loading parameters from best epoch (53)
+INFO:root:Epoch[64] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.61it/s, avg_epoch_loss=-2.75]
+INFO:root:Epoch[64] Elapsed time 10.839 seconds
+INFO:root:Epoch[64] Evaluation metric &#39;epoch_loss&#39;=-2.751494
+INFO:root:Epoch[65] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.59it/s, avg_epoch_loss=-2.82]
+INFO:root:Epoch[65] Elapsed time 10.903 seconds
+INFO:root:Epoch[65] Evaluation metric &#39;epoch_loss&#39;=-2.815863
+INFO:root:Epoch[66] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.61it/s, avg_epoch_loss=-2.87]
+INFO:root:Epoch[66] Elapsed time 10.843 seconds
+INFO:root:Epoch[66] Evaluation metric &#39;epoch_loss&#39;=-2.872398
+INFO:root:Epoch[67] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.62it/s, avg_epoch_loss=-2.71]
+INFO:root:Epoch[67] Elapsed time 10.828 seconds
+INFO:root:Epoch[67] Evaluation metric &#39;epoch_loss&#39;=-2.713263
+INFO:root:Epoch[68] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.76it/s, avg_epoch_loss=-2.84]
+INFO:root:Epoch[68] Elapsed time 10.509 seconds
+INFO:root:Epoch[68] Evaluation metric &#39;epoch_loss&#39;=-2.841220
+INFO:root:Epoch[69] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.56it/s, avg_epoch_loss=-2.8] 
+INFO:root:Epoch[69] Elapsed time 10.958 seconds
+INFO:root:Epoch[69] Evaluation metric &#39;epoch_loss&#39;=-2.800776
+INFO:root:Epoch[70] Learning rate is 0.00025
+100%|██████████| 50/50 [00:11&lt;00:00,  4.48it/s, avg_epoch_loss=-2.8] 
+INFO:root:Epoch[70] Elapsed time 11.172 seconds
+INFO:root:Epoch[70] Evaluation metric &#39;epoch_loss&#39;=-2.804166
+INFO:root:Epoch[71] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.74it/s, avg_epoch_loss=-2.82]
+INFO:root:Epoch[71] Elapsed time 10.557 seconds
+INFO:root:Epoch[71] Evaluation metric &#39;epoch_loss&#39;=-2.824273
+INFO:root:Epoch[72] Learning rate is 0.00025
+100%|██████████| 50/50 [00:11&lt;00:00,  4.52it/s, avg_epoch_loss=-2.77]
+INFO:root:Epoch[72] Elapsed time 11.062 seconds
+INFO:root:Epoch[72] Evaluation metric &#39;epoch_loss&#39;=-2.767310
+INFO:root:Epoch[73] Learning rate is 0.00025
+100%|██████████| 50/50 [00:11&lt;00:00,  4.51it/s, avg_epoch_loss=-2.82]
+INFO:root:Epoch[73] Elapsed time 11.076 seconds
+INFO:root:Epoch[73] Evaluation metric &#39;epoch_loss&#39;=-2.821350
+INFO:root:Epoch[74] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.62it/s, avg_epoch_loss=-2.9] 
+INFO:root:Epoch[74] Elapsed time 10.820 seconds
+INFO:root:Epoch[74] Evaluation metric &#39;epoch_loss&#39;=-2.903079
+INFO:root:Epoch[75] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.56it/s, avg_epoch_loss=-2.7]
+INFO:root:Epoch[75] Elapsed time 10.974 seconds
+INFO:root:Epoch[75] Evaluation metric &#39;epoch_loss&#39;=-2.704659
+INFO:root:Epoch[76] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.70it/s, avg_epoch_loss=-2.87]
+INFO:root:Epoch[76] Elapsed time 10.634 seconds
+INFO:root:Epoch[76] Evaluation metric &#39;epoch_loss&#39;=-2.866323
+INFO:root:Epoch[77] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.59it/s, avg_epoch_loss=-2.77]
+INFO:root:Epoch[77] Elapsed time 10.886 seconds
+INFO:root:Epoch[77] Evaluation metric &#39;epoch_loss&#39;=-2.771731
+INFO:root:Epoch[78] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.57it/s, avg_epoch_loss=-2.83]
+INFO:root:Epoch[78] Elapsed time 10.935 seconds
+INFO:root:Epoch[78] Evaluation metric &#39;epoch_loss&#39;=-2.834800
+INFO:root:Epoch[79] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.77it/s, avg_epoch_loss=-2.85]
+INFO:root:Epoch[79] Elapsed time 10.486 seconds
+INFO:root:Epoch[79] Evaluation metric &#39;epoch_loss&#39;=-2.853370
+INFO:root:Epoch[80] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.69it/s, avg_epoch_loss=-2.78]
+INFO:root:Epoch[80] Elapsed time 10.670 seconds
+INFO:root:Epoch[80] Evaluation metric &#39;epoch_loss&#39;=-2.780352
+INFO:root:Epoch[81] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.67it/s, avg_epoch_loss=-2.8] 
+INFO:root:Epoch[81] Elapsed time 10.715 seconds
+INFO:root:Epoch[81] Evaluation metric &#39;epoch_loss&#39;=-2.801046
+INFO:root:Epoch[82] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.56it/s, avg_epoch_loss=-2.9]
+INFO:root:Epoch[82] Elapsed time 10.967 seconds
+INFO:root:Epoch[82] Evaluation metric &#39;epoch_loss&#39;=-2.899666
+INFO:root:Epoch[83] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.55it/s, avg_epoch_loss=-2.74]
+INFO:root:Epoch[83] Elapsed time 10.997 seconds
+INFO:root:Epoch[83] Evaluation metric &#39;epoch_loss&#39;=-2.735881
+INFO:root:Epoch[84] Learning rate is 0.00025
+100%|██████████| 50/50 [00:10&lt;00:00,  4.73it/s, avg_epoch_loss=-2.88]
+INFO:root:Epoch[84] Elapsed time 10.567 seconds
+INFO:root:Epoch[84] Evaluation metric &#39;epoch_loss&#39;=-2.876531
+INFO:root:Loading parameters from best epoch (74)
+INFO:root:Epoch[85] Learning rate is 0.000125
+100%|██████████| 50/50 [00:10&lt;00:00,  4.62it/s, avg_epoch_loss=-2.76]
+INFO:root:Epoch[85] Elapsed time 10.825 seconds
+INFO:root:Epoch[85] Evaluation metric &#39;epoch_loss&#39;=-2.758293
+INFO:root:Epoch[86] Learning rate is 0.000125
+100%|██████████| 50/50 [00:11&lt;00:00,  4.52it/s, avg_epoch_loss=-2.84]
+INFO:root:Epoch[86] Elapsed time 11.065 seconds
+INFO:root:Epoch[86] Evaluation metric &#39;epoch_loss&#39;=-2.842908
+INFO:root:Epoch[87] Learning rate is 0.000125
+100%|██████████| 50/50 [00:10&lt;00:00,  4.65it/s, avg_epoch_loss=-2.86]
+INFO:root:Epoch[87] Elapsed time 10.762 seconds
+INFO:root:Epoch[87] Evaluation metric &#39;epoch_loss&#39;=-2.859687
+INFO:root:Epoch[88] Learning rate is 0.000125
+100%|██████████| 50/50 [00:10&lt;00:00,  4.60it/s, avg_epoch_loss=-2.76]
+INFO:root:Epoch[88] Elapsed time 10.877 seconds
+INFO:root:Epoch[88] Evaluation metric &#39;epoch_loss&#39;=-2.761182
+INFO:root:Epoch[89] Learning rate is 0.000125
+100%|██████████| 50/50 [00:11&lt;00:00,  4.36it/s, avg_epoch_loss=-2.81]
+INFO:root:Epoch[89] Elapsed time 11.480 seconds
+INFO:root:Epoch[89] Evaluation metric &#39;epoch_loss&#39;=-2.805660
+INFO:root:Epoch[90] Learning rate is 0.000125
+100%|██████████| 50/50 [00:10&lt;00:00,  4.56it/s, avg_epoch_loss=-2.89]
+INFO:root:Epoch[90] Elapsed time 10.968 seconds
+INFO:root:Epoch[90] Evaluation metric &#39;epoch_loss&#39;=-2.889498
+INFO:root:Epoch[91] Learning rate is 0.000125
+100%|██████████| 50/50 [00:10&lt;00:00,  4.55it/s, avg_epoch_loss=-2.76]
+INFO:root:Epoch[91] Elapsed time 11.001 seconds
+INFO:root:Epoch[91] Evaluation metric &#39;epoch_loss&#39;=-2.758397
+INFO:root:Epoch[92] Learning rate is 0.000125
+100%|██████████| 50/50 [00:10&lt;00:00,  4.82it/s, avg_epoch_loss=-2.87]
+INFO:root:Epoch[92] Elapsed time 10.383 seconds
+INFO:root:Epoch[92] Evaluation metric &#39;epoch_loss&#39;=-2.872920
+INFO:root:Epoch[93] Learning rate is 0.000125
+100%|██████████| 50/50 [00:10&lt;00:00,  4.68it/s, avg_epoch_loss=-2.76]
+INFO:root:Epoch[93] Elapsed time 10.689 seconds
+INFO:root:Epoch[93] Evaluation metric &#39;epoch_loss&#39;=-2.762910
+INFO:root:Epoch[94] Learning rate is 0.000125
+100%|██████████| 50/50 [00:10&lt;00:00,  4.63it/s, avg_epoch_loss=-2.84]
+INFO:root:Epoch[94] Elapsed time 10.799 seconds
+INFO:root:Epoch[94] Evaluation metric &#39;epoch_loss&#39;=-2.842192
+INFO:root:Loading parameters from best epoch (74)
+INFO:root:Epoch[95] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:10&lt;00:00,  4.70it/s, avg_epoch_loss=-2.86]
+INFO:root:Epoch[95] Elapsed time 10.646 seconds
+INFO:root:Epoch[95] Evaluation metric &#39;epoch_loss&#39;=-2.856403
+INFO:root:Epoch[96] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:10&lt;00:00,  4.68it/s, avg_epoch_loss=-2.76]
+INFO:root:Epoch[96] Elapsed time 10.691 seconds
+INFO:root:Epoch[96] Evaluation metric &#39;epoch_loss&#39;=-2.758844
+INFO:root:Epoch[97] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:10&lt;00:00,  4.74it/s, avg_epoch_loss=-2.84]
+INFO:root:Epoch[97] Elapsed time 10.544 seconds
+INFO:root:Epoch[97] Evaluation metric &#39;epoch_loss&#39;=-2.835791
+INFO:root:Epoch[98] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:11&lt;00:00,  4.54it/s, avg_epoch_loss=-2.83]
+INFO:root:Epoch[98] Elapsed time 11.024 seconds
+INFO:root:Epoch[98] Evaluation metric &#39;epoch_loss&#39;=-2.831303
+INFO:root:Epoch[99] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:11&lt;00:00,  4.46it/s, avg_epoch_loss=-2.8] 
+INFO:root:Epoch[99] Elapsed time 11.207 seconds
+INFO:root:Epoch[99] Evaluation metric &#39;epoch_loss&#39;=-2.799465
+INFO:root:Loading parameters from best epoch (74)
+INFO:root:Final loss: -2.9030787181854247 (occurred at epoch 74)
+INFO:root:End model training
+Running evaluation: 100%|██████████| 4227/4227 [01:44&lt;00:00, 40.27it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;MASE&#39;: 3.88380393,
+ &#39;MSIS&#39;: 60.97853548,
+ &#39;epochs&#39;: 100,
+ &#39;sMAPE&#39;: 0.03661638,
+ &#39;seed&#39;: 42,
+ &#39;wQuantileLoss[0.5]&#39;: 0.03349837,
+ &#39;wQuantileLoss[0.9]&#39;: 0.01957032}
+None
+CPU times: user 40min 2s, sys: 4min 58s, total: 45min 1s
+Wall time: 20min 58s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">time</span>
+res = deep_state(data=&quot;m4_monthly&quot;, seed=42, epochs=100, batches=50)
+pprint(res)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>INFO:root:downloading and processing m4_monthly
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saving time-series into /home/ec2-user/.mxnet/gluon-ts/datasets/m4_monthly/train/data.json
+saving time-series into /home/ec2-user/.mxnet/gluon-ts/datasets/m4_monthly/test/data.json
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>INFO:root:Using CPU
+INFO:root:Start model training
+INFO:root:Epoch[0] Learning rate is 0.001
+  0%|          | 0/50 [00:00&lt;?, ?it/s]INFO:root:Number of parameters in DeepStateTrainingNetwork: 2429349
+100%|██████████| 50/50 [00:05&lt;00:00,  8.37it/s, avg_epoch_loss=0.0975]
+INFO:root:Epoch[0] Elapsed time 5.975 seconds
+INFO:root:Epoch[0] Evaluation metric &#39;epoch_loss&#39;=0.097503
+INFO:root:Epoch[1] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  9.01it/s, avg_epoch_loss=-.184]
+INFO:root:Epoch[1] Elapsed time 5.549 seconds
+INFO:root:Epoch[1] Evaluation metric &#39;epoch_loss&#39;=-0.183824
+INFO:root:Epoch[2] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  8.89it/s, avg_epoch_loss=0.317]
+INFO:root:Epoch[2] Elapsed time 5.628 seconds
+INFO:root:Epoch[2] Evaluation metric &#39;epoch_loss&#39;=0.317048
+INFO:root:Epoch[3] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  9.00it/s, avg_epoch_loss=0.146]
+INFO:root:Epoch[3] Elapsed time 5.559 seconds
+INFO:root:Epoch[3] Evaluation metric &#39;epoch_loss&#39;=0.146055
+INFO:root:Epoch[4] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  8.90it/s, avg_epoch_loss=0.275]
+INFO:root:Epoch[4] Elapsed time 5.621 seconds
+INFO:root:Epoch[4] Evaluation metric &#39;epoch_loss&#39;=0.275420
+INFO:root:Epoch[5] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  9.15it/s, avg_epoch_loss=0.158]
+INFO:root:Epoch[5] Elapsed time 5.470 seconds
+INFO:root:Epoch[5] Evaluation metric &#39;epoch_loss&#39;=0.158245
+INFO:root:Epoch[6] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  9.03it/s, avg_epoch_loss=-.772]
+INFO:root:Epoch[6] Elapsed time 5.542 seconds
+INFO:root:Epoch[6] Evaluation metric &#39;epoch_loss&#39;=-0.772089
+INFO:root:Epoch[7] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  9.10it/s, avg_epoch_loss=-2.26]
+INFO:root:Epoch[7] Elapsed time 5.495 seconds
+INFO:root:Epoch[7] Evaluation metric &#39;epoch_loss&#39;=-2.260052
+INFO:root:Epoch[8] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  9.05it/s, avg_epoch_loss=2.73]
+INFO:root:Epoch[8] Elapsed time 5.530 seconds
+INFO:root:Epoch[8] Evaluation metric &#39;epoch_loss&#39;=2.729957
+INFO:root:Epoch[9] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  9.08it/s, avg_epoch_loss=0.193]
+INFO:root:Epoch[9] Elapsed time 5.512 seconds
+INFO:root:Epoch[9] Evaluation metric &#39;epoch_loss&#39;=0.193173
+INFO:root:Epoch[10] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  8.99it/s, avg_epoch_loss=0.24]
+INFO:root:Epoch[10] Elapsed time 5.563 seconds
+INFO:root:Epoch[10] Evaluation metric &#39;epoch_loss&#39;=0.240183
+INFO:root:Epoch[11] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  9.19it/s, avg_epoch_loss=0.154]
+INFO:root:Epoch[11] Elapsed time 5.444 seconds
+INFO:root:Epoch[11] Evaluation metric &#39;epoch_loss&#39;=0.154410
+INFO:root:Epoch[12] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  9.15it/s, avg_epoch_loss=-.197]
+INFO:root:Epoch[12] Elapsed time 5.469 seconds
+INFO:root:Epoch[12] Evaluation metric &#39;epoch_loss&#39;=-0.197231
+INFO:root:Epoch[13] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  9.07it/s, avg_epoch_loss=-.794]
+INFO:root:Epoch[13] Elapsed time 5.517 seconds
+INFO:root:Epoch[13] Evaluation metric &#39;epoch_loss&#39;=-0.793767
+INFO:root:Epoch[14] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  9.02it/s, avg_epoch_loss=-1.27]
+INFO:root:Epoch[14] Elapsed time 5.544 seconds
+INFO:root:Epoch[14] Evaluation metric &#39;epoch_loss&#39;=-1.272808
+INFO:root:Epoch[15] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  8.99it/s, avg_epoch_loss=-1.22]
+INFO:root:Epoch[15] Elapsed time 5.569 seconds
+INFO:root:Epoch[15] Evaluation metric &#39;epoch_loss&#39;=-1.217577
+INFO:root:Epoch[16] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  8.99it/s, avg_epoch_loss=-.874]
+INFO:root:Epoch[16] Elapsed time 5.566 seconds
+INFO:root:Epoch[16] Evaluation metric &#39;epoch_loss&#39;=-0.874166
+INFO:root:Epoch[17] Learning rate is 0.001
+100%|██████████| 50/50 [00:05&lt;00:00,  9.05it/s, avg_epoch_loss=-.945]
+INFO:root:Epoch[17] Elapsed time 5.526 seconds
+INFO:root:Epoch[17] Evaluation metric &#39;epoch_loss&#39;=-0.944881
+INFO:root:Loading parameters from best epoch (7)
+INFO:root:Epoch[18] Learning rate is 0.0005
+100%|██████████| 50/50 [00:05&lt;00:00,  9.04it/s, avg_epoch_loss=-1.98]
+INFO:root:Epoch[18] Elapsed time 5.535 seconds
+INFO:root:Epoch[18] Evaluation metric &#39;epoch_loss&#39;=-1.983423
+INFO:root:Epoch[19] Learning rate is 0.0005
+100%|██████████| 50/50 [00:05&lt;00:00,  8.97it/s, avg_epoch_loss=8.54]
+INFO:root:Epoch[19] Elapsed time 5.575 seconds
+INFO:root:Epoch[19] Evaluation metric &#39;epoch_loss&#39;=8.544906
+INFO:root:Epoch[20] Learning rate is 0.0005
+100%|██████████| 50/50 [00:05&lt;00:00,  9.09it/s, avg_epoch_loss=0.439]
+INFO:root:Epoch[20] Elapsed time 5.505 seconds
+INFO:root:Epoch[20] Evaluation metric &#39;epoch_loss&#39;=0.439386
+INFO:root:Epoch[21] Learning rate is 0.0005
+100%|██████████| 50/50 [00:05&lt;00:00,  9.17it/s, avg_epoch_loss=0.302]
+INFO:root:Epoch[21] Elapsed time 5.452 seconds
+INFO:root:Epoch[21] Evaluation metric &#39;epoch_loss&#39;=0.302469
+INFO:root:Epoch[22] Learning rate is 0.0005
+100%|██████████| 50/50 [00:05&lt;00:00,  9.05it/s, avg_epoch_loss=-.124]
+INFO:root:Epoch[22] Elapsed time 5.526 seconds
+INFO:root:Epoch[22] Evaluation metric &#39;epoch_loss&#39;=-0.124116
+INFO:root:Epoch[23] Learning rate is 0.0005
+100%|██████████| 50/50 [00:05&lt;00:00,  9.04it/s, avg_epoch_loss=-.517]
+INFO:root:Epoch[23] Elapsed time 5.533 seconds
+INFO:root:Epoch[23] Evaluation metric &#39;epoch_loss&#39;=-0.517376
+INFO:root:Epoch[24] Learning rate is 0.0005
+100%|██████████| 50/50 [00:05&lt;00:00,  9.11it/s, avg_epoch_loss=0.087]
+INFO:root:Epoch[24] Elapsed time 5.489 seconds
+INFO:root:Epoch[24] Evaluation metric &#39;epoch_loss&#39;=0.086971
+INFO:root:Epoch[25] Learning rate is 0.0005
+100%|██████████| 50/50 [00:05&lt;00:00,  9.05it/s, avg_epoch_loss=-.298]
+INFO:root:Epoch[25] Elapsed time 5.525 seconds
+INFO:root:Epoch[25] Evaluation metric &#39;epoch_loss&#39;=-0.297946
+INFO:root:Epoch[26] Learning rate is 0.0005
+100%|██████████| 50/50 [00:05&lt;00:00,  9.01it/s, avg_epoch_loss=0.225]
+INFO:root:Epoch[26] Elapsed time 5.551 seconds
+INFO:root:Epoch[26] Evaluation metric &#39;epoch_loss&#39;=0.224955
+INFO:root:Epoch[27] Learning rate is 0.0005
+100%|██████████| 50/50 [00:05&lt;00:00,  9.01it/s, avg_epoch_loss=-.0905]
+INFO:root:Epoch[27] Elapsed time 5.552 seconds
+INFO:root:Epoch[27] Evaluation metric &#39;epoch_loss&#39;=-0.090523
+INFO:root:Loading parameters from best epoch (7)
+INFO:root:Epoch[28] Learning rate is 0.00025
+100%|██████████| 50/50 [00:05&lt;00:00,  8.98it/s, avg_epoch_loss=43.1]
+INFO:root:Epoch[28] Elapsed time 5.568 seconds
+INFO:root:Epoch[28] Evaluation metric &#39;epoch_loss&#39;=43.063769
+INFO:root:Epoch[29] Learning rate is 0.00025
+100%|██████████| 50/50 [00:05&lt;00:00,  8.95it/s, avg_epoch_loss=0.602]
+INFO:root:Epoch[29] Elapsed time 5.592 seconds
+INFO:root:Epoch[29] Evaluation metric &#39;epoch_loss&#39;=0.602361
+INFO:root:Epoch[30] Learning rate is 0.00025
+100%|██████████| 50/50 [00:06&lt;00:00,  8.26it/s, avg_epoch_loss=-.279]
+INFO:root:Epoch[30] Elapsed time 6.052 seconds
+INFO:root:Epoch[30] Evaluation metric &#39;epoch_loss&#39;=-0.278574
+INFO:root:Epoch[31] Learning rate is 0.00025
+100%|██████████| 50/50 [00:05&lt;00:00,  8.96it/s, avg_epoch_loss=-.352]
+INFO:root:Epoch[31] Elapsed time 5.583 seconds
+INFO:root:Epoch[31] Evaluation metric &#39;epoch_loss&#39;=-0.352440
+INFO:root:Epoch[32] Learning rate is 0.00025
+100%|██████████| 50/50 [00:05&lt;00:00,  8.94it/s, avg_epoch_loss=0.121]
+INFO:root:Epoch[32] Elapsed time 5.597 seconds
+INFO:root:Epoch[32] Evaluation metric &#39;epoch_loss&#39;=0.120544
+INFO:root:Epoch[33] Learning rate is 0.00025
+100%|██████████| 50/50 [00:05&lt;00:00,  8.98it/s, avg_epoch_loss=-.258]
+INFO:root:Epoch[33] Elapsed time 5.573 seconds
+INFO:root:Epoch[33] Evaluation metric &#39;epoch_loss&#39;=-0.258062
+INFO:root:Epoch[34] Learning rate is 0.00025
+100%|██████████| 50/50 [00:05&lt;00:00,  9.08it/s, avg_epoch_loss=0.0389]
+INFO:root:Epoch[34] Elapsed time 5.512 seconds
+INFO:root:Epoch[34] Evaluation metric &#39;epoch_loss&#39;=0.038905
+INFO:root:Epoch[35] Learning rate is 0.00025
+100%|██████████| 50/50 [00:05&lt;00:00,  9.14it/s, avg_epoch_loss=0.0661]
+INFO:root:Epoch[35] Elapsed time 5.475 seconds
+INFO:root:Epoch[35] Evaluation metric &#39;epoch_loss&#39;=0.066056
+INFO:root:Epoch[36] Learning rate is 0.00025
+100%|██████████| 50/50 [00:05&lt;00:00,  8.98it/s, avg_epoch_loss=-.405]
+INFO:root:Epoch[36] Elapsed time 5.572 seconds
+INFO:root:Epoch[36] Evaluation metric &#39;epoch_loss&#39;=-0.404726
+INFO:root:Epoch[37] Learning rate is 0.00025
+100%|██████████| 50/50 [00:05&lt;00:00,  8.96it/s, avg_epoch_loss=-.755]
+INFO:root:Epoch[37] Elapsed time 5.582 seconds
+INFO:root:Epoch[37] Evaluation metric &#39;epoch_loss&#39;=-0.755307
+INFO:root:Loading parameters from best epoch (7)
+INFO:root:Epoch[38] Learning rate is 0.000125
+100%|██████████| 50/50 [00:05&lt;00:00,  8.97it/s, avg_epoch_loss=31.1]
+INFO:root:Epoch[38] Elapsed time 5.579 seconds
+INFO:root:Epoch[38] Evaluation metric &#39;epoch_loss&#39;=31.082841
+INFO:root:Epoch[39] Learning rate is 0.000125
+100%|██████████| 50/50 [00:05&lt;00:00,  9.04it/s, avg_epoch_loss=28.3]
+INFO:root:Epoch[39] Elapsed time 5.537 seconds
+INFO:root:Epoch[39] Evaluation metric &#39;epoch_loss&#39;=28.282993
+INFO:root:Epoch[40] Learning rate is 0.000125
+100%|██████████| 50/50 [00:05&lt;00:00,  9.08it/s, avg_epoch_loss=11.4]
+INFO:root:Epoch[40] Elapsed time 5.511 seconds
+INFO:root:Epoch[40] Evaluation metric &#39;epoch_loss&#39;=11.372235
+INFO:root:Epoch[41] Learning rate is 0.000125
+100%|██████████| 50/50 [00:05&lt;00:00,  9.11it/s, avg_epoch_loss=1]
+INFO:root:Epoch[41] Elapsed time 5.490 seconds
+INFO:root:Epoch[41] Evaluation metric &#39;epoch_loss&#39;=1.001374
+INFO:root:Epoch[42] Learning rate is 0.000125
+100%|██████████| 50/50 [00:05&lt;00:00,  9.15it/s, avg_epoch_loss=0.149]
+INFO:root:Epoch[42] Elapsed time 5.471 seconds
+INFO:root:Epoch[42] Evaluation metric &#39;epoch_loss&#39;=0.148703
+INFO:root:Epoch[43] Learning rate is 0.000125
+100%|██████████| 50/50 [00:05&lt;00:00,  9.05it/s, avg_epoch_loss=-.748]
+INFO:root:Epoch[43] Elapsed time 5.526 seconds
+INFO:root:Epoch[43] Evaluation metric &#39;epoch_loss&#39;=-0.748344
+INFO:root:Epoch[44] Learning rate is 0.000125
+100%|██████████| 50/50 [00:05&lt;00:00,  9.00it/s, avg_epoch_loss=-1.12]
+INFO:root:Epoch[44] Elapsed time 5.560 seconds
+INFO:root:Epoch[44] Evaluation metric &#39;epoch_loss&#39;=-1.118178
+INFO:root:Epoch[45] Learning rate is 0.000125
+100%|██████████| 50/50 [00:05&lt;00:00,  9.02it/s, avg_epoch_loss=-1.05]
+INFO:root:Epoch[45] Elapsed time 5.548 seconds
+INFO:root:Epoch[45] Evaluation metric &#39;epoch_loss&#39;=-1.052489
+INFO:root:Epoch[46] Learning rate is 0.000125
+100%|██████████| 50/50 [00:05&lt;00:00,  8.96it/s, avg_epoch_loss=-.858]
+INFO:root:Epoch[46] Elapsed time 5.586 seconds
+INFO:root:Epoch[46] Evaluation metric &#39;epoch_loss&#39;=-0.858368
+INFO:root:Epoch[47] Learning rate is 0.000125
+100%|██████████| 50/50 [00:05&lt;00:00,  9.03it/s, avg_epoch_loss=-.963]
+INFO:root:Epoch[47] Elapsed time 5.537 seconds
+INFO:root:Epoch[47] Evaluation metric &#39;epoch_loss&#39;=-0.962521
+INFO:root:Loading parameters from best epoch (7)
+INFO:root:Epoch[48] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.00it/s, avg_epoch_loss=-1.98]
+INFO:root:Epoch[48] Elapsed time 5.556 seconds
+INFO:root:Epoch[48] Evaluation metric &#39;epoch_loss&#39;=-1.982265
+INFO:root:Epoch[49] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.01it/s, avg_epoch_loss=28.7]
+INFO:root:Epoch[49] Elapsed time 5.554 seconds
+INFO:root:Epoch[49] Evaluation metric &#39;epoch_loss&#39;=28.707730
+INFO:root:Epoch[50] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.06it/s, avg_epoch_loss=138]
+INFO:root:Epoch[50] Elapsed time 5.518 seconds
+INFO:root:Epoch[50] Evaluation metric &#39;epoch_loss&#39;=138.234054
+INFO:root:Epoch[51] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.11it/s, avg_epoch_loss=15.9]
+INFO:root:Epoch[51] Elapsed time 5.489 seconds
+INFO:root:Epoch[51] Evaluation metric &#39;epoch_loss&#39;=15.864940
+INFO:root:Epoch[52] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  8.99it/s, avg_epoch_loss=-.166]
+INFO:root:Epoch[52] Elapsed time 5.563 seconds
+INFO:root:Epoch[52] Evaluation metric &#39;epoch_loss&#39;=-0.166166
+INFO:root:Epoch[53] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.03it/s, avg_epoch_loss=-1.1]
+INFO:root:Epoch[53] Elapsed time 5.541 seconds
+INFO:root:Epoch[53] Evaluation metric &#39;epoch_loss&#39;=-1.096075
+INFO:root:Epoch[54] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.11it/s, avg_epoch_loss=0.789]
+INFO:root:Epoch[54] Elapsed time 5.493 seconds
+INFO:root:Epoch[54] Evaluation metric &#39;epoch_loss&#39;=0.789431
+INFO:root:Epoch[55] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.06it/s, avg_epoch_loss=-.119]
+INFO:root:Epoch[55] Elapsed time 5.521 seconds
+INFO:root:Epoch[55] Evaluation metric &#39;epoch_loss&#39;=-0.119021
+INFO:root:Epoch[56] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.09it/s, avg_epoch_loss=1.31]
+INFO:root:Epoch[56] Elapsed time 5.505 seconds
+INFO:root:Epoch[56] Evaluation metric &#39;epoch_loss&#39;=1.312344
+INFO:root:Epoch[57] Learning rate is 6.25e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.07it/s, avg_epoch_loss=0.058]
+INFO:root:Epoch[57] Elapsed time 5.513 seconds
+INFO:root:Epoch[57] Evaluation metric &#39;epoch_loss&#39;=0.057993
+INFO:root:Loading parameters from best epoch (7)
+INFO:root:Epoch[58] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.09it/s, avg_epoch_loss=132]
+INFO:root:Epoch[58] Elapsed time 5.502 seconds
+INFO:root:Epoch[58] Evaluation metric &#39;epoch_loss&#39;=132.492617
+INFO:root:Epoch[59] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.16it/s, avg_epoch_loss=167]
+INFO:root:Epoch[59] Elapsed time 5.461 seconds
+INFO:root:Epoch[59] Evaluation metric &#39;epoch_loss&#39;=166.958678
+INFO:root:Epoch[60] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.00it/s, avg_epoch_loss=2.98]
+INFO:root:Epoch[60] Elapsed time 5.563 seconds
+INFO:root:Epoch[60] Evaluation metric &#39;epoch_loss&#39;=2.982143
+INFO:root:Epoch[61] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.00it/s, avg_epoch_loss=1.75]
+INFO:root:Epoch[61] Elapsed time 5.558 seconds
+INFO:root:Epoch[61] Evaluation metric &#39;epoch_loss&#39;=1.750044
+INFO:root:Epoch[62] Learning rate is 5e-05
+100%|██████████| 50/50 [00:06&lt;00:00,  7.99it/s, avg_epoch_loss=12.9]
+INFO:root:Epoch[62] Elapsed time 6.257 seconds
+INFO:root:Epoch[62] Evaluation metric &#39;epoch_loss&#39;=12.899930
+INFO:root:Epoch[63] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  8.97it/s, avg_epoch_loss=1.2]
+INFO:root:Epoch[63] Elapsed time 5.578 seconds
+INFO:root:Epoch[63] Evaluation metric &#39;epoch_loss&#39;=1.201607
+INFO:root:Epoch[64] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.10it/s, avg_epoch_loss=1.08]
+INFO:root:Epoch[64] Elapsed time 5.497 seconds
+INFO:root:Epoch[64] Evaluation metric &#39;epoch_loss&#39;=1.080951
+INFO:root:Epoch[65] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.18it/s, avg_epoch_loss=0.554]
+INFO:root:Epoch[65] Elapsed time 5.451 seconds
+INFO:root:Epoch[65] Evaluation metric &#39;epoch_loss&#39;=0.553578
+INFO:root:Epoch[66] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.06it/s, avg_epoch_loss=-.743]
+INFO:root:Epoch[66] Elapsed time 5.522 seconds
+INFO:root:Epoch[66] Evaluation metric &#39;epoch_loss&#39;=-0.742958
+INFO:root:Epoch[67] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.04it/s, avg_epoch_loss=-1.48]
+INFO:root:Epoch[67] Elapsed time 5.533 seconds
+INFO:root:Epoch[67] Evaluation metric &#39;epoch_loss&#39;=-1.482370
+INFO:root:Epoch[68] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.07it/s, avg_epoch_loss=0.868]
+INFO:root:Epoch[68] Elapsed time 5.516 seconds
+INFO:root:Epoch[68] Evaluation metric &#39;epoch_loss&#39;=0.868365
+INFO:root:Epoch[69] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.08it/s, avg_epoch_loss=0.671]
+INFO:root:Epoch[69] Elapsed time 5.508 seconds
+INFO:root:Epoch[69] Evaluation metric &#39;epoch_loss&#39;=0.671187
+INFO:root:Epoch[70] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.08it/s, avg_epoch_loss=1.4]
+INFO:root:Epoch[70] Elapsed time 5.512 seconds
+INFO:root:Epoch[70] Evaluation metric &#39;epoch_loss&#39;=1.396644
+INFO:root:Epoch[71] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.17it/s, avg_epoch_loss=0.814]
+INFO:root:Epoch[71] Elapsed time 5.457 seconds
+INFO:root:Epoch[71] Evaluation metric &#39;epoch_loss&#39;=0.813735
+INFO:root:Epoch[72] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.09it/s, avg_epoch_loss=0.317]
+INFO:root:Epoch[72] Elapsed time 5.509 seconds
+INFO:root:Epoch[72] Evaluation metric &#39;epoch_loss&#39;=0.317134
+INFO:root:Epoch[73] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  8.96it/s, avg_epoch_loss=-.796]
+INFO:root:Epoch[73] Elapsed time 5.581 seconds
+INFO:root:Epoch[73] Evaluation metric &#39;epoch_loss&#39;=-0.795789
+INFO:root:Epoch[74] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  8.89it/s, avg_epoch_loss=-1.2]
+INFO:root:Epoch[74] Elapsed time 5.632 seconds
+INFO:root:Epoch[74] Evaluation metric &#39;epoch_loss&#39;=-1.202862
+INFO:root:Epoch[75] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.00it/s, avg_epoch_loss=-1.09]
+INFO:root:Epoch[75] Elapsed time 5.558 seconds
+INFO:root:Epoch[75] Evaluation metric &#39;epoch_loss&#39;=-1.089581
+INFO:root:Epoch[76] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  8.97it/s, avg_epoch_loss=-.883]
+INFO:root:Epoch[76] Elapsed time 5.580 seconds
+INFO:root:Epoch[76] Evaluation metric &#39;epoch_loss&#39;=-0.882560
+INFO:root:Epoch[77] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.06it/s, avg_epoch_loss=-.979]
+INFO:root:Epoch[77] Elapsed time 5.521 seconds
+INFO:root:Epoch[77] Evaluation metric &#39;epoch_loss&#39;=-0.978900
+INFO:root:Epoch[78] Learning rate is 5e-05
+100%|██████████| 50/50 [00:05&lt;00:00,  9.03it/s, avg_epoch_loss=-1.25]
+INFO:root:Epoch[78] Elapsed time 5.541 seconds
+INFO:root:Epoch[78] Evaluation metric &#39;epoch_loss&#39;=-1.247849
+INFO:root:Epoch[79] Learning rate is 5e-05
+Running evaluation:  99%|█████████▉| 47724/48000 [18:32&lt;00:05, 46.43it/s]</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">time</span>
+res = deep_state(data=&quot;m4_quarterly&quot;, seed=42, epochs=100, batches=50)
+pprint(res)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">time</span>
+res = deep_state(data=&quot;m4_yearly&quot;, seed=42, epochs=100, batches=50)
+pprint(res)
+</pre></div>
+
+    </div>
 </div>
 </div>
 
