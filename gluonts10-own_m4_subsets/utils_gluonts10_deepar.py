@@ -39,8 +39,9 @@ def deepar(data="m4_quarterly", seed=42, epochs=100, batches=50):
         use_feat_static_cat=True
     )
 
-    predictor = estimator.train(training_data=dataset.train,
-                                validation_data=dataset.test)
+    # predictor = estimator.train(training_data=dataset.train,
+    #                             validation_data=dataset.test)
+    predictor = estimator.train(training_data=dataset.train)
 
     forecast_it, ts_it = make_evaluation_predictions(
         dataset.test, predictor=predictor, num_samples=100
