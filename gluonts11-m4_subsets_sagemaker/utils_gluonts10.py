@@ -205,9 +205,9 @@ dataset_recipes = OrderedDict(
 
 dataset_names = list(dataset_recipes.keys())
 
-default_dataset_path = "datasets"
+#default_dataset_path = "datasets"
 
-#default_dataset_path = get_download_path() / "datasets"
+default_dataset_path = get_download_path() / "datasets"
 
 
 def materialize_dataset(
