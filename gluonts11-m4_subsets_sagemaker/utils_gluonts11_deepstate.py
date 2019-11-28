@@ -20,10 +20,10 @@ from gluonts.model.deepstate import DeepStateEstimator
 #########################
 ### deepstate wrapper ###
 def deep_state(seed=42, data="m4_quarterly", epochs=100, batches=50):
-    
+
     mx.random.seed(seed)
     np.random.seed(seed)
-    
+
     dataset = get_dataset(data)
 
     trainer = Trainer(
@@ -45,10 +45,10 @@ def deep_state(seed=42, data="m4_quarterly", epochs=100, batches=50):
     )
 
     predictor = estimator.train(dataset.train)
-    
-#     predictor = estimator.train(training_data=dataset.train, 
+
+#     predictor = estimator.train(training_data=dataset.train,
 #                                 validation_data=dataset.test)
-    
+
     forecast_it, ts_it = make_evaluation_predictions(
         dataset.test, predictor=predictor, num_samples=100
     )
@@ -60,8 +60,7 @@ def deep_state(seed=42, data="m4_quarterly", epochs=100, batches=50):
     output = {key: round(value, 8) for key, value in agg_metrics.items() if key in metrics}
     output["epochs"] = epochs
     output["seed"] = seed
-    
+
     df=pd.DataFrame([output])
-    pprint(output)
-    
-    return(df)
+
+    return df
