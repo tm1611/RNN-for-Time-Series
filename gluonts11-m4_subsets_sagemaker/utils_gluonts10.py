@@ -182,6 +182,18 @@ dataset_recipes = OrderedDict(
             pandas_freq="12M",
             prediction_length=6,
         ),
+        "m4_yearly_demographic": partial(
+            generate_m4_dataset,
+            m4_freq="Yearly",
+            pandas_freq="12M",
+            prediction_length=6,
+        ),
+        "m4_yearly_finance": partial(
+            generate_m4_dataset,
+            m4_freq="Yearly",
+            pandas_freq="12M",
+            prediction_length=6,
+        ),
         "m4_yearly_industry": partial(
             generate_m4_dataset,
             m4_freq="Yearly",
@@ -200,12 +212,16 @@ dataset_recipes = OrderedDict(
             pandas_freq="12M",
             prediction_length=6,
         ),
+        "m4_yearly_other": partial(
+            generate_m4_dataset,
+            m4_freq="Yearly",
+            pandas_freq="12M",
+            prediction_length=6,
+        ),
     }
 )
 
 dataset_names = list(dataset_recipes.keys())
-
-#default_dataset_path = "datasets"
 
 default_dataset_path = get_download_path() / "datasets"
 
