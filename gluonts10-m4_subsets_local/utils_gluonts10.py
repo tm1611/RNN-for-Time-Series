@@ -50,6 +50,12 @@ dataset_recipes = OrderedDict(
             pandas_freq="D",
             prediction_length=14,
         ),
+        "m4_daily_domain": partial(
+            generate_m4_dataset,
+            m4_freq="Daily",
+            pandas_freq="D",
+            prediction_length=14,
+        ),
         "m4_hourly": partial(
             generate_m4_dataset,
             m4_freq="Hourly",
@@ -165,6 +171,12 @@ dataset_recipes = OrderedDict(
             prediction_length=8,
         ),
         "m4_weekly": partial(
+            generate_m4_dataset,
+            m4_freq="Weekly",
+            pandas_freq="W",
+            prediction_length=13,
+        ),
+        "m4_weekly_domain": partial(
             generate_m4_dataset,
             m4_freq="Weekly",
             pandas_freq="W",
