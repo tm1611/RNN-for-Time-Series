@@ -50,6 +50,12 @@ dataset_recipes = OrderedDict(
             pandas_freq="D",
             prediction_length=14,
         ),
+        "m4_daily_domain": partial(
+            generate_m4_dataset,
+            m4_freq="Daily",
+            pandas_freq="D",
+            prediction_length=14,
+        ),
         "m4_hourly": partial(
             generate_m4_dataset,
             m4_freq="Hourly",
@@ -75,6 +81,12 @@ dataset_recipes = OrderedDict(
             prediction_length=18,
         ),
         "m4_monthly_demographic": partial(
+            generate_m4_dataset,
+            m4_freq="Monthly",
+            pandas_freq="M",
+            prediction_length=18,
+        ),
+        "m4_monthly_domain": partial(
             generate_m4_dataset,
             m4_freq="Monthly",
             pandas_freq="M",
@@ -134,6 +146,12 @@ dataset_recipes = OrderedDict(
             pandas_freq="3M",
             prediction_length=8,
         ),
+        "m4_quarterly_domain": partial(
+            generate_m4_dataset,
+            m4_freq="Quarterly",
+            pandas_freq="3M",
+            prediction_length=8,
+        ),
         "m4_quarterly_finance": partial(
             generate_m4_dataset,
             m4_freq="Quarterly",
@@ -170,6 +188,12 @@ dataset_recipes = OrderedDict(
             pandas_freq="W",
             prediction_length=13,
         ),
+        "m4_weekly_domain": partial(
+            generate_m4_dataset,
+            m4_freq="Weekly",
+            pandas_freq="W",
+            prediction_length=13,
+        ),
         "my_weekly_tm": partial(
             generate_m4_dataset,
             m4_freq="Weekly",
@@ -183,6 +207,12 @@ dataset_recipes = OrderedDict(
             prediction_length=6,
         ),
         "m4_yearly_demographic": partial(
+            generate_m4_dataset,
+            m4_freq="Yearly",
+            pandas_freq="12M",
+            prediction_length=6,
+        ),
+        "m4_yearly_domain": partial(
             generate_m4_dataset,
             m4_freq="Yearly",
             pandas_freq="12M",
