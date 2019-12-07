@@ -194,6 +194,12 @@ dataset_recipes = OrderedDict(
             pandas_freq="W",
             prediction_length=13,
         ),
+        "m4_weekly_id": partial(
+            generate_m4_dataset,
+            m4_freq="Weekly",
+            pandas_freq="W",
+            prediction_length=13,
+        ),
         "my_weekly_tm": partial(
             generate_m4_dataset,
             m4_freq="Weekly",
