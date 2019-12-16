@@ -56,7 +56,19 @@ dataset_recipes = OrderedDict(
             pandas_freq="D",
             prediction_length=14,
         ),
+        "m4_daily_id": partial(
+            generate_m4_dataset,
+            m4_freq="Daily",
+            pandas_freq="D",
+            prediction_length=14,
+        ),
         "m4_hourly": partial(
+            generate_m4_dataset,
+            m4_freq="Hourly",
+            pandas_freq="H",
+            prediction_length=48,
+        ),
+        "m4_hourly_id": partial(
             generate_m4_dataset,
             m4_freq="Hourly",
             pandas_freq="H",
@@ -93,6 +105,12 @@ dataset_recipes = OrderedDict(
             prediction_length=18,
         ),
         "m4_monthly_finance": partial(
+            generate_m4_dataset,
+            m4_freq="Monthly",
+            pandas_freq="M",
+            prediction_length=18,
+        ),
+        "m4_monthly_id": partial(
             generate_m4_dataset,
             m4_freq="Monthly",
             pandas_freq="M",
@@ -224,6 +242,12 @@ dataset_recipes = OrderedDict(
             pandas_freq="3M",
             prediction_length=8,
         ),
+        "m4_quarterly_id": partial(
+            generate_m4_dataset,
+            m4_freq="Quarterly",
+            pandas_freq="3M",
+            prediction_length=8,
+        ),
         "m4_quarterly_industry": partial(
             generate_m4_dataset,
             m4_freq="Quarterly",
@@ -291,6 +315,12 @@ dataset_recipes = OrderedDict(
             prediction_length=6,
         ),
         "m4_yearly_finance": partial(
+            generate_m4_dataset,
+            m4_freq="Yearly",
+            pandas_freq="12M",
+            prediction_length=6,
+        ),
+        "m4_yearly_id": partial(
             generate_m4_dataset,
             m4_freq="Yearly",
             pandas_freq="12M",
