@@ -104,6 +104,24 @@ dataset_recipes = OrderedDict(
             pandas_freq="M",
             prediction_length=18,
         ),
+        "m4_monthly_end032014": partial(
+            generate_m4_dataset,
+            m4_freq="Monthly",
+            pandas_freq="M",
+            prediction_length=18,
+        ),
+        "m4_monthly_end052015": partial(
+            generate_m4_dataset,
+            m4_freq="Monthly",
+            pandas_freq="M",
+            prediction_length=18,
+        ),
+        "m4_monthly_end092007": partial(
+            generate_m4_dataset,
+            m4_freq="Monthly",
+            pandas_freq="M",
+            prediction_length=18,
+        ),
         "m4_monthly_finance": partial(
             generate_m4_dataset,
             m4_freq="Monthly",
