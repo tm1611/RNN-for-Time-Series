@@ -1,1 +1,0 @@
-{"freq": "12M", "prediction_length": 6, "feat_static_cat": [{"name": "series_id", "cardinality": "23000"}, {"name":"domain", "cardinality": "6"}]}
