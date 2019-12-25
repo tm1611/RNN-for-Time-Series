@@ -362,7 +362,7 @@ dataset_recipes = OrderedDict(
             pandas_freq="12M",
             prediction_length=6,
         ),
-        "m4_yearly_2009": partial(
+        "m4_yearly_end2009": partial(
             generate_m4_dataset,
             m4_freq="Yearly",
             pandas_freq="12M",
